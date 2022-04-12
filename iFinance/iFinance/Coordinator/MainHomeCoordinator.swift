@@ -8,7 +8,11 @@ import Combine
 import UIKit
 
 enum MainHomeTransition: Transition {
-    
+    case moveToStockDetail
+    case moveToOpinionDetail
+    case moveToSearchView
+    case moveToOpinionWritingView
+    case moveToNewsDetail
 }
 
 final class MainHomeCoordinator: Coordinator {
@@ -29,7 +33,20 @@ final class MainHomeCoordinator: Coordinator {
     func start() {
         let module = MainHomeBuilder.build()
         module.transitionPublisher.sink { transition in
-            
+            switch transition {
+            case .moveToOpinionDetail:
+                break
+            case .moveToStockDetail:
+                
+                print("moveToStockDetail")
+                break
+            case .moveToSearchView:
+                break
+            case .moveToOpinionWritingView:
+                break
+            case .moveToNewsDetail:
+                break
+            }
         }
         .store(in: &cancellables)
         setRoot(module.viewController)

@@ -29,48 +29,40 @@ class MenuBarButton: UIButton {
 }
 
 class MenuBarView: UIView {
-    
-    private let myListButton: MenuBarButton
-    private let opinionsButton: MenuBarButton
+    private let myListButton: MenuBarButton = MenuBarButton(title: "My List")
+    private let opinionsButton: MenuBarButton = MenuBarButton(title: "Opinions")
     private var buttons: [UIButton] = []
     
-    //    weak var delegate: MenuBarViewDelegate?
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MenuBarButtonAction, Never>()
     
     private var cancellable: Set<AnyCancellable>
     
     override init(frame: CGRect) {
-        myListButton = MenuBarButton(title: "My List")//makeButton(withText: "My List")
-        opinionsButton = MenuBarButton(title: "Opinions")//makeButton(withText: "Opinions")
-        buttons = [myListButton, opinionsButton]
         self.cancellable = .init()
         super.init(frame: .zero)
         
-        backgroundColor = .blue
+        backgroundColor = .black
+        
+        buttons = [myListButton, opinionsButton]
         configureButtons()
         configureMenuBarButtons()
     }
     
     private func configureButtons() {
-        //        myListButton.addTarget(self, action: #selector(playlistsButtonTapped), for: .primaryActionTriggered)
-        //        opinionsButton.addTarget(self, action: #selector(artistsButtonTapped), for: .primaryActionTriggered)
-        
-        //        setAlpha(for: myListButton)
-        
         setAlpha(for: myListButton)
         
         myListButton
             .tapPublisher
-            .sink { _ in
-                self.actionSubject.send(.didTapMyList)
+            .sink {[weak self] _ in
+                self?.actionSubject.send(.didTapMyList)
             }
             .store(in: &cancellable)
         
         opinionsButton
             .tapPublisher
-            .sink { _ in
-                self.actionSubject.send(.didTapOpinions)
+            .sink {[weak self] _ in
+                self?.actionSubject.send(.didTapOpinions)
             }
             .store(in: &cancellable)
     }

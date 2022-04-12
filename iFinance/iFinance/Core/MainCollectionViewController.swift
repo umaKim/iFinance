@@ -15,6 +15,7 @@ class MainCollectionViewController: UIViewController {
     private lazy var writeOpinionsButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .done, target: nil, action: nil)
     
     private let menuTabBar = MenuBarView()
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -51,7 +52,6 @@ class MainCollectionViewController: UIViewController {
         menuTabBar.scrollIndicator(to: scrollView.contentOffset)
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -68,10 +68,11 @@ extension MainCollectionViewController: UICollectionViewDataSource {
         case 0:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyListCollectionViewCell.identifier, for: indexPath) as? MyListCollectionViewCell else { return UICollectionViewCell() }
             
-            cell.actionPublisher.sink { _ in
-                print("DidTap")
-            }
-            .store(in: &cancellables)
+            cell.actionPublisher
+                .sink(receiveValue: { _ in
+                    self.viewModel.stockDidTap()
+                })
+                .store(in: &cancellables)
             return cell
             
         case 1:
@@ -111,6 +112,7 @@ extension MainCollectionViewController {
             .tapPublisher
             .sink { _ in
                 //tell viewModel to Move to Seach View
+                self.viewModel.searchButtonDidTap()
             }
             .store(in: &cancellables)
         
@@ -118,6 +120,7 @@ extension MainCollectionViewController {
             .tapPublisher
             .sink { _ in
                 //tell viewModel to show writing vc
+                self.viewModel.writingOpinionButtonDidTap()
             }
             .store(in: &cancellables)
     }
@@ -140,6 +143,7 @@ extension MainCollectionViewController {
                 case .didTapMyList:
                     let indexPath = IndexPath(item: 0, section: 0)
                     self?.collectionView.scrollToItem(at: indexPath, at: [], animated: true)
+                    
                 case .didTapOpinions:
                     let indexPath = IndexPath(item: 1, section: 0)
                     self?.collectionView.scrollToItem(at: indexPath, at: [], animated: true)

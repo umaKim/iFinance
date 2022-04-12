@@ -13,30 +13,37 @@ final class MyListCollectionViewCell: UICollectionViewCell {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<Void, Never>()
     
-    let vc: MyListViewController
+    let vc: MyListView
     private var cancellables: Set<AnyCancellable>
     
     override init(frame: CGRect) {
         self.cancellables = .init()
         let viewModel = MyListViewModel()
-        self.vc = MyListViewController(viewModel: viewModel)
+        self.vc = MyListView(viewModel: viewModel)
         super.init(frame: frame)
         
         backgroundColor = .red
         
-        viewModel.didTapPublisher
-            .sink { _ in
-                self.actionSubject.send(())
+        viewModel.viewModelToControllerPublisher
+            .sink { s in
+                switch s {
+                case .reloadData:
+                    self.vc.tableView.reloadData()
+                    break
+                    
+                case .didTap:
+                    self.actionSubject.send(())
+                }
             }.store(in: &cancellables)
         
-        contentView.addSubview(vc.view)
-        vc.view.translatesAutoresizingMaskIntoConstraints = false
-        
+        contentView.addSubview(vc)
+        vc.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
-            vc.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            vc.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            vc.view.topAnchor.constraint(equalTo: contentView.topAnchor),
-            vc.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            vc.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            vc.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            vc.topAnchor.constraint(equalTo: contentView.topAnchor),
+            vc.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
     
