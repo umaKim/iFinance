@@ -10,4 +10,6 @@ import Combine
 class MainCollectionViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<MainHomeTransition, Never>()
+    
+   
 }

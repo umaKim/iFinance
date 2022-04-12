@@ -19,6 +19,19 @@
 		356DC25828048C3B00557827 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC25728048C3B00557827 /* AppContainer.swift */; };
 		356DC25A28048CC600557827 /* MainHomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC25928048CC600557827 /* MainHomeCoordinator.swift */; };
 		356DC25C28048E9D00557827 /* MainCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC25B28048E9D00557827 /* MainCollectionViewModel.swift */; };
+		356DC25E28052DB200557827 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC25D28052DB200557827 /* Extension.swift */; };
+		356DC26128052DFF00557827 /* MarketDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC26028052DFF00557827 /* MarketDataResponse.swift */; };
+		356DC26328052E1B00557827 /* FinancialMetricsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC26228052E1B00557827 /* FinancialMetricsResponse.swift */; };
+		356DC26528052EA700557827 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC26428052EA600557827 /* Quote.swift */; };
+		356DC26728052EB800557827 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC26628052EB800557827 /* SearchResponse.swift */; };
+		356DC26928052ED100557827 /* PostContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC26828052ED100557827 /* PostContent.swift */; };
+		356DC26B28052EE300557827 /* NewsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC26A28052EE300557827 /* NewsStory.swift */; };
+		356DC26D28052EF900557827 /* MyWatchListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC26C28052EF900557827 /* MyWatchListModel.swift */; };
+		356DC26F28052F3200557827 /* StockChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC26E28052F3200557827 /* StockChartModel.swift */; };
+		356DC272280535BB00557827 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 356DC271280535BB00557827 /* CombineCocoa */; };
+		356DC2742805391800557827 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC2732805391800557827 /* MenuBarView.swift */; };
+		356DC2772805399100557827 /* MyListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC2762805399100557827 /* MyListCollectionViewCell.swift */; };
+		356DC2792805399900557827 /* OpinionsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC2782805399900557827 /* OpinionsCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +49,18 @@
 		356DC25728048C3B00557827 /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
 		356DC25928048CC600557827 /* MainHomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeCoordinator.swift; sourceTree = "<group>"; };
 		356DC25B28048E9D00557827 /* MainCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewModel.swift; sourceTree = "<group>"; };
+		356DC25D28052DB200557827 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		356DC26028052DFF00557827 /* MarketDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataResponse.swift; sourceTree = "<group>"; };
+		356DC26228052E1B00557827 /* FinancialMetricsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialMetricsResponse.swift; sourceTree = "<group>"; };
+		356DC26428052EA600557827 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
+		356DC26628052EB800557827 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		356DC26828052ED100557827 /* PostContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContent.swift; sourceTree = "<group>"; };
+		356DC26A28052EE300557827 /* NewsStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsStory.swift; sourceTree = "<group>"; };
+		356DC26C28052EF900557827 /* MyWatchListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWatchListModel.swift; sourceTree = "<group>"; };
+		356DC26E28052F3200557827 /* StockChartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockChartModel.swift; sourceTree = "<group>"; };
+		356DC2732805391800557827 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		356DC2762805399100557827 /* MyListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListCollectionViewCell.swift; sourceTree = "<group>"; };
+		356DC2782805399900557827 /* OpinionsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionsCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				356DC272280535BB00557827 /* CombineCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +96,7 @@
 			children = (
 				356DC247280462AF00557827 /* Application */,
 				356DC25228048BA700557827 /* Coordinator */,
+				356DC25F28052DF500557827 /* Model */,
 				356DC2462804617200557827 /* Core */,
 				356DC23B28045DF000557827 /* Assets.xcassets */,
 				356DC23D28045DF000557827 /* LaunchScreen.storyboard */,
@@ -82,6 +109,8 @@
 			isa = PBXGroup;
 			children = (
 				356DC25028047FEF00557827 /* MainCollectionViewController.swift */,
+				356DC27A280539B400557827 /* View */,
+				356DC2752805398900557827 /* MainCollectionViewCells */,
 				356DC25B28048E9D00557827 /* MainCollectionViewModel.swift */,
 				356DC2482804639400557827 /* MyListViewController.swift */,
 				356DC24A2804639E00557827 /* OpinionsViewController.swift */,
@@ -94,6 +123,7 @@
 			children = (
 				356DC23228045DEE00557827 /* AppDelegate.swift */,
 				356DC23428045DEE00557827 /* SceneDelegate.swift */,
+				356DC25D28052DB200557827 /* Extension.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -107,6 +137,38 @@
 				356DC25728048C3B00557827 /* AppContainer.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		356DC25F28052DF500557827 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				356DC26028052DFF00557827 /* MarketDataResponse.swift */,
+				356DC26228052E1B00557827 /* FinancialMetricsResponse.swift */,
+				356DC26428052EA600557827 /* Quote.swift */,
+				356DC26628052EB800557827 /* SearchResponse.swift */,
+				356DC26828052ED100557827 /* PostContent.swift */,
+				356DC26A28052EE300557827 /* NewsStory.swift */,
+				356DC26C28052EF900557827 /* MyWatchListModel.swift */,
+				356DC26E28052F3200557827 /* StockChartModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		356DC2752805398900557827 /* MainCollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				356DC2762805399100557827 /* MyListCollectionViewCell.swift */,
+				356DC2782805399900557827 /* OpinionsCollectionViewCell.swift */,
+			);
+			path = MainCollectionViewCells;
+			sourceTree = "<group>";
+		};
+		356DC27A280539B400557827 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				356DC2732805391800557827 /* MenuBarView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +187,9 @@
 			dependencies = (
 			);
 			name = iFinance;
+			packageProductDependencies = (
+				356DC271280535BB00557827 /* CombineCocoa */,
+			);
 			productName = iFinance;
 			productReference = 356DC22F28045DEE00557827 /* iFinance.app */;
 			productType = "com.apple.product-type.application";
@@ -153,6 +218,9 @@
 				Base,
 			);
 			mainGroup = 356DC22628045DEE00557827;
+			packageReferences = (
+				356DC270280535BB00557827 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+			);
 			productRefGroup = 356DC23028045DEE00557827 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -180,14 +248,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				356DC2492804639400557827 /* MyListViewController.swift in Sources */,
+				356DC26128052DFF00557827 /* MarketDataResponse.swift in Sources */,
+				356DC2792805399900557827 /* OpinionsCollectionViewCell.swift in Sources */,
 				356DC24B2804639E00557827 /* OpinionsViewController.swift in Sources */,
+				356DC26F28052F3200557827 /* StockChartModel.swift in Sources */,
+				356DC26D28052EF900557827 /* MyWatchListModel.swift in Sources */,
 				356DC23328045DEE00557827 /* AppDelegate.swift in Sources */,
 				356DC25C28048E9D00557827 /* MainCollectionViewModel.swift in Sources */,
 				356DC25428048BB500557827 /* Coordinator.swift in Sources */,
 				356DC23528045DEE00557827 /* SceneDelegate.swift in Sources */,
+				356DC2742805391800557827 /* MenuBarView.swift in Sources */,
+				356DC26B28052EE300557827 /* NewsStory.swift in Sources */,
 				356DC25A28048CC600557827 /* MainHomeCoordinator.swift in Sources */,
 				356DC25828048C3B00557827 /* AppContainer.swift in Sources */,
+				356DC2772805399100557827 /* MyListCollectionViewCell.swift in Sources */,
 				356DC25628048C0500557827 /* AppCoordinator.swift in Sources */,
+				356DC25E28052DB200557827 /* Extension.swift in Sources */,
+				356DC26728052EB800557827 /* SearchResponse.swift in Sources */,
+				356DC26328052E1B00557827 /* FinancialMetricsResponse.swift in Sources */,
+				356DC26928052ED100557827 /* PostContent.swift in Sources */,
+				356DC26528052EA700557827 /* Quote.swift in Sources */,
 				356DC25128047FEF00557827 /* MainCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,6 +476,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		356DC270280535BB00557827 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		356DC271280535BB00557827 /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 356DC270280535BB00557827 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 356DC22728045DEE00557827 /* Project object */;
 }
