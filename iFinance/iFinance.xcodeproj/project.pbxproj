@@ -35,6 +35,10 @@
 		35CC39952805C58A007148A5 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CC39942805C58A007148A5 /* PersistanceManager.swift */; };
 		35CC39972805C5B2007148A5 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CC39962805C5B2007148A5 /* APICaller.swift */; };
 		35CC399B2805C9E6007148A5 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 35CC399A2805C9E6007148A5 /* Charts */; };
+		35CC39A12806CEB0007148A5 /* StockCharView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CC39A02806CEB0007148A5 /* StockCharView.swift */; };
+		35CC39A32806CEEB007148A5 /* MyListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CC39A22806CEEB007148A5 /* MyListViewModel.swift */; };
+		35CC39A52806CFC6007148A5 /* MenuBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CC39A42806CFC6007148A5 /* MenuBarButton.swift */; };
+		35CC39A72806CFF5007148A5 /* OpinionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CC39A62806CFF5007148A5 /* OpinionsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +70,10 @@
 		356DC2782805399900557827 /* OpinionsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionsCollectionViewCell.swift; sourceTree = "<group>"; };
 		35CC39942805C58A007148A5 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
 		35CC39962805C5B2007148A5 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		35CC39A02806CEB0007148A5 /* StockCharView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCharView.swift; sourceTree = "<group>"; };
+		35CC39A22806CEEB007148A5 /* MyListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListViewModel.swift; sourceTree = "<group>"; };
+		35CC39A42806CFC6007148A5 /* MenuBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarButton.swift; sourceTree = "<group>"; };
+		35CC39A62806CFF5007148A5 /* OpinionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +188,7 @@
 			children = (
 				356DC2762805399100557827 /* MyListCollectionViewCell.swift */,
 				356DC2482804639400557827 /* MyListView.swift */,
+				35CC39A22806CEEB007148A5 /* MyListViewModel.swift */,
 			);
 			path = MyList;
 			sourceTree = "<group>";
@@ -189,6 +198,7 @@
 			children = (
 				356DC2782805399900557827 /* OpinionsCollectionViewCell.swift */,
 				356DC24A2804639E00557827 /* OpinionsView.swift */,
+				35CC39A62806CFF5007148A5 /* OpinionsViewModel.swift */,
 			);
 			path = Opinons;
 			sourceTree = "<group>";
@@ -215,6 +225,8 @@
 			children = (
 				356DC23B28045DF000557827 /* Assets.xcassets */,
 				356DC23D28045DF000557827 /* LaunchScreen.storyboard */,
+				35CC39A02806CEB0007148A5 /* StockCharView.swift */,
+				35CC39A42806CFC6007148A5 /* MenuBarButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -330,6 +342,7 @@
 				356DC23328045DEE00557827 /* AppDelegate.swift in Sources */,
 				35CC39972805C5B2007148A5 /* APICaller.swift in Sources */,
 				356DC25C28048E9D00557827 /* MainCollectionViewModel.swift in Sources */,
+				35CC39A72806CFF5007148A5 /* OpinionsViewModel.swift in Sources */,
 				356DC25428048BB500557827 /* Coordinator.swift in Sources */,
 				356DC23528045DEE00557827 /* SceneDelegate.swift in Sources */,
 				35CC39952805C58A007148A5 /* PersistanceManager.swift in Sources */,
@@ -339,7 +352,10 @@
 				356DC25828048C3B00557827 /* AppContainer.swift in Sources */,
 				356DC2772805399100557827 /* MyListCollectionViewCell.swift in Sources */,
 				356DC25628048C0500557827 /* AppCoordinator.swift in Sources */,
+				35CC39A52806CFC6007148A5 /* MenuBarButton.swift in Sources */,
+				35CC39A12806CEB0007148A5 /* StockCharView.swift in Sources */,
 				356DC25E28052DB200557827 /* Extension.swift in Sources */,
+				35CC39A32806CEEB007148A5 /* MyListViewModel.swift in Sources */,
 				356DC26728052EB800557827 /* SearchResponse.swift in Sources */,
 				356DC26328052E1B00557827 /* FinancialMetricsResponse.swift in Sources */,
 				356DC26928052ED100557827 /* PostContent.swift in Sources */,

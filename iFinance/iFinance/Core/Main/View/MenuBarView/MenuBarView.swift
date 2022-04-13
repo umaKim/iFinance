@@ -14,20 +14,6 @@ enum MenuBarButtonAction {
     case didTapOpinions
 }
 
-final class MenuBarButton: UIButton {
-    init(title: String){
-        super.init(frame: .zero)
-        translatesAutoresizingMaskIntoConstraints = false
-        setTitle(title, for: .normal)
-        titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-        titleLabel?.adjustsFontSizeToFitWidth = true
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 final class MenuBarView: UIView {
     private let myListButton: MenuBarButton = MenuBarButton(title: "My List")
     private let opinionsButton: MenuBarButton = MenuBarButton(title: "Opinions")

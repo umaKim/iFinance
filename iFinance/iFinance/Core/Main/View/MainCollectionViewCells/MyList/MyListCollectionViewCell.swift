@@ -30,7 +30,7 @@ final class MyListCollectionViewCell: UICollectionViewCell {
     
     private func bind() {
         viewModel
-            .viewModelToControllerPublisher
+            .listenerPublisher
             .sink { s in
                 switch s {
                 case .reloadData:
