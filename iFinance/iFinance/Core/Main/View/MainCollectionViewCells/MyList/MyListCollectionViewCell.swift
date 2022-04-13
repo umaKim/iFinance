@@ -13,37 +13,44 @@ final class MyListCollectionViewCell: UICollectionViewCell {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<Void, Never>()
     
-    let vc: MyListView
+    let myListView: MyListView
+    private let viewModel: MyListViewModel
+    
     private var cancellables: Set<AnyCancellable>
     
     override init(frame: CGRect) {
         self.cancellables = .init()
-        let viewModel = MyListViewModel()
-        self.vc = MyListView(viewModel: viewModel)
+        self.viewModel = MyListViewModel()
+        self.myListView = MyListView(viewModel: viewModel)
         super.init(frame: frame)
         
-        backgroundColor = .red
-        
-        viewModel.viewModelToControllerPublisher
+        bind()
+        setupUI()
+    }
+    
+    private func bind() {
+        viewModel
+            .viewModelToControllerPublisher
             .sink { s in
                 switch s {
                 case .reloadData:
-                    self.vc.tableView.reloadData()
-                    break
+                    self.myListView.tableView.reloadData()
                     
                 case .didTap:
                     self.actionSubject.send(())
                 }
             }.store(in: &cancellables)
-        
-        contentView.addSubview(vc)
-        vc.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupUI() {
+        contentView.addSubview(myListView)
+        myListView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            vc.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            vc.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            vc.topAnchor.constraint(equalTo: contentView.topAnchor),
-            vc.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            myListView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            myListView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            myListView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            myListView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
     

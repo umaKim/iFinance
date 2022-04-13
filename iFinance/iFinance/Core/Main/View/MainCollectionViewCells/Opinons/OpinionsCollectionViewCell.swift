@@ -11,21 +11,21 @@ import UIKit
 final class OpinionsCollectionViewCell: UICollectionViewCell {
     static let identifier = "Main2CollectionViewCell"
     
-    let vc = OpinionsViewController()
+    let opinionsView = OpinionsView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         backgroundColor = .cyan
         
-        contentView.addSubview(vc.view)
-        vc.view.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(opinionsView.view)
+        opinionsView.view.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            vc.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            vc.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            vc.view.topAnchor.constraint(equalTo: contentView.topAnchor),
-            vc.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            opinionsView.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            opinionsView.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            opinionsView.view.topAnchor.constraint(equalTo: contentView.topAnchor),
+            opinionsView.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
     

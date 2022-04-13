@@ -65,7 +65,7 @@ enum MyListViewModelToViewController {
     case didTap
 }
 
-class MyListViewModel {
+final class MyListViewModel {
     private(set) lazy var viewModelToControllerPublisher = viewModelToControllerSubject.eraseToAnyPublisher()
     private let viewModelToControllerSubject = PassthroughSubject<MyListViewModelToViewController, Never>()
     

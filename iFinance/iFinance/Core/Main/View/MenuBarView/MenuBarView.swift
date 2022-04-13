@@ -14,7 +14,7 @@ enum MenuBarButtonAction {
     case didTapOpinions
 }
 
-class MenuBarButton: UIButton {
+final class MenuBarButton: UIButton {
     init(title: String){
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
@@ -28,7 +28,7 @@ class MenuBarButton: UIButton {
     }
 }
 
-class MenuBarView: UIView {
+final class MenuBarView: UIView {
     private let myListButton: MenuBarButton = MenuBarButton(title: "My List")
     private let opinionsButton: MenuBarButton = MenuBarButton(title: "Opinions")
     private var buttons: [UIButton] = []

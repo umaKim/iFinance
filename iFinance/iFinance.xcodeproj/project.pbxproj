@@ -12,7 +12,7 @@
 		356DC23C28045DF000557827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 356DC23B28045DF000557827 /* Assets.xcassets */; };
 		356DC23F28045DF000557827 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 356DC23D28045DF000557827 /* LaunchScreen.storyboard */; };
 		356DC2492804639400557827 /* MyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC2482804639400557827 /* MyListView.swift */; };
-		356DC24B2804639E00557827 /* OpinionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC24A2804639E00557827 /* OpinionsViewController.swift */; };
+		356DC24B2804639E00557827 /* OpinionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC24A2804639E00557827 /* OpinionsView.swift */; };
 		356DC25128047FEF00557827 /* MainCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC25028047FEF00557827 /* MainCollectionViewController.swift */; };
 		356DC25428048BB500557827 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC25328048BB500557827 /* Coordinator.swift */; };
 		356DC25628048C0500557827 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC25528048C0500557827 /* AppCoordinator.swift */; };
@@ -45,7 +45,7 @@
 		356DC23E28045DF000557827 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		356DC24028045DF000557827 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		356DC2482804639400557827 /* MyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListView.swift; sourceTree = "<group>"; };
-		356DC24A2804639E00557827 /* OpinionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionsViewController.swift; sourceTree = "<group>"; };
+		356DC24A2804639E00557827 /* OpinionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionsView.swift; sourceTree = "<group>"; };
 		356DC25028047FEF00557827 /* MainCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewController.swift; sourceTree = "<group>"; };
 		356DC25328048BB500557827 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		356DC25528048C0500557827 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -100,13 +100,12 @@
 		356DC23128045DEE00557827 /* iFinance */ = {
 			isa = PBXGroup;
 			children = (
+				35CC399C2805CD60007148A5 /* View */,
 				356DC247280462AF00557827 /* Application */,
 				356DC25228048BA700557827 /* Coordinator */,
 				35CC39932805C57B007148A5 /* Manager */,
 				356DC25F28052DF500557827 /* Model */,
 				356DC2462804617200557827 /* Core */,
-				356DC23B28045DF000557827 /* Assets.xcassets */,
-				356DC23D28045DF000557827 /* LaunchScreen.storyboard */,
 				356DC24028045DF000557827 /* Info.plist */,
 			);
 			path = iFinance;
@@ -115,9 +114,9 @@
 		356DC2462804617200557827 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				356DC25028047FEF00557827 /* MainCollectionViewController.swift */,
-				356DC25B28048E9D00557827 /* MainCollectionViewModel.swift */,
-				356DC27A280539B400557827 /* View */,
+				35CC399D2805CD78007148A5 /* Main */,
+				35CC399E2805CD88007148A5 /* Search */,
+				35CC399F2805CD94007148A5 /* Writing */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -161,8 +160,8 @@
 		356DC2752805398900557827 /* MainCollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				356DC2762805399100557827 /* MyListCollectionViewCell.swift */,
-				356DC2782805399900557827 /* OpinionsCollectionViewCell.swift */,
+				35CC399128059F04007148A5 /* MyList */,
+				35CC399228059F15007148A5 /* Opinons */,
 			);
 			path = MainCollectionViewCells;
 			sourceTree = "<group>";
@@ -171,8 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				35CC39982805C738007148A5 /* MenuBarView */,
-				35CC399128059F04007148A5 /* MyList */,
-				35CC399228059F15007148A5 /* Opinons */,
 				356DC2752805398900557827 /* MainCollectionViewCells */,
 			);
 			path = View;
@@ -181,6 +178,7 @@
 		35CC399128059F04007148A5 /* MyList */ = {
 			isa = PBXGroup;
 			children = (
+				356DC2762805399100557827 /* MyListCollectionViewCell.swift */,
 				356DC2482804639400557827 /* MyListView.swift */,
 			);
 			path = MyList;
@@ -189,7 +187,8 @@
 		35CC399228059F15007148A5 /* Opinons */ = {
 			isa = PBXGroup;
 			children = (
-				356DC24A2804639E00557827 /* OpinionsViewController.swift */,
+				356DC2782805399900557827 /* OpinionsCollectionViewCell.swift */,
+				356DC24A2804639E00557827 /* OpinionsView.swift */,
 			);
 			path = Opinons;
 			sourceTree = "<group>";
@@ -209,6 +208,39 @@
 				356DC2732805391800557827 /* MenuBarView.swift */,
 			);
 			path = MenuBarView;
+			sourceTree = "<group>";
+		};
+		35CC399C2805CD60007148A5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				356DC23B28045DF000557827 /* Assets.xcassets */,
+				356DC23D28045DF000557827 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		35CC399D2805CD78007148A5 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				356DC25028047FEF00557827 /* MainCollectionViewController.swift */,
+				356DC25B28048E9D00557827 /* MainCollectionViewModel.swift */,
+				356DC27A280539B400557827 /* View */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		35CC399E2805CD88007148A5 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		35CC399F2805CD94007148A5 /* Writing */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Writing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,7 +324,7 @@
 				356DC2492804639400557827 /* MyListView.swift in Sources */,
 				356DC26128052DFF00557827 /* MarketDataResponse.swift in Sources */,
 				356DC2792805399900557827 /* OpinionsCollectionViewCell.swift in Sources */,
-				356DC24B2804639E00557827 /* OpinionsViewController.swift in Sources */,
+				356DC24B2804639E00557827 /* OpinionsView.swift in Sources */,
 				356DC26F28052F3200557827 /* StockChartModel.swift in Sources */,
 				356DC26D28052EF900557827 /* MyWatchListModel.swift in Sources */,
 				356DC23328045DEE00557827 /* AppDelegate.swift in Sources */,
