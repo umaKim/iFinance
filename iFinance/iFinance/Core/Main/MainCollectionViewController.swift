@@ -11,29 +11,19 @@ import UIKit
 class MainCollectionViewController: UIViewController {
     
     private lazy var searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .done, target: nil, action: nil)
-    
     private lazy var writeOpinionsButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .done, target: nil, action: nil)
     
-    private let menuTabBar = MenuBarView()
-    
-    private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.register(MyListCollectionViewCell.self, forCellWithReuseIdentifier: MyListCollectionViewCell.identifier)
-        cv.register(OpinionsCollectionViewCell.self, forCellWithReuseIdentifier: OpinionsCollectionViewCell.identifier)
-        cv.isPagingEnabled = true
-        cv.showsHorizontalScrollIndicator = false
-        cv.dataSource = self
-        cv.delegate = self
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        return cv
-    }()
+    private let contentView = MainView()
     
     private var cancellables: Set<AnyCancellable>
     
     private let viewModel: MainCollectionViewModel
+    
+    override func loadView() {
+        super.loadView()
+        
+        view = contentView
+    }
     
     init(viewModel: MainCollectionViewModel) {
         self.viewModel = viewModel
@@ -44,12 +34,15 @@ class MainCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpNavigationView()
-        configureMenuBar()
-        configureCollectionView()
+
+        contentView.collectionView.delegate = self
+        contentView.collectionView.dataSource = self
+        
+        bind()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        menuTabBar.scrollIndicator(to: scrollView.contentOffset)
+        contentView.menuTabBar.scrollIndicator(to: scrollView.contentOffset)
     }
     
     required init?(coder: NSCoder) {
@@ -66,17 +59,26 @@ extension MainCollectionViewController: UICollectionViewDataSource {
         
         switch indexPath.item {
         case 0:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyListCollectionViewCell.identifier, for: indexPath) as? MyListCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: MyListCollectionViewCell.identifier,
+                for: indexPath) as? MyListCollectionViewCell else { return UICollectionViewCell() }
             
+            cell.configure(with: viewModel.myListViewModel)
             cell.actionPublisher
-                .sink(receiveValue: { _ in
-                    self.viewModel.stockDidTap()
+                .sink(receiveValue: { [weak self] action in
+                    switch action {
+                    case .didTap(let myWatchListModel):
+                        self?.viewModel.stockDidTap(myWatchListModel)
+                    }
+                    
                 })
                 .store(in: &cancellables)
             return cell
             
         case 1:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OpinionsCollectionViewCell.identifier, for: indexPath) as? OpinionsCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: OpinionsCollectionViewCell.identifier,
+                for: indexPath) as? OpinionsCollectionViewCell else { return UICollectionViewCell() }
             return cell
             
         default:
@@ -94,20 +96,21 @@ extension MainCollectionViewController: UICollectionViewDelegateFlowLayout {
 //MARK: - Set up UI
 extension MainCollectionViewController {
     private func setUpNavigationView() {
-        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.width, height: navigationController?.navigationBar.height ?? 100))
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: navigationController?.navigationBar.width ?? 0, height: navigationController?.navigationBar.height ?? 100))
         
-        let label = UILabel(frame: CGRect(x: 10, y: 0, width: titleView.width-20, height: titleView.height))
+        let label = UILabel(frame: CGRect(x: 10, y: 0, width: titleView.width, height: titleView.height))
         label.text = "iFinance"
         label.font = .systemFont(ofSize: 30, weight: .medium)
         label.textColor = .white
         titleView.addSubview(label)
-        
         navigationItem.titleView = titleView
         
         searchButton.tintColor = .white
         writeOpinionsButton.tintColor = .white
         navigationItem.rightBarButtonItems = [writeOpinionsButton, searchButton]
-        
+    }
+    
+    private func bind() {
         searchButton
             .tapPublisher
             .sink { _ in
@@ -123,44 +126,5 @@ extension MainCollectionViewController {
                 self.viewModel.writingOpinionButtonDidTap()
             }
             .store(in: &cancellables)
-    }
-    
-    private func configureMenuBar() {
-        menuTabBar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(menuTabBar)
-        
-        NSLayoutConstraint.activate([
-            menuTabBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            menuTabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            menuTabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            menuTabBar.heightAnchor.constraint(equalToConstant: 50),
-        ])
-        
-        menuTabBar
-            .actionPublisher
-            .sink {[weak self] action in
-                switch action {
-                case .didTapMyList:
-                    let indexPath = IndexPath(item: 0, section: 0)
-                    self?.collectionView.scrollToItem(at: indexPath, at: [], animated: true)
-                    
-                case .didTapOpinions:
-                    let indexPath = IndexPath(item: 1, section: 0)
-                    self?.collectionView.scrollToItem(at: indexPath, at: [], animated: true)
-                }
-            }
-            .store(in: &cancellables)
-    }
-    
-    private func configureCollectionView() {
-        menuTabBar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalToSystemSpacingBelow: menuTabBar.bottomAnchor, multiplier: 0),
-            collectionView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 0),
-            view.trailingAnchor.constraint(equalToSystemSpacingAfter: collectionView.trailingAnchor, multiplier: 0),
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalToSystemSpacingBelow: collectionView.bottomAnchor, multiplier: 0)
-        ])
     }
 }

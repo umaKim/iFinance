@@ -35,7 +35,8 @@ final class AppCoordinator: Coordinator {
     }
     
     private func mainFlow() {
-        let mainCoordinator = MainHomeCoordinator(navigationController: navigationController, conainter: container)
+        let mainCoordinator = MainHomeCoordinator(navigationController: navigationController,
+                                                  conainter: container)
         childCoordinators.append(mainCoordinator)
         mainCoordinator.didFinishPublisher
             .sink { [unowned self] in

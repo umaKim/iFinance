@@ -11,23 +11,35 @@ class MainCollectionViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<MainHomeTransition, Never>()
     
+    private(set) var myListViewModel: MyListViewModel
+    private(set) var opinionsViewModel: OpinionsViewModel
+    
+    init(
+        myListViewModel: MyListViewModel,
+        opinionsViewModel: OpinionsViewModel
+    ) {
+        self.myListViewModel = myListViewModel
+        self.opinionsViewModel = opinionsViewModel
+        
+    }
+    
     func searchButtonDidTap() {
-        transitionSubject.send(.moveToSearchView)
+        transitionSubject.send(.searchView)
     }
     
     func writingOpinionButtonDidTap(){
-        transitionSubject.send(.moveToOpinionWritingView)
+        transitionSubject.send(.opinionWritingView)
     }
     
-    func stockDidTap() {
-        transitionSubject.send(.moveToStockDetail)
+    func stockDidTap(_ myWatchListModel: MyWatchListModel) {
+        transitionSubject.send(.stockDetail(myWatchListModel))
     }
     
     func newDidTap() {
-        transitionSubject.send(.moveToNewsDetail)
+        transitionSubject.send(.newsDetail)
     }
     
     func opinionDidTap() {
-        transitionSubject.send(.moveToOpinionDetail)
+        transitionSubject.send(.opinionDetail)
     }
 }

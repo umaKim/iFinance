@@ -11,11 +11,21 @@ import UIKit
 final class OpinionsCollectionViewCell: UICollectionViewCell {
     static let identifier = "Main2CollectionViewCell"
     
-    let opinionsView = OpinionsView()
+    private let opinionsView = OpinionsView()
+    
+    private var opinionsViewModel: OpinionsViewModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        configureUI()
+    }
+    
+    func configure(with opinionsViewModel: OpinionsViewModel) {
+        self.opinionsViewModel = opinionsViewModel
+    }
+    
+    private func configureUI() {
         backgroundColor = .cyan
         
         contentView.addSubview(opinionsView.view)
@@ -30,6 +40,6 @@ final class OpinionsCollectionViewCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("init(coder: has not been implemented")
     }
 }

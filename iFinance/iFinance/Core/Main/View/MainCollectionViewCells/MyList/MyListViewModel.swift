@@ -10,7 +10,7 @@ import UIKit
 
 enum MyListViewModelListener {
     case reloadData
-    case didTap
+    case didTap(MyWatchListModel)
 }
 
 final class MyListViewModel {
@@ -26,14 +26,7 @@ final class MyListViewModel {
     
     private(set) var myWatchStocks: [MyWatchListModel] = []
     
-    /// Delegate
-//    weak var delegate: MyListViewModelDelegate?
-    
-    /// Observer for watch list updates
-    private var observer: NSObjectProtocol?
-    
-    
-    //Fetch from network for stock data
+    ///Fetch from network for stock data
     init() {
         fetchWatchlistData()
     }
@@ -41,21 +34,17 @@ final class MyListViewModel {
     /// Fetch watch list models
     func fetchWatchlistData() {
         let symbols = PersistenceManager.shared.watchlist
-
+        
         createPlaceholderForLoadingMyWatchStock()
-
+        
         let group = DispatchGroup()
-
-//        for symbol in symbols where watchlistQuoteMap[symbol] == nil {
-
+        
         symbols.forEach { symbol in
-
+            
             group.enter()
             APICaller.shared.marketData(for: symbol) { [weak self] result in
-                defer {
-                    group.leave()
-                }
-
+                defer { group.leave() }
+                
                 switch result {
                 case .success(let data):
                     let candleSticks = data.candleSticks
@@ -64,13 +53,11 @@ final class MyListViewModel {
                     print(error)
                 }
             }
-
+            
             group.enter()
             APICaller.shared.quote(for: symbol) { [weak self] result in
-                defer {
-                    group.leave()
-                }
-
+                defer { group.leave() }
+                
                 switch result {
                 case .success(let quote):
                     self?.watchlistQuoteMap[symbol] = quote
@@ -79,55 +66,54 @@ final class MyListViewModel {
                 }
             }
         }
-
+        
         group.notify(queue: .main) { [weak self] in
+            self?.myWatchStocks.removeAll()
             self?.createMyWatchStocks()
-//            self?.tableView.reloadData()
-//            self?.delegate?.updateTableView()
             self?.listernSubject.send(.reloadData)
         }
     }
     
     /// Creates view models from models
     private func createMyWatchStocks() {
-        var viewModels = [MyWatchListModel]()
-        
         for (symbol, candleSticks) in watchlistChartMap {
+            
             let changePercentage = watchlistQuoteMap[symbol]?.percentChange
             
-            viewModels.append(
-                .init(
-                    symbol: symbol,
-                    companyName: UserDefaults.standard.string(forKey: symbol) ?? "Company",
-                    price: getLatestClosingPrice(from: candleSticks),
-                    changeColor: changePercentage ?? 0.0 < 0 ? .systemRed : .systemGreen,
-                    changePercentage: .percentage(from: changePercentage ?? 0.0),
-                    chartViewModel: .init(
-                        data: candleSticks.reversed().map { $0.close },
-                        showLegend: false,
-                        showAxis: false,
-                        fillColor: changePercentage ?? 0.0 < 0 ? .systemRed : .systemGreen,
-                        isFillColor: false
-                    )
+            myWatchStocks.append(.init(
+                symbol: symbol,
+                companyName: UserDefaults.standard.string(forKey: symbol) ?? "Company",
+                price: getLatestClosingPrice(from: candleSticks),
+                changeColor: changePercentage ?? 0.0 < 0 ? .systemRed : .systemGreen,
+                changePercentage: .percentage(from: changePercentage ?? 0.0),
+                chartViewModel: .init(
+                    data: candleSticks.reversed().map { $0.close },
+                    showLegend: false,
+                    showAxis: false,
+                    fillColor: changePercentage ?? 0.0 < 0 ? .systemRed : .systemGreen,
+                    isFillColor: false
                 )
-            )
+            ))
         }
         
-        self.myWatchStocks = viewModels.sorted(by: { $0.symbol < $1.symbol })
+        self.myWatchStocks.sort(by: { $0.symbol < $1.symbol })
     }
     
     private func createPlaceholderForLoadingMyWatchStock() {
         let symbols = PersistenceManager.shared.watchlist
         symbols.forEach { _ in
-            myWatchStocks.append(
+            myWatchStocks.append (
                 .init(symbol: "Loading", companyName: "...",
                       price: "Loding", changeColor: .darkGray, changePercentage: "...",
-                      chartViewModel: .init( data: [], showLegend: false, showAxis: false, fillColor: .clear, isFillColor: false)
+                      chartViewModel: .init( data: [],
+                                             showLegend: false,
+                                             showAxis: false,
+                                             fillColor: .clear,
+                                             isFillColor: false
+                                           )
                      )
             )
         }
-//        self.myWatchStocks = myWatchStocks.sorted(by: { $0.symbol < $1.symbol })
-//        self.delegate?.updateTableView()
         self.listernSubject.send(.reloadData)
     }
     
@@ -139,7 +125,7 @@ final class MyListViewModel {
         return .formatted(number: closingPrice)
     }
     
-    func didTap() {
-        listernSubject.send(.didTap)
+    func didTap(myWatchStocks: MyWatchListModel) {
+        listernSubject.send(.didTap(myWatchStocks))
     }
 }

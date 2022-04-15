@@ -7,42 +7,64 @@
 import Combine
 import UIKit
 
+enum MyListCollectionViewCellAction {
+    case didTap(MyWatchListModel)
+}
+
 final class MyListCollectionViewCell: UICollectionViewCell {
     static let identifier = "MainCollectionViewCell"
     
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<Void, Never>()
+    private let actionSubject = PassthroughSubject<MyListCollectionViewCellAction, Never>()
     
-    let myListView: MyListView
-    private let viewModel: MyListViewModel
+    private var myListView: MyListView?
+    private var viewModel: MyListViewModel?
     
-    private var cancellables: Set<AnyCancellable>
+    private var cancellables = Set<AnyCancellable>()
+    
+//    override init(frame: CGRect) {
+//        self.cancellables = .init()
+//        self.viewModel = MyListViewModel()
+//        self.myListView = MyListView(viewModel: viewModel)
+//        super.init(frame: frame)
+//
+//        bind()
+//        setupUI()
+//    }
     
     override init(frame: CGRect) {
-        self.cancellables = .init()
-        self.viewModel = MyListViewModel()
-        self.myListView = MyListView(viewModel: viewModel)
         super.init(frame: frame)
+        
+    }
+
+    func configure(with viewModel: MyListViewModel) {
+        self.viewModel = viewModel
+        self.myListView = MyListView(viewModel: viewModel)
         
         bind()
         setupUI()
     }
     
     private func bind() {
-        viewModel
+        viewModel?
             .listenerPublisher
-            .sink { s in
-                switch s {
+            .sink {[weak self] listen in
+                switch listen {
                 case .reloadData:
-                    self.myListView.tableView.reloadData()
-                    
-                case .didTap:
-                    self.actionSubject.send(())
+                    self?.myListView?.tableView.reloadData()
+
+                case .didTap(let myWatchListModel) :
+                    self?.actionSubject.send(.didTap(myWatchListModel))
                 }
-            }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
     }
     
     private func setupUI() {
+        guard let myListView = myListView else {
+            return
+        }
+
         contentView.addSubview(myListView)
         myListView.translatesAutoresizingMaskIntoConstraints = false
 

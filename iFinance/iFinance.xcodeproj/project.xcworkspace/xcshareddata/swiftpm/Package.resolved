@@ -17,6 +17,24 @@
         "revision" : "4e262c2f9fb1cee1cb3be5717f7e6b55eb823971",
         "version" : "0.4.0"
       }
+    },
+    {
+      "identity" : "floatingpanel",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/scenee/FloatingPanel.git",
+      "state" : {
+        "revision" : "fe30e60235c5cc753e2ee2a3eebc8e654971634d",
+        "version" : "2.5.2"
+      }
+    },
+    {
+      "identity" : "sdwebimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImage.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "d01eb3f8aca843146f17b5530cef49be8bd01b78"
+      }
     }
   ],
   "version" : 2

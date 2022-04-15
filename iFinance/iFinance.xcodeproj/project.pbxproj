@@ -32,6 +32,22 @@
 		356DC2742805391800557827 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC2732805391800557827 /* MenuBarView.swift */; };
 		356DC2772805399100557827 /* MyListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC2762805399100557827 /* MyListCollectionViewCell.swift */; };
 		356DC2792805399900557827 /* OpinionsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC2782805399900557827 /* OpinionsCollectionViewCell.swift */; };
+		3595DA1F2809993100072B01 /* StockDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA1E2809993100072B01 /* StockDetailCoordinator.swift */; };
+		3595DA212809998400072B01 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA202809998400072B01 /* Module.swift */; };
+		3595DA232809998E00072B01 /* MainHomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA222809998E00072B01 /* MainHomeBuilder.swift */; };
+		3595DA2928099A5000072B01 /* StockDetailBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA2828099A5000072B01 /* StockDetailBuilder.swift */; };
+		3595DA2B28099A5800072B01 /* StockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA2A28099A5700072B01 /* StockDetailViewController.swift */; };
+		3595DA2D28099A5D00072B01 /* StockDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA2C28099A5D00072B01 /* StockDetailHeaderView.swift */; };
+		3595DA2F28099A6300072B01 /* StockDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA2E28099A6300072B01 /* StockDetailViewModel.swift */; };
+		3595DA3128099A7E00072B01 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA3028099A7E00072B01 /* BaseViewModel.swift */; };
+		3595DA3328099A8400072B01 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA3228099A8400072B01 /* BaseViewController.swift */; };
+		3595DA3528099A8A00072B01 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA3428099A8A00072B01 /* BaseView.swift */; };
+		3595DA3728099DD600072B01 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA3628099DD600072B01 /* MainView.swift */; };
+		3595DA3A2809AC8B00072B01 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 3595DA392809AC8B00072B01 /* FloatingPanel */; };
+		3595DA3E2809B07D00072B01 /* NewsStoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA3D2809B07D00072B01 /* NewsStoryTableViewCell.swift */; };
+		3595DA412809B0B700072B01 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3595DA402809B0B700072B01 /* SDWebImage */; };
+		3595DA432809B0E400072B01 /* NewsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA422809B0E400072B01 /* NewsHeaderView.swift */; };
+		3595DA452809B2A000072B01 /* StockDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA442809B2A000072B01 /* StockDetailView.swift */; };
 		35CC39952805C58A007148A5 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CC39942805C58A007148A5 /* PersistanceManager.swift */; };
 		35CC39972805C5B2007148A5 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CC39962805C5B2007148A5 /* APICaller.swift */; };
 		35CC399B2805C9E6007148A5 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 35CC399A2805C9E6007148A5 /* Charts */; };
@@ -68,6 +84,20 @@
 		356DC2732805391800557827 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		356DC2762805399100557827 /* MyListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListCollectionViewCell.swift; sourceTree = "<group>"; };
 		356DC2782805399900557827 /* OpinionsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionsCollectionViewCell.swift; sourceTree = "<group>"; };
+		3595DA1E2809993100072B01 /* StockDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailCoordinator.swift; sourceTree = "<group>"; };
+		3595DA202809998400072B01 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
+		3595DA222809998E00072B01 /* MainHomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeBuilder.swift; sourceTree = "<group>"; };
+		3595DA2828099A5000072B01 /* StockDetailBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailBuilder.swift; sourceTree = "<group>"; };
+		3595DA2A28099A5700072B01 /* StockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailViewController.swift; sourceTree = "<group>"; };
+		3595DA2C28099A5D00072B01 /* StockDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailHeaderView.swift; sourceTree = "<group>"; };
+		3595DA2E28099A6300072B01 /* StockDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailViewModel.swift; sourceTree = "<group>"; };
+		3595DA3028099A7E00072B01 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		3595DA3228099A8400072B01 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		3595DA3428099A8A00072B01 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		3595DA3628099DD600072B01 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		3595DA3D2809B07D00072B01 /* NewsStoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsStoryTableViewCell.swift; sourceTree = "<group>"; };
+		3595DA422809B0E400072B01 /* NewsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHeaderView.swift; sourceTree = "<group>"; };
+		3595DA442809B2A000072B01 /* StockDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailView.swift; sourceTree = "<group>"; };
 		35CC39942805C58A007148A5 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
 		35CC39962805C5B2007148A5 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		35CC39A02806CEB0007148A5 /* StockCharView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCharView.swift; sourceTree = "<group>"; };
@@ -81,7 +111,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3595DA3A2809AC8B00072B01 /* FloatingPanel in Frameworks */,
 				356DC272280535BB00557827 /* CombineCocoa in Frameworks */,
+				3595DA412809B0B700072B01 /* SDWebImage in Frameworks */,
 				35CC399B2805C9E6007148A5 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				35CC399C2805CD60007148A5 /* View */,
+				3595DA26280999FE00072B01 /* Helper */,
 				356DC247280462AF00557827 /* Application */,
 				356DC25228048BA700557827 /* Coordinator */,
 				35CC39932805C57B007148A5 /* Manager */,
@@ -122,7 +155,10 @@
 		356DC2462804617200557827 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				3595DA3C2809B06700072B01 /* News */,
+				3595DA24280999C700072B01 /* Base */,
 				35CC399D2805CD78007148A5 /* Main */,
+				3595DA2728099A3C00072B01 /* StockDetail */,
 				35CC399E2805CD88007148A5 /* Search */,
 				35CC399F2805CD94007148A5 /* Writing */,
 			);
@@ -134,7 +170,7 @@
 			children = (
 				356DC23228045DEE00557827 /* AppDelegate.swift */,
 				356DC23428045DEE00557827 /* SceneDelegate.swift */,
-				356DC25D28052DB200557827 /* Extension.swift */,
+				356DC25728048C3B00557827 /* AppContainer.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -145,7 +181,7 @@
 				356DC25328048BB500557827 /* Coordinator.swift */,
 				356DC25528048C0500557827 /* AppCoordinator.swift */,
 				356DC25928048CC600557827 /* MainHomeCoordinator.swift */,
-				356DC25728048C3B00557827 /* AppContainer.swift */,
+				3595DA1E2809993100072B01 /* StockDetailCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -183,12 +219,52 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		3595DA24280999C700072B01 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				3595DA202809998400072B01 /* Module.swift */,
+				3595DA3028099A7E00072B01 /* BaseViewModel.swift */,
+				3595DA3228099A8400072B01 /* BaseViewController.swift */,
+				3595DA3428099A8A00072B01 /* BaseView.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		3595DA26280999FE00072B01 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				356DC25D28052DB200557827 /* Extension.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		3595DA2728099A3C00072B01 /* StockDetail */ = {
+			isa = PBXGroup;
+			children = (
+				3595DA2828099A5000072B01 /* StockDetailBuilder.swift */,
+				3595DA2E28099A6300072B01 /* StockDetailViewModel.swift */,
+				3595DA2A28099A5700072B01 /* StockDetailViewController.swift */,
+				3595DA442809B2A000072B01 /* StockDetailView.swift */,
+				3595DA2C28099A5D00072B01 /* StockDetailHeaderView.swift */,
+			);
+			path = StockDetail;
+			sourceTree = "<group>";
+		};
+		3595DA3C2809B06700072B01 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				3595DA3D2809B07D00072B01 /* NewsStoryTableViewCell.swift */,
+				3595DA422809B0E400072B01 /* NewsHeaderView.swift */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
 		35CC399128059F04007148A5 /* MyList */ = {
 			isa = PBXGroup;
 			children = (
 				356DC2762805399100557827 /* MyListCollectionViewCell.swift */,
-				356DC2482804639400557827 /* MyListView.swift */,
 				35CC39A22806CEEB007148A5 /* MyListViewModel.swift */,
+				356DC2482804639400557827 /* MyListView.swift */,
 			);
 			path = MyList;
 			sourceTree = "<group>";
@@ -234,8 +310,10 @@
 		35CC399D2805CD78007148A5 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				356DC25028047FEF00557827 /* MainCollectionViewController.swift */,
+				3595DA222809998E00072B01 /* MainHomeBuilder.swift */,
 				356DC25B28048E9D00557827 /* MainCollectionViewModel.swift */,
+				356DC25028047FEF00557827 /* MainCollectionViewController.swift */,
+				3595DA3628099DD600072B01 /* MainView.swift */,
 				356DC27A280539B400557827 /* View */,
 			);
 			path = Main;
@@ -274,6 +352,8 @@
 			packageProductDependencies = (
 				356DC271280535BB00557827 /* CombineCocoa */,
 				35CC399A2805C9E6007148A5 /* Charts */,
+				3595DA392809AC8B00072B01 /* FloatingPanel */,
+				3595DA402809B0B700072B01 /* SDWebImage */,
 			);
 			productName = iFinance;
 			productReference = 356DC22F28045DEE00557827 /* iFinance.app */;
@@ -306,6 +386,8 @@
 			packageReferences = (
 				356DC270280535BB00557827 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				35CC39992805C9E5007148A5 /* XCRemoteSwiftPackageReference "Charts" */,
+				3595DA382809AC8B00072B01 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+				3595DA3F2809B0B700072B01 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 356DC23028045DEE00557827 /* Products */;
 			projectDirPath = "";
@@ -333,32 +415,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3595DA2B28099A5800072B01 /* StockDetailViewController.swift in Sources */,
+				3595DA3728099DD600072B01 /* MainView.swift in Sources */,
 				356DC2492804639400557827 /* MyListView.swift in Sources */,
 				356DC26128052DFF00557827 /* MarketDataResponse.swift in Sources */,
 				356DC2792805399900557827 /* OpinionsCollectionViewCell.swift in Sources */,
 				356DC24B2804639E00557827 /* OpinionsView.swift in Sources */,
+				3595DA3128099A7E00072B01 /* BaseViewModel.swift in Sources */,
 				356DC26F28052F3200557827 /* StockChartModel.swift in Sources */,
+				3595DA3E2809B07D00072B01 /* NewsStoryTableViewCell.swift in Sources */,
 				356DC26D28052EF900557827 /* MyWatchListModel.swift in Sources */,
+				3595DA232809998E00072B01 /* MainHomeBuilder.swift in Sources */,
 				356DC23328045DEE00557827 /* AppDelegate.swift in Sources */,
 				35CC39972805C5B2007148A5 /* APICaller.swift in Sources */,
+				3595DA3328099A8400072B01 /* BaseViewController.swift in Sources */,
 				356DC25C28048E9D00557827 /* MainCollectionViewModel.swift in Sources */,
 				35CC39A72806CFF5007148A5 /* OpinionsViewModel.swift in Sources */,
 				356DC25428048BB500557827 /* Coordinator.swift in Sources */,
 				356DC23528045DEE00557827 /* SceneDelegate.swift in Sources */,
+				3595DA2F28099A6300072B01 /* StockDetailViewModel.swift in Sources */,
 				35CC39952805C58A007148A5 /* PersistanceManager.swift in Sources */,
 				356DC2742805391800557827 /* MenuBarView.swift in Sources */,
 				356DC26B28052EE300557827 /* NewsStory.swift in Sources */,
 				356DC25A28048CC600557827 /* MainHomeCoordinator.swift in Sources */,
+				3595DA2928099A5000072B01 /* StockDetailBuilder.swift in Sources */,
 				356DC25828048C3B00557827 /* AppContainer.swift in Sources */,
 				356DC2772805399100557827 /* MyListCollectionViewCell.swift in Sources */,
 				356DC25628048C0500557827 /* AppCoordinator.swift in Sources */,
 				35CC39A52806CFC6007148A5 /* MenuBarButton.swift in Sources */,
+				3595DA452809B2A000072B01 /* StockDetailView.swift in Sources */,
+				3595DA1F2809993100072B01 /* StockDetailCoordinator.swift in Sources */,
 				35CC39A12806CEB0007148A5 /* StockCharView.swift in Sources */,
 				356DC25E28052DB200557827 /* Extension.swift in Sources */,
+				3595DA432809B0E400072B01 /* NewsHeaderView.swift in Sources */,
+				3595DA212809998400072B01 /* Module.swift in Sources */,
 				35CC39A32806CEEB007148A5 /* MyListViewModel.swift in Sources */,
 				356DC26728052EB800557827 /* SearchResponse.swift in Sources */,
 				356DC26328052E1B00557827 /* FinancialMetricsResponse.swift in Sources */,
+				3595DA2D28099A5D00072B01 /* StockDetailHeaderView.swift in Sources */,
 				356DC26928052ED100557827 /* PostContent.swift in Sources */,
+				3595DA3528099A8A00072B01 /* BaseView.swift in Sources */,
 				356DC26528052EA700557827 /* Quote.swift in Sources */,
 				356DC25128047FEF00557827 /* MainCollectionViewController.swift in Sources */,
 			);
@@ -578,6 +674,22 @@
 				minimumVersion = 0.4.0;
 			};
 		};
+		3595DA382809AC8B00072B01 /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scenee/FloatingPanel.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		3595DA3F2809B0B700072B01 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		35CC39992805C9E5007148A5 /* XCRemoteSwiftPackageReference "Charts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/danielgindi/Charts.git";
@@ -593,6 +705,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 356DC270280535BB00557827 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
 			productName = CombineCocoa;
+		};
+		3595DA392809AC8B00072B01 /* FloatingPanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3595DA382809AC8B00072B01 /* XCRemoteSwiftPackageReference "FloatingPanel" */;
+			productName = FloatingPanel;
+		};
+		3595DA402809B0B700072B01 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3595DA3F2809B0B700072B01 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 		35CC399A2805C9E6007148A5 /* Charts */ = {
 			isa = XCSwiftPackageProductDependency;

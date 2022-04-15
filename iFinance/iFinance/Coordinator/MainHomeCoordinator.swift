@@ -8,11 +8,11 @@ import Combine
 import UIKit
 
 enum MainHomeTransition: Transition {
-    case moveToStockDetail
-    case moveToOpinionDetail
-    case moveToSearchView
-    case moveToOpinionWritingView
-    case moveToNewsDetail
+    case stockDetail(MyWatchListModel)
+    case opinionDetail
+    case searchView
+    case opinionWritingView
+    case newsDetail
 }
 
 final class MainHomeCoordinator: Coordinator {
@@ -22,48 +22,52 @@ final class MainHomeCoordinator: Coordinator {
     
     private(set) lazy var didFinishPublisher = didFinishSubject.eraseToAnyPublisher()
     private let didFinishSubject = PassthroughSubject<Void, Never>()
-    private var cancellables = Set<AnyCancellable>()
+    private var cancellables: Set<AnyCancellable>
+    
+    let container: AppContainer
     
     init(navigationController: UINavigationController, conainter: AppContainer){
         self.navigationController = navigationController
         self.childCoordinators = []
+        self.container = conainter
+        self.cancellables = .init()
         
     }
     
     func start() {
         let module = MainHomeBuilder.build()
-        module.transitionPublisher.sink { transition in
-            switch transition {
-            case .moveToOpinionDetail:
-                break
-            case .moveToStockDetail:
-                
-                print("moveToStockDetail")
-                break
-            case .moveToSearchView:
-                break
-            case .moveToOpinionWritingView:
-                break
-            case .moveToNewsDetail:
-                break
+        module
+            .transitionPublisher
+            .sink { transition in
+                switch transition {
+                case .opinionDetail:
+                    break
+                case .stockDetail(let myWatchListModel):
+                    self.setupStockDetailCoordinator(myWatchListModel: myWatchListModel)
+                case .searchView:
+                    break
+                case .opinionWritingView:
+                    break
+                case .newsDetail:
+                    break
+                }
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
         setRoot(module.viewController)
     }
-}
-
-class MainHomeBuilder {
-    class func build() -> Module<MainHomeTransition, UIViewController> {
-        let viewModel = MainCollectionViewModel()
-        let vc = MainCollectionViewController(viewModel: viewModel)
-        return .init(viewController: vc, transitionPublisher: viewModel.transitionPublisher)
+    
+    private func setupStockDetailCoordinator(myWatchListModel: MyWatchListModel) {
+        let coordinator = StockDetailCoordinator(navigationController: navigationController,
+                                                 conainter: container,
+                                                 myWatchListModel: myWatchListModel)
+        childCoordinators.append(coordinator)
+        coordinator.didFinishPublisher
+            .sink {[weak self] _ in
+                self?.childCoordinators.removeAll()
+                self?.didFinishSubject.send(())
+            }
+            .store(in: &cancellables)
+        
+        coordinator.start()
     }
-}
-
-protocol Transition {}
-
-struct Module<T: Transition, V: UIViewController> {
-    let viewController: V
-    let transitionPublisher: AnyPublisher<T, Never>
 }

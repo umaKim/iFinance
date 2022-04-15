@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class MyListView: UIView, UITableViewDataSource, UITableViewDelegate {
+final class MyListView: UIView {
     
     private(set) lazy var tableView: UITableView = {
         let tv = UITableView()
@@ -35,6 +35,12 @@ final class MyListView: UIView, UITableViewDataSource, UITableViewDelegate {
         ])
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension MyListView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.myWatchStocks.count
     }
@@ -44,21 +50,18 @@ final class MyListView: UIView, UITableViewDataSource, UITableViewDelegate {
         cell.configure(with: viewModel.myWatchStocks[indexPath.row])
         return cell
     }
-    
+}
+
+extension MyListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        viewModel.didTap()
+        viewModel.didTap(myWatchStocks: viewModel.myWatchStocks[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return WatchListTableViewCell.preferredHeight
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
-
 
 /// Table cell for watch list item
 final class WatchListTableViewCell: UITableViewCell {
@@ -143,21 +146,12 @@ final class WatchListTableViewCell: UITableViewCell {
         backgroundColor = .black
     }
     
-    required init?(coder: NSCoder) {
-        fatalError()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
-        symbolLabel.text = nil
-        nameLabel.text = nil
-        priceLabel.text = nil
-        changeLabel.text = nil
+        symbolLabel.text    = nil
+        nameLabel.text      = nil
+        priceLabel.text     = nil
+        changeLabel.text    = nil
         miniChartView.reset()
     }
     
@@ -173,7 +167,6 @@ final class WatchListTableViewCell: UITableViewCell {
     }
     
     private func configureTitleLabels() {
-        
         let labelStackView = UIStackView(arrangedSubviews: [symbolLabel, nameLabel])
         labelStackView.distribution = .equalSpacing
         labelStackView.spacing = 6
@@ -185,13 +178,11 @@ final class WatchListTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             labelStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-//            labelStackView.widthAnchor.constraint(equalToConstant: frame.width/2.2),
             labelStackView.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -30),
         ])
     }
     
     private func configurePriceLabels() {
-        
         let labelStackView = UIStackView(arrangedSubviews: [priceLabel, changeLabel])
         labelStackView.distribution = .equalSpacing
         labelStackView.spacing = 6
@@ -214,9 +205,12 @@ final class WatchListTableViewCell: UITableViewCell {
             miniChartView.topAnchor.constraint(equalTo: topAnchor),
             miniChartView.bottomAnchor.constraint(equalTo: bottomAnchor),
             miniChartView.leadingAnchor.constraint(equalTo: centerXAnchor, constant: -30),
-//            miniChartView.widthAnchor.constraint(equalToConstant: frame.width / 2.5)
             miniChartView.trailingAnchor.constraint(equalTo: changeLabel.leadingAnchor, constant: -5)
         ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
     }
 }
 
