@@ -71,9 +71,7 @@ final class MyListViewModel: BaseViewModel {
         createPlaceholderForLoadingMyWatchStock()
         
         let group = DispatchGroup()
-        
         symbols.forEach { symbol in
-            
             group.enter()
             APICaller.shared.marketData(for: symbol) { [weak self] result in
                 defer { group.leave() }
@@ -110,7 +108,6 @@ final class MyListViewModel: BaseViewModel {
     /// Creates view models from models
     private func createMyWatchStocks() {
         for (symbol, candleSticks) in watchlistChartMap {
-            
             let changePercentage = watchlistQuoteMap[symbol]?.percentChange
             
             myWatchStocks.append(.init(

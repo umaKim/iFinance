@@ -15,10 +15,19 @@ final class WatchListTableViewCell: UITableViewCell {
     /// Ideal height of cell
     static let preferredHeight: CGFloat = 60
     
+    /// Watchlist table cell viewModel
+//    struct ViewModel {
+//        let symbol: String
+//        let companyName: String
+//        let price: String // formatted
+//        let changeColor: UIColor // red or green
+//        let changePercentage: String // formatted
+//        let chartViewModel: StockChartView.ViewModel
+//    }
+    
     /// Symbol Label
     private let symbolLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
         label.font = .systemFont(ofSize: 18, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -70,18 +79,21 @@ final class WatchListTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.clipsToBounds = true
         addSubviews(symbolLabel, nameLabel, miniChartView, priceLabel, changeLabel)
-        
-        configureChart()
         configureTitleLabels()
         configurePriceLabels()
+        configureChart()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        symbolLabel.text    = nil
-        nameLabel.text      = nil
-        priceLabel.text     = nil
-        changeLabel.text    = nil
+        symbolLabel.text = nil
+        nameLabel.text = nil
+        priceLabel.text = nil
+        changeLabel.text = nil
         miniChartView.reset()
     }
     
@@ -97,6 +109,7 @@ final class WatchListTableViewCell: UITableViewCell {
     }
     
     private func configureTitleLabels() {
+        
         let labelStackView = UIStackView(arrangedSubviews: [symbolLabel, nameLabel])
         labelStackView.distribution = .equalSpacing
         labelStackView.spacing = 6
@@ -108,11 +121,13 @@ final class WatchListTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             labelStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-//            labelStackView.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -30),
+//            labelStackView.widthAnchor.constraint(equalToConstant: frame.width/2.2),
+            labelStackView.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -30),
         ])
     }
     
     private func configurePriceLabels() {
+        
         let labelStackView = UIStackView(arrangedSubviews: [priceLabel, changeLabel])
         labelStackView.distribution = .equalSpacing
         labelStackView.spacing = 6
@@ -130,16 +145,13 @@ final class WatchListTableViewCell: UITableViewCell {
     
     private func configureChart() {
         addSubview(miniChartView)
+        
         NSLayoutConstraint.activate([
             miniChartView.topAnchor.constraint(equalTo: topAnchor),
             miniChartView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            miniChartView.leadingAnchor.constraint(equalTo: centerXAnchor, constant: -30),
+//            miniChartView.widthAnchor.constraint(equalToConstant: frame.width / 2.5)
             miniChartView.trailingAnchor.constraint(equalTo: changeLabel.leadingAnchor, constant: -5)
         ])
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError()
-    }
 }
-
-

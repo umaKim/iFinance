@@ -40,6 +40,7 @@ final class NewsViewController: UIViewController {
         
         viewModel
             .listenerPublisher
+            .receive(on: RunLoop.main)
             .sink { [weak self] listener in
                 switch listener {
                 case .reloadData:
