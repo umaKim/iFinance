@@ -28,6 +28,7 @@
 		351C5AEE280C5A4200FE9C0F /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5AED280C5A4200FE9C0F /* SearchCell.swift */; };
 		351C5AF1280C5AC100FE9C0F /* OpinionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5AF0280C5AC100FE9C0F /* OpinionTableViewCell.swift */; };
 		351C5AF4280C669700FE9C0F /* WatchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5AF3280C669700FE9C0F /* WatchListTableViewCell.swift */; };
+		351C5AF8280C83C100FE9C0F /* UmaBasicAlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = 351C5AF7280C83C100FE9C0F /* UmaBasicAlertKit */; };
 		356DC23328045DEE00557827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23228045DEE00557827 /* AppDelegate.swift */; };
 		356DC23528045DEE00557827 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23428045DEE00557827 /* SceneDelegate.swift */; };
 		356DC23C28045DF000557827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 356DC23B28045DF000557827 /* Assets.xcassets */; };
@@ -155,6 +156,7 @@
 				351C5AE2280C4F8C00FE9C0F /* FirebaseAuthCombine-Community in Frameworks */,
 				351C5AEA280C4F8C00FE9C0F /* FirebaseStorage in Frameworks */,
 				351C5AE4280C4F8C00FE9C0F /* FirebaseDatabase in Frameworks */,
+				351C5AF8280C83C100FE9C0F /* UmaBasicAlertKit in Frameworks */,
 				351C5AEC280C4F8C00FE9C0F /* FirebaseStorageCombine-Community in Frameworks */,
 				35CC399B2805C9E6007148A5 /* Charts in Frameworks */,
 			);
@@ -441,6 +443,7 @@
 				351C5AE7280C4F8C00FE9C0F /* FirebaseFirestoreCombine-Community */,
 				351C5AE9280C4F8C00FE9C0F /* FirebaseStorage */,
 				351C5AEB280C4F8C00FE9C0F /* FirebaseStorageCombine-Community */,
+				351C5AF7280C83C100FE9C0F /* UmaBasicAlertKit */,
 			);
 			productName = iFinance;
 			productReference = 356DC22F28045DEE00557827 /* iFinance.app */;
@@ -476,6 +479,7 @@
 				3595DA382809AC8B00072B01 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				3595DA3F2809B0B700072B01 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				351C5ADC280C4F8C00FE9C0F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				351C5AF6280C83C100FE9C0F /* XCRemoteSwiftPackageReference "UmaBasicAlertKit" */,
 			);
 			productRefGroup = 356DC23028045DEE00557827 /* Products */;
 			projectDirPath = "";
@@ -775,6 +779,14 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		351C5AF6280C83C100FE9C0F /* XCRemoteSwiftPackageReference "UmaBasicAlertKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/umaKim/UmaBasicAlertKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		356DC270280535BB00557827 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
@@ -849,6 +861,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 351C5ADC280C4F8C00FE9C0F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		351C5AF7280C83C100FE9C0F /* UmaBasicAlertKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 351C5AF6280C83C100FE9C0F /* XCRemoteSwiftPackageReference "UmaBasicAlertKit" */;
+			productName = UmaBasicAlertKit;
 		};
 		356DC271280535BB00557827 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;

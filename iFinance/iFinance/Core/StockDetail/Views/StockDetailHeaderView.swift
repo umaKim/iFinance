@@ -99,17 +99,6 @@ final class StockDetailHeaderView: BaseView {
         ])
     }
     
-    /// Configure view
-    /// - Parameters:
-    ///   - chartViewModel: Chart view Model
-    ///   - metricViewModels: Collection of metric viewModels
-//    func configure(
-//        currentPrice: String,
-//        percentChange: String,
-//        chartViewModel: StockChartModel,//StockChartView.ViewModel,
-//        metrics: Metrics?
-//    ) {
-    
     func configure(with data: StockDetailHeaderData) {
         priceLabel.text = data.currentPrice
         priceChangeLabel.text = data.percentChange
@@ -129,11 +118,11 @@ final class StockDetailHeaderView: BaseView {
         
         let metrics = data.metrics
         self.metricViewModels = [
-            .init(name: "52W High", value: "\(metrics.AnnualWeekHigh)"),
-            .init(name: "52L High", value: "\(metrics.AnnualWeekLow)"),
-            .init(name: "52W Return", value: "\(metrics.AnnualWeekPriceReturnDaily)"),
-            .init(name: "Beta", value: "\(metrics.beta)"),
-            .init(name: "10D Vol.", value: "\(metrics.TenDayAverageTradingVolume)"),
+            .init(name: "52W High", value: "\(metrics.AnnualWeekHigh ?? 0)"),
+            .init(name: "52L High", value: "\(metrics.AnnualWeekLow ?? 0)"),
+            .init(name: "52W Return", value: "\(metrics.AnnualWeekPriceReturnDaily ?? 0)"),
+            .init(name: "Beta", value: "\(metrics.beta ?? 0)"),
+            .init(name: "10D Vol.", value: "\(metrics.TenDayAverageTradingVolume ?? 0)"),
         ]
         
         metricCollectionView.reloadData()
@@ -171,8 +160,7 @@ extension StockDetailHeaderView: UICollectionViewDelegateFlowLayout {
 }
 
 
-
-/// Metric table cell
+// Metric table cell
 final class MetricCollectionViewCell: UICollectionViewCell {
     /// Cell id
     static let identifier = "MetricCollectionViewCell"

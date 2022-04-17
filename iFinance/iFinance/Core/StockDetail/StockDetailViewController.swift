@@ -5,6 +5,7 @@
 //  Created by 김윤석 on 2022/04/15.
 //
 
+import UmaBasicAlertKit
 import SafariServices
 import UIKit
 
@@ -34,7 +35,7 @@ final class StockDetailViewController: BaseViewController<StockDetailViewModel> 
                     self?.contentView.headerView.configure(with: data)
                     
                 case .errror:
-                    print("error")
+                    self?.presentUmaDefaultAlert(title: "Error")
                 }
             }
             .store(in: &cancellables)
@@ -65,7 +66,6 @@ extension StockDetailViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView( withIdentifier: NewsHeaderView.identifier) as? NewsHeaderView else { return nil }
-        //        header.delegate = self
         header.configure( with:
                 .init(title: viewModel.symbol.uppercased(),
                       shouldShowAddButton:
@@ -78,12 +78,16 @@ extension StockDetailViewController: UITableViewDelegate {
                 switch action {
                     
                 case .didTapToAdd:
-                    print("didTapToAdd")
+                    self.presentUmaActionAlert(title: "Added to Watchlist", with: self.action)
                     self.viewModel.didTapAddToMyWatchList()
                 }
             }
             .store(in: &cancellables)
         return header
+    }
+    
+    var action: UIAlertAction {
+        .init(title: "Ok", style: .cancel, handler: nil)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

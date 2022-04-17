@@ -56,13 +56,7 @@ extension MainViewController: UICollectionViewDataSource {
             
             cell.configure(with: viewModel.myListViewModel)
             cell.actionPublisher
-                .sink(receiveValue: { [weak self] action in
-                    switch action {
-                    case .didTap(let myWatchListModel):
-                        self?.viewModel.stockDidTap(myWatchListModel)
-                    }
-                    
-                })
+                .sink(receiveValue: myListHandler)
                 .store(in: &cancellables)
             return cell
             
@@ -74,6 +68,13 @@ extension MainViewController: UICollectionViewDataSource {
             
         default:
             return UICollectionViewCell()
+        }
+    }
+    
+    private func myListHandler( action: MyListCollectionViewCellAction ) -> Void {
+        switch action {
+        case .didTap(let myWatchListModel):
+            self.viewModel.stockDidTap(myWatchListModel)
         }
     }
 }
@@ -90,24 +91,27 @@ extension MainViewController: FloatingPanelControllerDelegate  {
         let module = NewsBuilder.build(type: .topStories)
         module
             .transitionPublisher
-            .sink {[weak self] transition in
-                switch transition {
-                case .didTapNews(let news):
-                    self?.viewModel.newsDidTap(news: news)
-                }
-            }
+            .sink (receiveValue: newViewTransitionHandler)
             .store(in: &cancellables)
         
         let panel = FloatingPanelController(delegate: self)
         panel.surfaceView.backgroundColor = .secondarySystemBackground
         panel.set(contentViewController: module.viewController)
         panel.addPanel(toParent: self)
+        let vc = module.viewController as! NewsViewController
+        panel.track(scrollView: vc.tableView)
         
         let appearance = SurfaceAppearance()
         appearance.backgroundColor = .systemBackground
         appearance.cornerRadius = 10
         panel.surfaceView.appearance = appearance
-        
+    }
+    
+    private func newViewTransitionHandler(transition: NewsViewTransition) -> Void {
+        switch transition {
+        case .didTapNews(let news):
+            self.viewModel.newsDidTap(news: news)
+        }
     }
 }
 

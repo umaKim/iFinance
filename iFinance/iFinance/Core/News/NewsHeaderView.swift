@@ -76,10 +76,12 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         self.cancellables = .init()
         super.init(reuseIdentifier: reuseIdentifier)
-        addSubviews(label, addToWatchListButton)//, imageView)
-//        addToWatchListButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
-        //        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapButton)))
         
+        bind()
+        setupUI()
+    }
+    
+    private func bind() {
         addToWatchListButton
             .tapPublisher
             .sink {[weak self] _ in
@@ -87,6 +89,10 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
                 self?.actionSubject.send(.didTapToAdd)
             }
             .store(in: &cancellables)
+    }
+    
+    private func setupUI() {
+        addSubviews(label, addToWatchListButton)
         
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
@@ -113,6 +119,7 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
     override func prepareForReuse() {
         super.prepareForReuse()
         label.text = nil
+        imageView.image = nil
     }
     
 //    /// Handle button tap

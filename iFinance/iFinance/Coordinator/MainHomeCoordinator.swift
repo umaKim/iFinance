@@ -40,15 +40,21 @@ final class MainHomeCoordinator: Coordinator {
         module
             .transitionPublisher
             .sink { transition in
+//                guard let self = self else {return }
                 switch transition {
+                
                 case .opinionDetail:
                     break
+                
                 case .stockDetail(let symbol):
                     self.setupStockDetailCoordinator(symbol: symbol)
+                
                 case .searchView:
                     self.setupSearchCoordinator()
+                    
                 case .opinionWritingView:
                     break
+                
                 case .newsDetail(let url):
                     let vc = SFSafariViewController(url: url)
                     self.present(vc, animated: true)
