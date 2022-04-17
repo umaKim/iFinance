@@ -15,30 +15,23 @@ final class StockDetailViewController: BaseViewController<StockDetailViewModel> 
     override func loadView() {
         super.loadView()
         self.view = contentView
+        
         contentView.tableView.delegate = self
         contentView.tableView.dataSource = self
-        bind()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
-        let label = UILabel()
-        label.text = viewModel.myWatchListModel.companyName
-        label.textColor = .white
-        navigationItem.titleView = label
+        bind()
     }
     
     private func bind() {
         viewModel
             .listenerPublisher
+            .receive(on: RunLoop.main)
             .sink {[weak self] listener in
                 switch listener {
                 case .reloadData:
-                    DispatchQueue.main.async {
-                        self?.contentView.tableView.reloadData()
-                        self?.loadDataForHeaderView()
-                    }
+                    self?.contentView.tableView.reloadData()
+                    guard let data = self?.viewModel.headerData else { return }
+                    self?.contentView.headerView.configure(with: data)
                     
                 case .errror:
                     print("error")
@@ -46,25 +39,17 @@ final class StockDetailViewController: BaseViewController<StockDetailViewModel> 
             }
             .store(in: &cancellables)
     }
-    
-    private func loadDataForHeaderView() {
-        self.contentView.headerView.configure(
-            currentPrice: viewModel.myWatchListModel.price,
-            percentChange: viewModel.myWatchListModel.changePercentage,
-            chartViewModel: viewModel.myWatchListModel.chartViewModel,
-            metrics: viewModel.metrics)
-    }
 }
 
 extension StockDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.stories.count
+        viewModel.newsStories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsStoryTableViewCell.identfier,
                                                        for: indexPath) as? NewsStoryTableViewCell else { fatalError()}
-        cell.configure(with: .init(model: viewModel.stories[indexPath.row]))
+        cell.configure(with: .init(model: viewModel.newsStories[indexPath.row]))
         return cell
     }
 }
@@ -80,16 +65,29 @@ extension StockDetailViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView( withIdentifier: NewsHeaderView.identifier) as? NewsHeaderView else { return nil }
-//        header.delegate = self
-        header.configure( with: .init(title: viewModel.myWatchListModel.symbol.uppercased(),
-                                      shouldShowAddButton: !PersistenceManager.shared.watchlistContains(symbol: viewModel.myWatchListModel.symbol)))
+        //        header.delegate = self
+        header.configure( with:
+                .init(title: viewModel.symbol.uppercased(),
+                      shouldShowAddButton:
+                        !PersistenceManager.shared.watchlistContains(symbol: viewModel.symbol))
+        )
+        header
+            .actionPublisher
+            .sink {[weak self] action in
+                guard let self = self else {return }
+                switch action {
+                    
+                case .didTapToAdd:
+                    print("didTapToAdd")
+                    self.viewModel.didTapAddToMyWatchList()
+                }
+            }
+            .store(in: &cancellables)
         return header
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let url = URL(string: viewModel.stories[indexPath.row].url) else { return }
-        let vc = SFSafariViewController(url: url)
-        present(vc, animated: true)
+        viewModel.didTapNews(at: indexPath)
     }
 }

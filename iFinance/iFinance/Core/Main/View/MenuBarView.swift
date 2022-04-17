@@ -12,12 +12,22 @@ import UIKit
 enum MenuBarButtonAction {
     case didTapMyList
     case didTapOpinions
+    case didTapEditting
 }
 
 final class MenuBarView: UIView {
     private let myListButton: MenuBarButton = MenuBarButton(title: "My List")
     private let opinionsButton: MenuBarButton = MenuBarButton(title: "Opinions")
-    private var buttons: [UIButton] = []
+    private let myListSettingButton: MenuBarButton = MenuBarButton(title: "Setting")
+    
+    private let settingButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
+        button.tintColor = .white
+        return button
+    }()
+    
+    private lazy var buttons: [UIButton] = [myListButton, opinionsButton]
     
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MenuBarButtonAction, Never>()
@@ -28,9 +38,8 @@ final class MenuBarView: UIView {
         self.cancellable = .init()
         super.init(frame: .zero)
         
-        backgroundColor = .black
         
-        buttons = [myListButton, opinionsButton]
+//        buttons = [myListButton, opinionsButton]
         configureButtons()
         configureMenuBarButtons()
     }
@@ -51,22 +60,32 @@ final class MenuBarView: UIView {
                 self?.actionSubject.send(.didTapOpinions)
             }
             .store(in: &cancellable)
+        
+        settingButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                self?.actionSubject.send(.didTapEditting)
+            }
+            .store(in: &cancellable)
     }
     
     private func configureMenuBarButtons() {
         
-        let leadPadding: CGFloat = 16
+        let horizontalPadding: CGFloat = 16
         let buttonSpace: CGFloat = 36
         
-        addSubviews(myListButton, opinionsButton)//, albumsButton )//indicator)
+        addSubviews(myListButton, opinionsButton, settingButton)
         
         NSLayoutConstraint.activate([
             // Buttons
             myListButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            myListButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: leadPadding),
+            myListButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontalPadding),
             
             opinionsButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             opinionsButton.leadingAnchor.constraint(equalTo: myListButton.trailingAnchor, constant: buttonSpace),
+            
+            settingButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            settingButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontalPadding)
         ])
     }
     

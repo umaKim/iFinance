@@ -85,7 +85,7 @@ final class APICaller: APICallable {
     /// - Parameters:
     ///   - type: Company or top stories
     ///   - completion: Result callback
-    public func news( for type: NewsType, completion: @escaping (Result<[NewsStory], Error>) -> Void) {
+    public func news(for type: NewsType, completion: @escaping (Result<[NewsStory], Error>) -> Void) {
         switch type {
         case .topStories:
             request(
@@ -246,7 +246,7 @@ final class APICaller: APICallable {
             completion(.failure(APIError.invalidUrl))
             return
         }
-        print(url)
+//        print(url)
 
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {

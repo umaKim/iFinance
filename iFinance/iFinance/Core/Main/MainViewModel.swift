@@ -6,10 +6,18 @@
 //
 
 import Combine
+import Foundation
 
-class MainCollectionViewModel {
+enum MainCollectionViewModelListener {
+    case scrollToMyList
+}
+
+final class MainViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<MainHomeTransition, Never>()
+    
+    private(set) lazy var listenerPublisher = listenerSubject.eraseToAnyPublisher()
+    private let listenerSubject = PassthroughSubject<MainCollectionViewModelListener, Never>()
     
     private(set) var myListViewModel: MyListViewModel
     private(set) var opinionsViewModel: OpinionsViewModel
@@ -32,14 +40,20 @@ class MainCollectionViewModel {
     }
     
     func stockDidTap(_ myWatchListModel: MyWatchListModel) {
-        transitionSubject.send(.stockDetail(myWatchListModel))
+        transitionSubject.send(.stockDetail(myWatchListModel.symbol))
     }
     
-    func newDidTap() {
-        transitionSubject.send(.newsDetail)
+    func newsDidTap(news: NewsStory) {
+        guard let url = URL(string: news.url) else {return }
+        transitionSubject.send(.newsDetail(url))
     }
     
     func opinionDidTap() {
         transitionSubject.send(.opinionDetail)
+    }
+    
+    func edittingDidTap() {
+        myListViewModel.isEdittingModeSubject.send()
+        listenerSubject.send(.scrollToMyList)
     }
 }

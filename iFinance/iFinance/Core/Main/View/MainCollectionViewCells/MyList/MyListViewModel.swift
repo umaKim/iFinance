@@ -11,9 +11,10 @@ import UIKit
 enum MyListViewModelListener {
     case reloadData
     case didTap(MyWatchListModel)
+    case edittingMode
 }
 
-final class MyListViewModel {
+final class MyListViewModel: BaseViewModel {
     private(set) lazy var listenerPublisher = listernSubject.eraseToAnyPublisher()
     private let listernSubject = PassthroughSubject<MyListViewModelListener, Never>()
     
@@ -26,9 +27,41 @@ final class MyListViewModel {
     
     private(set) var myWatchStocks: [MyWatchListModel] = []
     
+    //    private(set) var isEdittingMode: Bool
+    lazy var isEdittingModeSubject = PassthroughSubject<Void, Never>()
+    
+    private var isEdittingMode: Bool = false
+    
     ///Fetch from network for stock data
-    init() {
+    override init() {
+        super.init()
         fetchWatchlistData()
+        bind()
+        setUpObserver()
+    }
+    
+    /// Observer for watch list updates
+    private var observer: NSObjectProtocol?
+    
+    /// Sets up observer for watch list updates
+    private func setUpObserver() {
+        NotificationCenter.default.publisher(for: .didAddToWatchList)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.myWatchStocks.removeAll()
+                self?.fetchWatchlistData()
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func bind() {
+        isEdittingModeSubject
+            .sink {[weak self] _ in
+                guard let self = self else {return }
+                self.isEdittingMode.toggle()
+                self.listernSubject.send(.edittingMode)
+            }
+            .store(in: &cancellables)
     }
     
     /// Fetch watch list models

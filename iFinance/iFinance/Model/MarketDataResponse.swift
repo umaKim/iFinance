@@ -9,12 +9,12 @@ import Foundation
 
 /// Market data response
 struct MarketDataResponse: Codable {
-    let open: [Double]
-    let close: [Double]
-    let high: [Double]
-    let low: [Double]
-    let status: String
-    let timestamps: [TimeInterval]
+    let open: [Double]?
+    let close: [Double]?
+    let high: [Double]?
+    let low: [Double]?
+    let status: String?
+    let timestamps: [TimeInterval]?
 
     enum CodingKeys: String, CodingKey {
         case open = "o"
@@ -29,14 +29,18 @@ struct MarketDataResponse: Codable {
     var candleSticks: [CandleStick] {
         var result = [CandleStick]()
 
+        guard let open = open else {
+            return []
+        }
+
         for index in 0..<open.count {
             result.append(
                 .init(
-                    date: Date(timeIntervalSince1970: timestamps[index]),
-                    high: high[index],
-                    low: low[index],
-                    open: open[index],
-                    close: close[index]
+                    date: Date(timeIntervalSince1970: timestamps?[index] ?? TimeInterval()),
+                    high: high?[index] ?? 0,
+                    low: low?[index] ?? 0,
+                    open: open[index] ,
+                    close: close?[index] ?? 0
                 )
             )
         }

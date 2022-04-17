@@ -1,88 +1,19 @@
 //
-//  MyListViewController.swift
+//  WatchListTableViewCell.swift
 //  iFinance
 //
-//  Created by 김윤석 on 2022/04/11.
+//  Created by 김윤석 on 2022/04/18.
 //
 
-import Combine
-import UIKit
-
-final class MyListView: UIView {
-    
-    private(set) lazy var tableView: UITableView = {
-        let tv = UITableView()
-        tv.register(WatchListTableViewCell.self, forCellReuseIdentifier: WatchListTableViewCell.identifier)
-        tv.dataSource = self
-        tv.delegate = self
-        tv.backgroundColor = .black
-        tv.translatesAutoresizingMaskIntoConstraints = false
-        return tv
-    }()
-    
-    private let viewModel: MyListViewModel
-    
-    init(viewModel: MyListViewModel) {
-        self.viewModel = viewModel
-        super.init(frame: .zero)
-        
-        addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-extension MyListView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.myWatchStocks.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WatchListTableViewCell.identifier, for: indexPath) as? WatchListTableViewCell else { return UITableViewCell() }
-        cell.configure(with: viewModel.myWatchStocks[indexPath.row])
-        return cell
-    }
-}
-
-extension MyListView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        viewModel.didTap(myWatchStocks: viewModel.myWatchStocks[indexPath.row])
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return WatchListTableViewCell.preferredHeight
-    }
-}
+import UIKit.UITableViewCell
 
 /// Table cell for watch list item
 final class WatchListTableViewCell: UITableViewCell {
     /// Cell id
     static let identifier = "WatchListTableViewCell"
     
-    /// Delegate
-//    weak var delegate: WatchListTableViewCellDelegate?
-    
     /// Ideal height of cell
     static let preferredHeight: CGFloat = 60
-    
-    /// Watchlist table cell viewModel
-//    struct ViewModel {
-//        let symbol: String
-//        let companyName: String
-//        let price: String // formatted
-//        let changeColor: UIColor // red or green
-//        let changePercentage: String // formatted
-//        let chartViewModel: StockChartView.ViewModel
-//    }
     
     /// Symbol Label
     private let symbolLabel: UILabel = {
@@ -139,11 +70,10 @@ final class WatchListTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.clipsToBounds = true
         addSubviews(symbolLabel, nameLabel, miniChartView, priceLabel, changeLabel)
+        
+        configureChart()
         configureTitleLabels()
         configurePriceLabels()
-        configureChart()
-        
-        backgroundColor = .black
     }
     
     override func prepareForReuse() {
@@ -178,7 +108,7 @@ final class WatchListTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             labelStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            labelStackView.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -30),
+//            labelStackView.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -30),
         ])
     }
     
@@ -200,11 +130,9 @@ final class WatchListTableViewCell: UITableViewCell {
     
     private func configureChart() {
         addSubview(miniChartView)
-        
         NSLayoutConstraint.activate([
             miniChartView.topAnchor.constraint(equalTo: topAnchor),
             miniChartView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            miniChartView.leadingAnchor.constraint(equalTo: centerXAnchor, constant: -30),
             miniChartView.trailingAnchor.constraint(equalTo: changeLabel.leadingAnchor, constant: -5)
         ])
     }

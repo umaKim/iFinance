@@ -11,7 +11,8 @@ import UIKit
 final class OpinionsCollectionViewCell: UICollectionViewCell {
     static let identifier = "Main2CollectionViewCell"
     
-    private let opinionsView = OpinionsView()
+    
+    private let opinionsViewController = OpinionsViewController(viewModel: OpinionsViewModel())
     
     private var opinionsViewModel: OpinionsViewModel?
     
@@ -28,14 +29,15 @@ final class OpinionsCollectionViewCell: UICollectionViewCell {
     private func configureUI() {
         backgroundColor = .cyan
         
-        contentView.addSubview(opinionsView.view)
-        opinionsView.view.translatesAutoresizingMaskIntoConstraints = false
+        guard let opinionsView = opinionsViewController.view else { return }
+        contentView.addSubview(opinionsView)
+        opinionsView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            opinionsView.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            opinionsView.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            opinionsView.view.topAnchor.constraint(equalTo: contentView.topAnchor),
-            opinionsView.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            opinionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            opinionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            opinionsView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            opinionsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
     

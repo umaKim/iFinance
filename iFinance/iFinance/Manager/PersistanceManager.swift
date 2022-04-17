@@ -46,11 +46,11 @@ final class PersistenceManager {
     /// - Parameters:
     ///   - symbol: Symbol to add
     ///   - companyName: Company name for symbol being added
-    public func addToWatchlist(symbol: String, companyName: String) {
+    public func addToWatchlist(symbol: String) {
         var current = watchlist
         current.append(symbol)
         userDefaults.set(current, forKey: Constants.watchListKey)
-        userDefaults.set(companyName, forKey: symbol)
+//        userDefaults.set(companyName, forKey: symbol)
 
         NotificationCenter.default.post(name: .didAddToWatchList, object: nil)
     }
@@ -88,8 +88,8 @@ final class PersistenceManager {
         let symbols = map.keys.map { $0 }
         userDefaults.set(symbols, forKey: Constants.watchListKey)
 
-        for (symbol, name) in map {
-            userDefaults.set(name, forKey: symbol)
-        }
+//        for (symbol, name) in map {
+//            userDefaults.set(name, forKey: symbol)
+//        }
     }
 }

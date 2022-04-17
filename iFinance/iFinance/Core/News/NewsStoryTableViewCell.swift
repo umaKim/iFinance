@@ -12,17 +12,17 @@ import UIKit.UITableViewCell
 final class NewsStoryTableViewCell: UITableViewCell {
     /// Cell id
     static let identfier = "NewsStoryTableViewCell"
-
+    
     /// Ideal height of ceell
     static let preferredHeight: CGFloat = 140
-
+    
     /// Cell viewModel
     struct ViewModel {
         let source: String
         let headline: String
         let dateString: String
         let imageUrl: URL?
-
+        
         init(model: NewsStory) {
             self.source = model.source
             self.headline = model.headline
@@ -30,14 +30,14 @@ final class NewsStoryTableViewCell: UITableViewCell {
             self.imageUrl = URL(string: model.image)
         }
     }
-
+    
     /// Source label
     private let sourceLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         return label
     }()
-
+    
     /// Headline label
     private let headlineLabel: UILabel = {
         let label = UILabel()
@@ -45,7 +45,7 @@ final class NewsStoryTableViewCell: UITableViewCell {
         label.numberOfLines = 2
         return label
     }()
-
+    
     /// Date label
     private let dateLabel: UILabel = {
         let label = UILabel()
@@ -53,7 +53,7 @@ final class NewsStoryTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 14, weight: .light)
         return label
     }()
-
+    
     /// Image for story
     private let storyImageView: UIImageView = {
         let imageView = UIImageView()
@@ -64,63 +64,69 @@ final class NewsStoryTableViewCell: UITableViewCell {
         imageView.layer.masksToBounds = true
         return imageView
     }()
-
+    
     // MARK: - Init
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .secondarySystemBackground
         backgroundColor = .secondarySystemBackground
-        addSubviews(sourceLabel, headlineLabel, dateLabel, storyImageView)
+        //        addSubviews(sourceLabel, headlineLabel, dateLabel, storyImageView)
+        [sourceLabel, headlineLabel, dateLabel, storyImageView]
+            .forEach {
+                self.addSubview($0)
+            }
         
-//        let verticalStackView = UIStackView(arrangedSubviews: [headlineLabel, dateLabel])
-//        verticalStackView.axis = .vertical
-//        verticalStackView.spacing = 3
-//        verticalStackView.alignment = .leading
-//        verticalStackView.distribution = .fill
-//
-//        let horizontalStackView = UIStackView(arrangedSubviews: [verticalStackView, storyImageView])
-//        horizontalStackView.axis = .horizontal
-//        horizontalStackView.spacing = 3
-//        horizontalStackView.alignment = .fill
-//        horizontalStackView.distribution = .fill
+        //        let verticalStackView = UIStackView(arrangedSubviews: [headlineLabel, dateLabel])
+        //        verticalStackView.axis = .vertical
+        //        verticalStackView.spacing = 3
+        //        verticalStackView.alignment = .leading
+        //        verticalStackView.distribution = .fill
+        //
+        //        let horizontalStackView = UIStackView(arrangedSubviews: [verticalStackView, storyImageView])
+        //        horizontalStackView.axis = .horizontal
+        //        horizontalStackView.spacing = 3
+        //        horizontalStackView.alignment = .fill
+        //        horizontalStackView.distribution = .fill
         
-//        contentView.addSubviews(storyImageView)
-//
-//        NSLayoutConstraint.activate([
-////            verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-////            verticalStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-//            storyImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-//            storyImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-//            storyImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-//            storyImageView.widthAnchor.constraint(equalToConstant: contentView.height)
-//        ])
+        //        contentView.addSubviews(storyImageView)
+        //
+        //        NSLayoutConstraint.activate([
+        ////            verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+        ////            verticalStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        //            storyImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+        //            storyImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+        //            storyImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        //            storyImageView.widthAnchor.constraint(equalToConstant: contentView.height)
+        //        ])
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError()
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         let imageSize: CGFloat = contentView.height/1.4
+        
         storyImageView.frame = CGRect(
             x: contentView.width-imageSize-10,
             y: (contentView.height - imageSize) / 2,
             width: imageSize,
             height: imageSize
         )
-
+        
         // Layout labels
         let availableWidth: CGFloat = contentView.width - separatorInset.left - imageSize - 15
+        
         dateLabel.frame = CGRect(
             x: separatorInset.left,
             y: contentView.height - 40,
             width: availableWidth,
             height: 40
         )
-
+        
         sourceLabel.sizeToFit()
         sourceLabel.frame = CGRect(
             x: separatorInset.left,
@@ -128,7 +134,7 @@ final class NewsStoryTableViewCell: UITableViewCell {
             width: availableWidth,
             height: sourceLabel.height
         )
-
+        
         headlineLabel.frame = CGRect(
             x: separatorInset.left,
             y: sourceLabel.bottom + 5,
@@ -136,7 +142,7 @@ final class NewsStoryTableViewCell: UITableViewCell {
             height: contentView.height - sourceLabel.bottom - dateLabel.height - 10
         )
     }
-
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         sourceLabel.text = nil
@@ -144,7 +150,7 @@ final class NewsStoryTableViewCell: UITableViewCell {
         dateLabel.text = nil
         storyImageView.image = nil
     }
-
+    
     /// Configure view
     /// - Parameter viewModel: View ViewModel
     public func configure(with viewModel: ViewModel) {
@@ -153,6 +159,6 @@ final class NewsStoryTableViewCell: UITableViewCell {
         dateLabel.text = viewModel.dateString
         storyImageView.sd_setImage(with: viewModel.imageUrl, completed: nil)
         // Manually set image
-//         storyImageView.setImage(with: viewModel.imageUrl)
+        //         storyImageView.setImage(with: viewModel.imageUrl)
     }
 }

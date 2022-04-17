@@ -4,15 +4,16 @@
 //
 //  Created by 김윤석 on 2022/04/12.
 //
+import SafariServices
 import Combine
 import UIKit
 
 enum MainHomeTransition: Transition {
-    case stockDetail(MyWatchListModel)
+    case stockDetail(String)
     case opinionDetail
     case searchView
     case opinionWritingView
-    case newsDetail
+    case newsDetail(URL)
 }
 
 final class MainHomeCoordinator: Coordinator {
@@ -42,29 +43,46 @@ final class MainHomeCoordinator: Coordinator {
                 switch transition {
                 case .opinionDetail:
                     break
-                case .stockDetail(let myWatchListModel):
-                    self.setupStockDetailCoordinator(myWatchListModel: myWatchListModel)
+                case .stockDetail(let symbol):
+                    self.setupStockDetailCoordinator(symbol: symbol)
                 case .searchView:
-                    break
+                    self.setupSearchCoordinator()
                 case .opinionWritingView:
                     break
-                case .newsDetail:
-                    break
+                case .newsDetail(let url):
+                    let vc = SFSafariViewController(url: url)
+                    self.present(vc, animated: true)
                 }
             }
             .store(in: &cancellables)
         setRoot(module.viewController)
     }
     
-    private func setupStockDetailCoordinator(myWatchListModel: MyWatchListModel) {
+    private func setupStockDetailCoordinator(symbol: String) {
         let coordinator = StockDetailCoordinator(navigationController: navigationController,
                                                  conainter: container,
-                                                 myWatchListModel: myWatchListModel)
+                                                 symbol: symbol)
         childCoordinators.append(coordinator)
         coordinator.didFinishPublisher
             .sink {[weak self] _ in
                 self?.childCoordinators.removeAll()
                 self?.didFinishSubject.send(())
+            }
+            .store(in: &cancellables)
+        
+        coordinator.start()
+    }
+    
+    private func setupSearchCoordinator() {
+        let coordinator = SearchCoordinator(navigationController: navigationController,
+                                            conainter: container)
+        
+        childCoordinators.append(coordinator)
+        coordinator
+            .didFinishPublisher
+            .sink { _ in
+                self.childCoordinators.removeAll()
+                self.didFinishSubject.send(())
             }
             .store(in: &cancellables)
         

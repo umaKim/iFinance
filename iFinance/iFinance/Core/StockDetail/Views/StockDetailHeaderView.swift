@@ -47,7 +47,8 @@ final class StockDetailHeaderView: BaseView {
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(MetricCollectionViewCell.self, forCellWithReuseIdentifier: MetricCollectionViewCell.identifier)
+        collectionView.register(MetricCollectionViewCell.self,
+                                forCellWithReuseIdentifier: MetricCollectionViewCell.identifier)
         collectionView.backgroundColor = .secondarySystemBackground
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -60,13 +61,10 @@ final class StockDetailHeaderView: BaseView {
         super.init(frame: frame)
         
         clipsToBounds = true
-        //        addSubviews(priceLabel, priceChangeLabel, chartView, segmentController, metricCollectionView)
         chartView.translatesAutoresizingMaskIntoConstraints = false
         metricCollectionView.delegate = self
         metricCollectionView.dataSource = self
         configureUI()
-        //        print("Init")
-        //        print(height)
     }
     
     private func configureUI() {
@@ -97,7 +95,7 @@ final class StockDetailHeaderView: BaseView {
             metricCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             metricCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             metricCollectionView.heightAnchor.constraint(equalToConstant: 100),
-            metricCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            metricCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
     
@@ -105,26 +103,31 @@ final class StockDetailHeaderView: BaseView {
     /// - Parameters:
     ///   - chartViewModel: Chart view Model
     ///   - metricViewModels: Collection of metric viewModels
-    func configure(
-        currentPrice: String,
-        percentChange: String,
-        chartViewModel: StockChartModel,//StockChartView.ViewModel,
-        metrics: Metrics?
-    ) {
-//        priceLabel.text = .formatted(number: currentPrice)
-        priceLabel.text = currentPrice
-//        priceChangeLabel.text = .percentage(from: percentChange)
-        priceChangeLabel.text = percentChange
+//    func configure(
+//        currentPrice: String,
+//        percentChange: String,
+//        chartViewModel: StockChartModel,//StockChartView.ViewModel,
+//        metrics: Metrics?
+//    ) {
+    
+    func configure(with data: StockDetailHeaderData) {
+        priceLabel.text = data.currentPrice
+        priceChangeLabel.text = data.percentChange
         
-//        if percentChange < 0 {
-//            priceChangeLabel.textColor = .systemRed
-//        } else {
-//            priceChangeLabel.textColor = .systemGreen
-//        }
+        if Double(data.percentChange) ?? 0 < 0 {
+            priceChangeLabel.textColor = .systemRed
+        } else {
+            priceChangeLabel.textColor = .systemGreen
+        }
         
-        chartView.configure(with: chartViewModel)
+        let viewModel: StockChartModel = .init(data: data.chartViewModel.data,
+                                              showLegend: true,
+                                              showAxis: true,
+                                               fillColor: data.chartViewModel.fillColor,
+                                               isFillColor: data.chartViewModel.isFillColor)
+        chartView.configure(with: viewModel)
         
-        guard let metrics = metrics else { return }
+        let metrics = data.metrics
         self.metricViewModels = [
             .init(name: "52W High", value: "\(metrics.AnnualWeekHigh)"),
             .init(name: "52L High", value: "\(metrics.AnnualWeekLow)"),
@@ -132,12 +135,6 @@ final class StockDetailHeaderView: BaseView {
             .init(name: "Beta", value: "\(metrics.beta)"),
             .init(name: "10D Vol.", value: "\(metrics.TenDayAverageTradingVolume)"),
         ]
-        
-        //        viewModels.append(.init(name: "52W High", value: "\(metrics.AnnualWeekHigh)"))
-        //        viewModels.append(.init(name: "52L High", value: "\(metrics.AnnualWeekLow)"))
-        //        viewModels.append(.init(name: "52W Return", value: "\(metrics.AnnualWeekPriceReturnDaily)"))
-        //        viewModels.append(.init(name: "Beta", value: "\(metrics.beta)"))
-        //        viewModels.append(.init(name: "10D Vol.", value: "\(metrics.TenDayAverageTradingVolume)"))
         
         metricCollectionView.reloadData()
     }

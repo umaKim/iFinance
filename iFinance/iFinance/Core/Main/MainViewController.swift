@@ -6,18 +6,15 @@
 //
 import CombineCocoa
 import Combine
+import FloatingPanel
 import UIKit
 
-class MainCollectionViewController: UIViewController {
+class MainViewController: BaseViewController<MainViewModel> {
     
     private lazy var searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .done, target: nil, action: nil)
     private lazy var writeOpinionsButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .done, target: nil, action: nil)
     
     private let contentView = MainView()
-    
-    private var cancellables: Set<AnyCancellable>
-    
-    private let viewModel: MainCollectionViewModel
     
     override func loadView() {
         super.loadView()
@@ -25,32 +22,26 @@ class MainCollectionViewController: UIViewController {
         view = contentView
     }
     
-    init(viewModel: MainCollectionViewModel) {
-        self.viewModel = viewModel
-        self.cancellables = .init()
-        super.init(nibName: nil, bundle: nil)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpNavigationView()
-
         contentView.collectionView.delegate = self
         contentView.collectionView.dataSource = self
         
         bind()
+        setUpFloatingPanel()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setUpNavigationView()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         contentView.menuTabBar.scrollIndicator(to: scrollView.contentOffset)
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
-extension MainCollectionViewController: UICollectionViewDataSource {
+extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         2
     }
@@ -87,17 +78,45 @@ extension MainCollectionViewController: UICollectionViewDataSource {
     }
 }
 
-extension MainCollectionViewController: UICollectionViewDelegateFlowLayout {
+extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: view.frame.width, height: collectionView.frame.height)
     }
 }
 
-//MARK: - Set up UI
-extension MainCollectionViewController {
-    private func setUpNavigationView() {
-        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: navigationController?.navigationBar.width ?? 0, height: navigationController?.navigationBar.height ?? 100))
+extension MainViewController: FloatingPanelControllerDelegate  {
+    /// Sets up floating news panel
+    private func setUpFloatingPanel() {
+        let module = NewsBuilder.build(type: .topStories)
+        module
+            .transitionPublisher
+            .sink {[weak self] transition in
+                switch transition {
+                case .didTapNews(let news):
+                    self?.viewModel.newsDidTap(news: news)
+                }
+            }
+            .store(in: &cancellables)
         
+        let panel = FloatingPanelController(delegate: self)
+        panel.surfaceView.backgroundColor = .secondarySystemBackground
+        panel.set(contentViewController: module.viewController)
+        panel.addPanel(toParent: self)
+        
+        let appearance = SurfaceAppearance()
+        appearance.backgroundColor = .systemBackground
+        appearance.cornerRadius = 10
+        panel.surfaceView.appearance = appearance
+        
+    }
+}
+
+//MARK: - Set up UI
+extension MainViewController {
+    private func setUpNavigationView() {
+        let titleView = UIView(frame: CGRect(x: 0, y: 0,
+                                             width:navigationController?.navigationBar.width ?? 0,
+                                             height: navigationController?.navigationBar.height ?? 25))
         let label = UILabel(frame: CGRect(x: 10, y: 0, width: titleView.width, height: titleView.height))
         label.text = "iFinance"
         label.font = .systemFont(ofSize: 30, weight: .medium)
@@ -124,6 +143,24 @@ extension MainCollectionViewController {
             .sink { _ in
                 //tell viewModel to show writing vc
                 self.viewModel.writingOpinionButtonDidTap()
+            }
+            .store(in: &cancellables)
+        
+        contentView
+            .actionPublisher
+            .sink { [weak self] action in
+                switch action {
+                case .didTapEditting:
+                    self?.viewModel.edittingDidTap()
+                }
+            }
+            .store(in: &cancellables)
+        
+        viewModel
+            .listenerPublisher
+            .sink {[weak self] listener in
+                let indexPath = IndexPath(item: 0, section: 0)
+                self?.contentView.collectionView.scrollToItem(at: indexPath, at: [], animated: true)
             }
             .store(in: &cancellables)
     }

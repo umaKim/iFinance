@@ -17,29 +17,20 @@ final class MyListCollectionViewCell: UICollectionViewCell {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MyListCollectionViewCellAction, Never>()
     
-    private var myListView: MyListView?
+    private var cancellables: Set<AnyCancellable>
+    
+    private var myListViewController: MyListViewController?
     private var viewModel: MyListViewModel?
     
-    private var cancellables = Set<AnyCancellable>()
-    
-//    override init(frame: CGRect) {
-//        self.cancellables = .init()
-//        self.viewModel = MyListViewModel()
-//        self.myListView = MyListView(viewModel: viewModel)
-//        super.init(frame: frame)
-//
-//        bind()
-//        setupUI()
-//    }
-    
     override init(frame: CGRect) {
+        self.cancellables = .init()
         super.init(frame: frame)
         
     }
 
     func configure(with viewModel: MyListViewModel) {
         self.viewModel = viewModel
-        self.myListView = MyListView(viewModel: viewModel)
+        self.myListViewController = MyListViewController(viewModel: viewModel)
         
         bind()
         setupUI()
@@ -49,19 +40,26 @@ final class MyListCollectionViewCell: UICollectionViewCell {
         viewModel?
             .listenerPublisher
             .sink {[weak self] listen in
+                guard let self = self else {return }
                 switch listen {
                 case .reloadData:
-                    self?.myListView?.tableView.reloadData()
+                    self.myListViewController?.tableView.reloadData()
 
                 case .didTap(let myWatchListModel) :
-                    self?.actionSubject.send(.didTap(myWatchListModel))
+                    self.actionSubject.send(.didTap(myWatchListModel))
+                    
+                case .edittingMode:
+                    guard let myListView = self.myListViewController else { return }
+                    self.myListViewController?.tableView.setEditing(!myListView.tableView.isEditing,
+                                                          animated: true)
+//                    self.myListView?.tableView.layoutIfNeeded()
                 }
             }
             .store(in: &cancellables)
     }
     
     private func setupUI() {
-        guard let myListView = myListView else {
+        guard let myListView = myListViewController?.view else {
             return
         }
 

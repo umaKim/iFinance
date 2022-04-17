@@ -9,7 +9,7 @@ import UIKit.UICollectionView
 import Combine
 
 enum MainViewAction {
-    
+    case didTapEditting
 }
 
 final class MainView: BaseView {
@@ -52,6 +52,9 @@ final class MainView: BaseView {
                 case .didTapOpinions:
                     let indexPath = IndexPath(item: 1, section: 0)
                     self?.collectionView.scrollToItem(at: indexPath, at: [], animated: true)
+                    
+                case .didTapEditting:
+                    self?.actionSubject.send(.didTapEditting)
                 }
             }
             .store(in: &cancellables)

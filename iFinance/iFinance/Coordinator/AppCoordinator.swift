@@ -26,6 +26,8 @@ final class AppCoordinator: Coordinator {
         self.window = window
         self.navigationController = navigationController
         self.container = container
+        
+        self.window.overrideUserInterfaceStyle = .dark
     }
 
     func start() {
