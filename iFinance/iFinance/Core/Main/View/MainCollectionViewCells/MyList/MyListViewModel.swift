@@ -158,4 +158,8 @@ final class MyListViewModel: BaseViewModel {
     func didTap(myWatchStocks: MyWatchListModel) {
         listernSubject.send(.didTap(myWatchStocks))
     }
+    
+    func removeItem(at indexPath: IndexPath) {
+        myWatchStocks.remove(at: indexPath.row)
+    }
 }

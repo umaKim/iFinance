@@ -11,9 +11,6 @@ import UIKit
 
 class MainViewController: BaseViewController<MainViewModel> {
     
-    private lazy var searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .done, target: nil, action: nil)
-    private lazy var writeOpinionsButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .done, target: nil, action: nil)
-    
     private let contentView = MainView()
     
     override func loadView() {
@@ -41,6 +38,7 @@ class MainViewController: BaseViewController<MainViewModel> {
     }
 }
 
+//MARK: - UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         2
@@ -79,12 +77,14 @@ extension MainViewController: UICollectionViewDataSource {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: view.frame.width, height: collectionView.frame.height)
     }
 }
 
+//MARK: - FloatingPanelControllerDelegate
 extension MainViewController: FloatingPanelControllerDelegate  {
     /// Sets up floating news panel
     private func setUpFloatingPanel() {
@@ -128,34 +128,24 @@ extension MainViewController {
         titleView.addSubview(label)
         navigationItem.titleView = titleView
         
-        searchButton.tintColor = .white
-        writeOpinionsButton.tintColor = .white
-        navigationItem.rightBarButtonItems = [writeOpinionsButton, searchButton]
+        
+        navigationItem.rightBarButtonItems = [contentView.writeOpinionsButton,
+                                              contentView.searchButton]
     }
     
     private func bind() {
-        searchButton
-            .tapPublisher
-            .sink { _ in
-                //tell viewModel to Move to Seach View
-                self.viewModel.searchButtonDidTap()
-            }
-            .store(in: &cancellables)
-        
-        writeOpinionsButton
-            .tapPublisher
-            .sink { _ in
-                //tell viewModel to show writing vc
-                self.viewModel.writingOpinionButtonDidTap()
-            }
-            .store(in: &cancellables)
-        
         contentView
             .actionPublisher
             .sink { [weak self] action in
                 switch action {
                 case .didTapEditting:
                     self?.viewModel.edittingDidTap()
+                
+                case .searchButtonDidTap:
+                    self?.viewModel.searchButtonDidTap()
+                    
+                case .writingOpinionDidTap:
+                    self?.viewModel.writingOpinionButtonDidTap()
                 }
             }
             .store(in: &cancellables)
@@ -163,8 +153,9 @@ extension MainViewController {
         viewModel
             .listenerPublisher
             .sink {[weak self] listener in
-                let indexPath = IndexPath(item: 0, section: 0)
-                self?.contentView.collectionView.scrollToItem(at: indexPath, at: [], animated: true)
+                switch listener {
+                    
+                }
             }
             .store(in: &cancellables)
     }

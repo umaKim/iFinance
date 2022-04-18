@@ -76,9 +76,11 @@ final class WatchListTableViewCell: UITableViewCell {
     // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         contentView.clipsToBounds = true
-        addSubviews(symbolLabel, nameLabel, miniChartView, priceLabel, changeLabel)
+        addSubviews(
+            symbolLabel, nameLabel,
+            miniChartView, priceLabel, changeLabel)
         configureTitleLabels()
         configurePriceLabels()
         configureChart()
@@ -109,21 +111,13 @@ final class WatchListTableViewCell: UITableViewCell {
     }
     
     private func configureTitleLabels() {
-        
         let labelStackView = UIStackView(arrangedSubviews: [symbolLabel, nameLabel])
         labelStackView.distribution = .equalSpacing
         labelStackView.spacing = 6
         labelStackView.axis = .vertical
-        labelStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubview(labelStackView)
-        
-        NSLayoutConstraint.activate([
-            labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            labelStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-//            labelStackView.widthAnchor.constraint(equalToConstant: frame.width/2.2),
-            labelStackView.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -30),
-        ])
+        labelStackView.frame = .init(x: 20, y: 0, width: frame.width/2.2, height: frame.height)
+
+        contentView.addSubview(labelStackView)
     }
     
     private func configurePriceLabels() {

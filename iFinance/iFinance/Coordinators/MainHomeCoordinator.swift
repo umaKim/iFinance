@@ -40,21 +40,21 @@ final class MainHomeCoordinator: Coordinator {
         module
             .transitionPublisher
             .sink { transition in
-//                guard let self = self else {return }
+                //                guard let self = self else {return }
                 switch transition {
-                
-                case .opinionDetail:
-                    break
-                
-                case .stockDetail(let symbol):
-                    self.setupStockDetailCoordinator(symbol: symbol)
-                
                 case .searchView:
                     self.setupSearchCoordinator()
                     
                 case .opinionWritingView:
+                    self.setupWritingCoordinator()
+                    
+                case .opinionDetail:
                     break
-                
+                    
+                case .stockDetail(let symbol):
+                    self.setupStockDetailCoordinator(symbol: symbol)
+                    
+                    
                 case .newsDetail(let url):
                     let vc = SFSafariViewController(url: url)
                     self.present(vc, animated: true)
@@ -62,6 +62,19 @@ final class MainHomeCoordinator: Coordinator {
             }
             .store(in: &cancellables)
         setRoot(module.viewController)
+    }
+    
+    private func setupWritingCoordinator() {
+        let coordinator = WritingCoordinator(navigationController: navigationController,
+                                             conainter: container)
+        childCoordinators.append(coordinator)
+        coordinator
+            .didFinishPublisher
+            .sink { _ in
+                
+            }
+            .store(in: &cancellables)
+        coordinator.start()
     }
     
     private func setupStockDetailCoordinator(symbol: String) {

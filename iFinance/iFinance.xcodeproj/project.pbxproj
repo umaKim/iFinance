@@ -29,6 +29,11 @@
 		351C5AF1280C5AC100FE9C0F /* OpinionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5AF0280C5AC100FE9C0F /* OpinionTableViewCell.swift */; };
 		351C5AF4280C669700FE9C0F /* WatchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5AF3280C669700FE9C0F /* WatchListTableViewCell.swift */; };
 		351C5AF8280C83C100FE9C0F /* UmaBasicAlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = 351C5AF7280C83C100FE9C0F /* UmaBasicAlertKit */; };
+		351C5AFA280D74E100FE9C0F /* WritingBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5AF9280D74E100FE9C0F /* WritingBuilder.swift */; };
+		351C5AFC280D75B700FE9C0F /* WritingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5AFB280D75B700FE9C0F /* WritingViewModel.swift */; };
+		351C5AFE280D75BD00FE9C0F /* WritingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5AFD280D75BD00FE9C0F /* WritingViewController.swift */; };
+		351C5B00280D75D700FE9C0F /* WritingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5AFF280D75D700FE9C0F /* WritingView.swift */; };
+		351C5B02280D7A0C00FE9C0F /* WritingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B01280D7A0C00FE9C0F /* WritingCoordinator.swift */; };
 		356DC23328045DEE00557827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23228045DEE00557827 /* AppDelegate.swift */; };
 		356DC23528045DEE00557827 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23428045DEE00557827 /* SceneDelegate.swift */; };
 		356DC23C28045DF000557827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 356DC23B28045DF000557827 /* Assets.xcassets */; };
@@ -93,6 +98,11 @@
 		351C5AED280C5A4200FE9C0F /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		351C5AF0280C5AC100FE9C0F /* OpinionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionTableViewCell.swift; sourceTree = "<group>"; };
 		351C5AF3280C669700FE9C0F /* WatchListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListTableViewCell.swift; sourceTree = "<group>"; };
+		351C5AF9280D74E100FE9C0F /* WritingBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingBuilder.swift; sourceTree = "<group>"; };
+		351C5AFB280D75B700FE9C0F /* WritingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingViewModel.swift; sourceTree = "<group>"; };
+		351C5AFD280D75BD00FE9C0F /* WritingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingViewController.swift; sourceTree = "<group>"; };
+		351C5AFF280D75D700FE9C0F /* WritingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingView.swift; sourceTree = "<group>"; };
+		351C5B01280D7A0C00FE9C0F /* WritingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingCoordinator.swift; sourceTree = "<group>"; };
 		356DC22F28045DEE00557827 /* iFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		356DC23228045DEE00557827 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		356DC23428045DEE00557827 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -221,7 +231,7 @@
 				35CC399C2805CD60007148A5 /* View */,
 				3595DA26280999FE00072B01 /* Helper */,
 				356DC247280462AF00557827 /* Application */,
-				356DC25228048BA700557827 /* Coordinator */,
+				356DC25228048BA700557827 /* Coordinators */,
 				35CC39932805C57B007148A5 /* Manager */,
 				356DC25F28052DF500557827 /* Model */,
 				356DC2462804617200557827 /* Core */,
@@ -255,7 +265,7 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		356DC25228048BA700557827 /* Coordinator */ = {
+		356DC25228048BA700557827 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
 				356DC25328048BB500557827 /* Coordinator.swift */,
@@ -263,8 +273,9 @@
 				356DC25928048CC600557827 /* MainHomeCoordinator.swift */,
 				3595DA1E2809993100072B01 /* StockDetailCoordinator.swift */,
 				351C5AD0280BB8B300FE9C0F /* SearchCoordinator.swift */,
+				351C5B01280D7A0C00FE9C0F /* WritingCoordinator.swift */,
 			);
-			path = Coordinator;
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		356DC25F28052DF500557827 /* Model */ = {
@@ -410,6 +421,10 @@
 		35CC399F2805CD94007148A5 /* Writing */ = {
 			isa = PBXGroup;
 			children = (
+				351C5AF9280D74E100FE9C0F /* WritingBuilder.swift */,
+				351C5AFB280D75B700FE9C0F /* WritingViewModel.swift */,
+				351C5AFD280D75BD00FE9C0F /* WritingViewController.swift */,
+				351C5AFF280D75D700FE9C0F /* WritingView.swift */,
 			);
 			path = Writing;
 			sourceTree = "<group>";
@@ -528,6 +543,7 @@
 				3595DA3328099A8400072B01 /* BaseViewController.swift in Sources */,
 				356DC25C28048E9D00557827 /* MainViewModel.swift in Sources */,
 				35CC39A72806CFF5007148A5 /* OpinionsViewModel.swift in Sources */,
+				351C5AFA280D74E100FE9C0F /* WritingBuilder.swift in Sources */,
 				356DC25428048BB500557827 /* Coordinator.swift in Sources */,
 				356DC23528045DEE00557827 /* SceneDelegate.swift in Sources */,
 				3595DA2F28099A6300072B01 /* StockDetailViewModel.swift in Sources */,
@@ -542,12 +558,15 @@
 				356DC25828048C3B00557827 /* AppContainer.swift in Sources */,
 				356DC2772805399100557827 /* MyListCollectionViewCell.swift in Sources */,
 				356DC25628048C0500557827 /* AppCoordinator.swift in Sources */,
+				351C5B00280D75D700FE9C0F /* WritingView.swift in Sources */,
 				35CC39A52806CFC6007148A5 /* MenuBarButton.swift in Sources */,
 				3595DA452809B2A000072B01 /* StockDetailView.swift in Sources */,
+				351C5B02280D7A0C00FE9C0F /* WritingCoordinator.swift in Sources */,
 				351C5ACD280BB33900FE9C0F /* SearchViewController.swift in Sources */,
 				3595DA1F2809993100072B01 /* StockDetailCoordinator.swift in Sources */,
 				35CC39A12806CEB0007148A5 /* StockCharView.swift in Sources */,
 				351C5AD1280BB8B300FE9C0F /* SearchCoordinator.swift in Sources */,
+				351C5AFC280D75B700FE9C0F /* WritingViewModel.swift in Sources */,
 				356DC25E28052DB200557827 /* Extension.swift in Sources */,
 				3595DA432809B0E400072B01 /* NewsHeaderView.swift in Sources */,
 				3595DA212809998400072B01 /* Module.swift in Sources */,
@@ -561,6 +580,7 @@
 				3595DA3528099A8A00072B01 /* BaseView.swift in Sources */,
 				356DC26528052EA700557827 /* Quote.swift in Sources */,
 				351C5AC9280BB32A00FE9C0F /* SearchBuilder.swift in Sources */,
+				351C5AFE280D75BD00FE9C0F /* WritingViewController.swift in Sources */,
 				356DC25128047FEF00557827 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

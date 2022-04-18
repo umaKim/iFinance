@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 enum MainCollectionViewModelListener {
-    case scrollToMyList
+    
 }
 
 final class MainViewModel: BaseViewModel {
@@ -54,6 +54,5 @@ final class MainViewModel: BaseViewModel {
     
     func edittingDidTap() {
         myListViewModel.isEdittingModeSubject.send()
-        listenerSubject.send(.scrollToMyList)
     }
 }

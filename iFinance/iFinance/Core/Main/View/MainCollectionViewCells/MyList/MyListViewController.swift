@@ -52,6 +52,17 @@ extension MyListViewController: UITableViewDataSource {
         cell.configure(with: viewModel.myWatchStocks[indexPath.row])
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            viewModel.removeItem(at: indexPath)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }
 
 extension MyListViewController: UITableViewDelegate {
@@ -63,4 +74,6 @@ extension MyListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return WatchListTableViewCell.preferredHeight
     }
+    
+    
 }

@@ -10,6 +10,8 @@ import Combine
 
 enum MainViewAction {
     case didTapEditting
+    case searchButtonDidTap
+    case writingOpinionDidTap
 }
 
 final class MainView: BaseView {
@@ -31,31 +33,67 @@ final class MainView: BaseView {
         return cv
     }()
     
+    private(set) lazy var searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .done, target: nil, action: nil)
+    private(set) lazy var writeOpinionsButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .done, target: nil, action: nil)
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        menuTabbarBind()
+        searchButton.tintColor = .white
+        writeOpinionsButton.tintColor = .white
         
         configureMenuBar()
         configureCollectionView()
+        
+        bind()
     }
-   
-    private func menuTabbarBind() {
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+    }
+    
+    private func bind() {
         menuTabBar
             .actionPublisher
             .sink {[weak self] action in
                 switch action {
                 case .didTapMyList:
                     let indexPath = IndexPath(item: 0, section: 0)
-                    self?.collectionView.scrollToItem(at: indexPath, at: [], animated: true)
+                    self?.collectionView.scrollToItem(at: indexPath,
+                                                      at: [],
+                                                      animated: true)
                     
                 case .didTapOpinions:
                     let indexPath = IndexPath(item: 1, section: 0)
-                    self?.collectionView.scrollToItem(at: indexPath, at: [], animated: true)
+                    self?.collectionView.scrollToItem(at: indexPath,
+                                                      at: [],
+                                                      animated: true)
                     
                 case .didTapEditting:
                     self?.actionSubject.send(.didTapEditting)
+                    let indexPath = IndexPath(item: 0, section: 0)
+                    self?.collectionView.scrollToItem(at: indexPath,
+                                                      at: [],
+                                                      animated: true)
                 }
+            }
+            .store(in: &cancellables)
+        
+        searchButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                self?.actionSubject.send(.searchButtonDidTap)
+            }
+            .store(in: &cancellables)
+        
+        writeOpinionsButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                self?.actionSubject.send(.writingOpinionDidTap)
+                self?.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0),
+                                                              at: [],
+                                                              animated: true)
             }
             .store(in: &cancellables)
     }
