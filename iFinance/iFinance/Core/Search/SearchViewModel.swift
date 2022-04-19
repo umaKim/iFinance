@@ -23,8 +23,15 @@ final class SearchViewModel: BaseViewModel {
     
     private(set) var searchResults: [SearchResult] = []
     
+    private let networkService: NetworkService
+    
+    init(networkService: NetworkService) {
+        self.networkService = networkService
+        super.init()
+    }
+    
     private func fetchSearchResult(query: String) {
-        APICaller.shared.search(query: query) { result in
+        networkService.search(query: query) { result in
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {

@@ -14,17 +14,7 @@ final class WatchListTableViewCell: UITableViewCell {
     
     /// Ideal height of cell
     static let preferredHeight: CGFloat = 60
-    
-    /// Watchlist table cell viewModel
-//    struct ViewModel {
-//        let symbol: String
-//        let companyName: String
-//        let price: String // formatted
-//        let changeColor: UIColor // red or green
-//        let changePercentage: String // formatted
-//        let chartViewModel: StockChartView.ViewModel
-//    }
-    
+
     /// Symbol Label
     private let symbolLabel: UILabel = {
         let label = UILabel()
@@ -78,16 +68,8 @@ final class WatchListTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         contentView.clipsToBounds = true
-        addSubviews(
-            symbolLabel, nameLabel,
-            miniChartView, priceLabel, changeLabel)
-        configureTitleLabels()
-        configurePriceLabels()
-        configureChart()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError()
+        
+        setupUI()
     }
     
     override func prepareForReuse() {
@@ -108,6 +90,19 @@ final class WatchListTableViewCell: UITableViewCell {
         changeLabel.text = viewModel.changePercentage
         changeLabel.backgroundColor = viewModel.changeColor
         miniChartView.configure(with: viewModel.chartViewModel)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+}
+
+//MARK: - setup UI
+extension WatchListTableViewCell {
+    private func setupUI() {
+        configureTitleLabels()
+        configurePriceLabels()
+        configureChart()
     }
     
     private func configureTitleLabels() {
@@ -144,7 +139,6 @@ final class WatchListTableViewCell: UITableViewCell {
             miniChartView.topAnchor.constraint(equalTo: topAnchor),
             miniChartView.bottomAnchor.constraint(equalTo: bottomAnchor),
             miniChartView.leadingAnchor.constraint(equalTo: centerXAnchor, constant: -30),
-//            miniChartView.widthAnchor.constraint(equalToConstant: frame.width / 2.5)
             miniChartView.trailingAnchor.constraint(equalTo: changeLabel.leadingAnchor, constant: -5)
         ])
     }

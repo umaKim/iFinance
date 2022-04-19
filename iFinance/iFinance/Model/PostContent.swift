@@ -7,11 +7,6 @@
 
 import Foundation
 
-//struct Post {
-//    let companyName: String
-//    let postContent: [PostContent]
-//}
-
 struct PostContent: Codable {
     let id: String
     let title: String

@@ -12,8 +12,8 @@ enum SearchTransition: Transition {
 }
 
 final class SearchBuilder {
-    class func build() -> Module<SearchTransition, UIViewController> {
-        let vm = SearchViewModel()
+    class func build(container: AppContainer) -> Module<SearchTransition, UIViewController> {
+        let vm = SearchViewModel(networkService: container.networkService)
         let vc = SearchViewController(viewModel: vm)
         return .init(viewController: vc, transitionPublisher: vm.transitionPublisher)
     }

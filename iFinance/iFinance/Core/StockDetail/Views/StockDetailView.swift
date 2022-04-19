@@ -21,13 +21,14 @@ final class StockDetailView: BaseView {
         return tableView
     }()
     
+    //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureUI()
+        setupUI()
     }
     
-    private func configureUI() {
+    private func setupUI() {
         tableView.tableHeaderView = headerView
         
         //I used dynamic height to make the views fit with autolayout
@@ -35,13 +36,9 @@ final class StockDetailView: BaseView {
             
             let height = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
             var headerFrame = headerView.frame
-            
-            //Comparison necessary to avoid infinite loop
-            //if height != headerFrame.size.height {
             headerFrame.size.height = height
             headerView.frame = headerFrame
             tableView.tableHeaderView = headerView
-            //}
         }
         
         addSubviews(tableView)

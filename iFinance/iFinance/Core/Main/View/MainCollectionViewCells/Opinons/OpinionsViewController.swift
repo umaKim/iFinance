@@ -8,23 +8,22 @@ import FirebaseDatabase
 import UIKit
 
 final class OpinionsViewController: BaseViewController<OpinionsViewModel> {
+    private let contentView = OpinionsView()
     
-    private lazy var tableView: UITableView = {
-        let tv = UITableView()
-        tv.delegate = self
-        tv.dataSource = self
-        tv.register(CommentTableViewCell.self,
-                    forCellReuseIdentifier: CommentTableViewCell.identifier)
-        return tv
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
         
-        setupUI()
+        view = contentView
+        
+        contentView.tableView.dataSource = self
+        contentView.tableView.delegate = self
+        
         bind()
     }
-    
+}
+
+//MARK: - Bind
+extension OpinionsViewController {
     private func bind() {
         viewModel
             .listenerPublisher
@@ -34,22 +33,13 @@ final class OpinionsViewController: BaseViewController<OpinionsViewModel> {
                     print("tap")
                     
                 case .reloadData:
-                    self?.tableView.reloadData()
+                    self?.contentView.tableView.reloadData()
                 }
             }.store(in: &cancellables)
     }
-    
-    private func setupUI() {
-        view.addSubviews(tableView)
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
 }
 
+//MARK: - UITableViewDataSource
 extension OpinionsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.opinions.count
@@ -62,6 +52,7 @@ extension OpinionsViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - UITableViewDelegate
 extension OpinionsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

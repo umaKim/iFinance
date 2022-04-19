@@ -8,40 +8,52 @@
 import Combine
 import UIKit
 
+
 final class MyListViewController: BaseViewController<MyListViewModel> {
+    private let contentView = MyListView()
     
-    private(set) lazy var tableView: UITableView = {
-        let tv = UITableView()
-        tv.register(WatchListTableViewCell.self, forCellReuseIdentifier: WatchListTableViewCell.identifier)
-        tv.dataSource = self
-        tv.delegate = self
-        tv.translatesAutoresizingMaskIntoConstraints = false
-        return tv
-    }()
-//
-//    init(viewModel: MyListViewModel) {
-//        self.viewModel = viewModel
-//        super.init(frame: .zero)
-//
-//    }
-//
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
         
-        setupUI()
+        view = contentView
+        
+        contentView.tableView.dataSource = self
+        contentView.tableView.delegate   = self
+        
+        bind()
     }
     
-    private func setupUI() {
-        view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+    private func reloadTableView() {
+        contentView.tableView.reloadData()
+    }
+    
+    private func setTableViewEditingMode() {
+        contentView.tableView.setEditing(!contentView.tableView.isEditing,
+                                         animated: true)
     }
 }
 
+//MARK: - Bind
+extension MyListViewController {
+    private func bind() {
+        viewModel
+            .listenerPublisher
+            .sink { [weak self] listener in
+                guard let self = self else { return }
+                switch listener {
+                    
+                case .reloadData:
+                    self.reloadTableView()
+                
+                case .edittingMode:
+                    self.setTableViewEditingMode()
+                }
+            }
+            .store(in: &cancellables)
+    }
+}
+
+//MARK: - UITableViewDataSource
 extension MyListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.myWatchStocks.count
@@ -65,15 +77,14 @@ extension MyListViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - UITableViewDelegate
 extension MyListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        viewModel.didTap(myWatchStocks: viewModel.myWatchStocks[indexPath.row])
+        viewModel.didTap(myWatchStock: viewModel.myWatchStocks[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return WatchListTableViewCell.preferredHeight
     }
-    
-    
 }

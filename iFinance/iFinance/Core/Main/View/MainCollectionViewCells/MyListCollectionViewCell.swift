@@ -14,14 +14,15 @@ enum MyListCollectionViewCellAction {
 final class MyListCollectionViewCell: UICollectionViewCell {
     static let identifier = "MainCollectionViewCell"
     
+    private var viewModel: MyListViewModel?
+    private var myListViewController: MyListViewController?
+    
+    //MARK: - Combine
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MyListCollectionViewCellAction, Never>()
-    
     private var cancellables: Set<AnyCancellable>
     
-    private var myListViewController: MyListViewController?
-    private var viewModel: MyListViewModel?
-    
+    //MARK: - Init
     override init(frame: CGRect) {
         self.cancellables = .init()
         super.init(frame: frame)
@@ -36,35 +37,31 @@ final class MyListCollectionViewCell: UICollectionViewCell {
         setupUI()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+//MARK: - Bind
+extension MyListCollectionViewCell {
     private func bind() {
         viewModel?
-            .listenerPublisher
-            .sink {[weak self] listen in
-                guard let self = self else {return }
-                switch listen {
-                case .reloadData:
-                    self.myListViewController?.tableView.reloadData()
-
-                case .didTap(let myWatchListModel) :
-                    self.actionSubject.send(.didTap(myWatchListModel))
-                    
-                case .edittingMode:
-                    guard let myListView = self.myListViewController else { return }
-                    self.myListViewController?.tableView.setEditing(!myListView.tableView.isEditing,
-                                                          animated: true)
-//                    self.myListView?.tableView.layoutIfNeeded()
+            .transitionPublisher
+            .sink(receiveValue: { [weak self] transition in
+                switch transition {
+                case .didTap(let item):
+                    self?.actionSubject.send(.didTap(item))
                 }
-            }
+            })
             .store(in: &cancellables)
     }
-    
-    private func setupUI() {
-        guard let myListView = myListViewController?.view else {
-            return
-        }
+}
 
-        contentView.addSubview(myListView)
-        myListView.translatesAutoresizingMaskIntoConstraints = false
+//MARK: - Setup UI
+extension MyListCollectionViewCell {
+    private func setupUI() {
+        guard let myListView = myListViewController?.view else { return }
+        contentView.addSubviews(myListView)
 
         NSLayoutConstraint.activate([
             myListView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -72,9 +69,5 @@ final class MyListCollectionViewCell: UICollectionViewCell {
             myListView.topAnchor.constraint(equalTo: contentView.topAnchor),
             myListView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

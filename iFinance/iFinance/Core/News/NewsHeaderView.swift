@@ -8,14 +8,7 @@
 import CombineCocoa
 import Combine
 import SDWebImage
-import UIKit
-
-/// Delegate to notify of header evnets
-protocol NewsHeaderViewDelegate: AnyObject {
-    /// Notify user tapped header button
-    /// - Parameter headerView: Ref of header view
-    func newsHeaderViewDidTapAddButton(_ headerView: NewsHeaderView)
-}
+import UIKit.UITableViewHeaderFooterView
 
 enum NewsHeaderViewAction {
     case didTapToAdd
@@ -32,9 +25,6 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
     /// Ideal height of header
     static let preferredHeight: CGFloat = 50
     
-    /// Delegate instance for evnets
-    weak var delegate: NewsHeaderViewDelegate?
-    
     private var cancellables: Set<AnyCancellable>
     
     /// ViewModel for header view
@@ -44,7 +34,6 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
     }
     
     // MARK: - Private
-    
     private let label: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 28)
@@ -62,14 +51,14 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
         button.layer.masksToBounds = true
         return button
     }()
-    
-    private let imageView: UIImageView = {
-        let iv = UIImageView()
-        iv.isUserInteractionEnabled = true
-        iv.image = UIImage(named: "tile00")
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
-    }()
+//
+//    private let imageView: UIImageView = {
+//        let iv = UIImageView()
+//        iv.isUserInteractionEnabled = true
+//        iv.image = UIImage(named: "tile00")
+//        iv.translatesAutoresizingMaskIntoConstraints = false
+//        return iv
+//    }()
     
     // MARK: - Init
     
@@ -119,22 +108,9 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
     override func prepareForReuse() {
         super.prepareForReuse()
         label.text = nil
-        imageView.image = nil
+//        imageView.image = nil
     }
-    
-//    /// Handle button tap
-//    @objc private func didTapButton() {
-//        // Call delegate
-//        addToWatchListButton.isHidden = true
-//        //
-//        //        imageView.animationImages = spriteImages
-//        //        imageView.animationDuration = 0.6
-//        //        imageView.animationRepeatCount = 1
-//        //        imageView.startAnimating()
-//        //        imageView.image = imageView.animationImages?.last
-//        delegate?.newsHeaderViewDidTapAddButton(self)
-//    }
-//
+
     /// Configure view
     /// - Parameter viewModel: View ViewModel
     public func configure(with viewModel: ViewModel) {

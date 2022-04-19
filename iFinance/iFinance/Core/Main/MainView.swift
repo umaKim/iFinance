@@ -15,9 +15,11 @@ enum MainViewAction {
 }
 
 final class MainView: BaseView {
+    //MARK: - Combine
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MainViewAction, Never>()
     
+    //MARK: - UI Objects
     private(set) lazy var menuTabBar = MenuBarView()
     
     private(set) lazy var collectionView: UICollectionView = {
@@ -36,46 +38,42 @@ final class MainView: BaseView {
     private(set) lazy var searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .done, target: nil, action: nil)
     private(set) lazy var writeOpinionsButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .done, target: nil, action: nil)
     
+    
+    //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        searchButton.tintColor = .white
-        writeOpinionsButton.tintColor = .white
-        
-        configureMenuBar()
-        configureCollectionView()
-        
+        setupUI()
         bind()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    private func scroll(to item: MenuTabBarButtonType) {
+        let indexPath = IndexPath(item: item.rawValue, section: 0)
+        self.collectionView.scrollToItem(at: indexPath,
+                                          at: [],
+                                          animated: true)
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension MainView {
     private func bind() {
         menuTabBar
             .actionPublisher
             .sink {[weak self] action in
                 switch action {
                 case .didTapMyList:
-                    let indexPath = IndexPath(item: 0, section: 0)
-                    self?.collectionView.scrollToItem(at: indexPath,
-                                                      at: [],
-                                                      animated: true)
+                    self?.scroll(to: .myList)
                     
                 case .didTapOpinions:
-                    let indexPath = IndexPath(item: 1, section: 0)
-                    self?.collectionView.scrollToItem(at: indexPath,
-                                                      at: [],
-                                                      animated: true)
+                    self?.scroll(to: .opinions)
                     
                 case .didTapEditting:
                     self?.actionSubject.send(.didTapEditting)
-                    let indexPath = IndexPath(item: 0, section: 0)
-                    self?.collectionView.scrollToItem(at: indexPath,
-                                                      at: [],
-                                                      animated: true)
+                    self?.scroll(to: .myList)
                 }
             }
             .store(in: &cancellables)
@@ -97,30 +95,23 @@ final class MainView: BaseView {
             }
             .store(in: &cancellables)
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+   
 }
 
+//MARK: - Set up UI
 extension MainView {
-    private func configureMenuBar() {
-        menuTabBar.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(menuTabBar)
+    private func setupUI() {
+        searchButton.tintColor        = .white
+        writeOpinionsButton.tintColor = .white
+        
+        addSubviews(menuTabBar, collectionView)
         
         NSLayoutConstraint.activate([
             menuTabBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             menuTabBar.leadingAnchor.constraint(equalTo: leadingAnchor),
             menuTabBar.trailingAnchor.constraint(equalTo: trailingAnchor),
             menuTabBar.heightAnchor.constraint(equalToConstant: 50),
-        ])
-    }
-    
-    private func configureCollectionView() {
-        menuTabBar.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(collectionView)
-        
-        NSLayoutConstraint.activate([
+            
             collectionView.topAnchor.constraint(
                 equalToSystemSpacingBelow: menuTabBar.bottomAnchor,
                 multiplier: 0),

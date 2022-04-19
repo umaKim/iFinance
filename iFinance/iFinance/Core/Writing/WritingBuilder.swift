@@ -13,8 +13,8 @@ enum WritingTransition: Transition {
 }
 
 final class WritingBuilder {
-    class func build() -> Module<WritingTransition, UIViewController> {
-        let vm = WritingViewModel()
+    class func build(symbol: String) -> Module<WritingTransition, UIViewController> {
+        let vm = WritingViewModel(symbol: symbol)
         let vc = WritingViewController(viewModel: vm)
         return .init(viewController: vc, transitionPublisher: vm.transitionPublisher)
     }

@@ -7,7 +7,7 @@
 
 import UmaBasicAlertKit
 import SafariServices
-import UIKit
+import UIKit.UITableView
 
 final class StockDetailViewController: BaseViewController<StockDetailViewModel> {
     
@@ -22,7 +22,10 @@ final class StockDetailViewController: BaseViewController<StockDetailViewModel> 
         
         bind()
     }
-    
+}
+
+//MARK: - Bind
+extension StockDetailViewController {
     private func bind() {
         viewModel
             .listenerPublisher
@@ -42,6 +45,7 @@ final class StockDetailViewController: BaseViewController<StockDetailViewModel> 
     }
 }
 
+//MARK: - UITableViewDataSource
 extension StockDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.newsStories.count
@@ -55,6 +59,7 @@ extension StockDetailViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - UITableViewDelegate
 extension StockDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return NewsStoryTableViewCell.preferredHeight
@@ -69,7 +74,7 @@ extension StockDetailViewController: UITableViewDelegate {
         header.configure( with:
                 .init(title: viewModel.symbol.uppercased(),
                       shouldShowAddButton:
-                        !PersistenceManager.shared.watchlistContains(symbol: viewModel.symbol))
+                        !viewModel.shouldShowAddButton)
         )
         header
             .actionPublisher
@@ -78,16 +83,13 @@ extension StockDetailViewController: UITableViewDelegate {
                 switch action {
                     
                 case .didTapToAdd:
-                    self.presentUmaActionAlert(title: "Added to Watchlist", with: self.action)
                     self.viewModel.didTapAddToMyWatchList()
+                    self.presentUmaActionAlert(title: "Added to Watchlist",
+                                               with: .init(title: "Ok", style: .cancel, handler: nil))
                 }
             }
             .store(in: &cancellables)
         return header
-    }
-    
-    var action: UIAlertAction {
-        .init(title: "Ok", style: .cancel, handler: nil)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -4,10 +4,11 @@
 //
 //  Created by 김윤석 on 2022/04/12.
 //
+
 import CombineCocoa
 import Combine
 import FloatingPanel
-import UIKit
+import UIKit.UICollectionView
 
 class MainViewController: BaseViewController<MainViewModel> {
     
@@ -38,6 +39,36 @@ class MainViewController: BaseViewController<MainViewModel> {
     }
 }
 
+//MARK: - Bind
+extension MainViewController {
+    private func bind() {
+        contentView
+            .actionPublisher
+            .sink { [weak self] action in
+                switch action {
+                case .didTapEditting:
+                    self?.viewModel.edittingDidTap()
+                
+                case .searchButtonDidTap:
+                    self?.viewModel.searchButtonDidTap()
+                    
+                case .writingOpinionDidTap:
+                    self?.viewModel.writingOpinionButtonDidTap()
+                }
+            }
+            .store(in: &cancellables)
+        
+        viewModel
+            .listenerPublisher
+            .sink {[weak self] listener in
+                switch listener {
+                    
+                }
+            }
+            .store(in: &cancellables)
+    }
+}
+
 //MARK: - UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -62,6 +93,7 @@ extension MainViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: OpinionsCollectionViewCell.identifier,
                 for: indexPath) as? OpinionsCollectionViewCell else { return UICollectionViewCell() }
+            cell.configure(with: viewModel.opinionsViewModel)
             return cell
             
         default:
@@ -88,17 +120,23 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 extension MainViewController: FloatingPanelControllerDelegate  {
     /// Sets up floating news panel
     private func setUpFloatingPanel() {
-        let module = NewsBuilder.build(type: .topStories)
-        module
-            .transitionPublisher
-            .sink (receiveValue: newViewTransitionHandler)
+//        let module = NewsBuilder.build(container: , type: .topStories)
+//        module
+//            .transitionPublisher
+//            .sink (receiveValue: newViewTransitionHandler)
+//            .store(in: &cancellables)
+        
+        let vm = NewsViewModel(networkService: NetworkServiceImpl(), type: .topStories)
+        vm.transitionPublisher
+            .sink(receiveValue: newViewTransitionHandler)
             .store(in: &cancellables)
+        let vc = NewsViewController(viewModel: vm)
         
         let panel = FloatingPanelController(delegate: self)
         panel.surfaceView.backgroundColor = .secondarySystemBackground
-        panel.set(contentViewController: module.viewController)
+        panel.set(contentViewController: vc)
         panel.addPanel(toParent: self)
-        let vc = module.viewController as! NewsViewController
+//        let vc = module.viewController as! NewsViewController
         panel.track(scrollView: vc.tableView)
         
         let appearance = SurfaceAppearance()
@@ -128,35 +166,8 @@ extension MainViewController {
         titleView.addSubview(label)
         navigationItem.titleView = titleView
         
-        
         navigationItem.rightBarButtonItems = [contentView.writeOpinionsButton,
                                               contentView.searchButton]
     }
     
-    private func bind() {
-        contentView
-            .actionPublisher
-            .sink { [weak self] action in
-                switch action {
-                case .didTapEditting:
-                    self?.viewModel.edittingDidTap()
-                
-                case .searchButtonDidTap:
-                    self?.viewModel.searchButtonDidTap()
-                    
-                case .writingOpinionDidTap:
-                    self?.viewModel.writingOpinionButtonDidTap()
-                }
-            }
-            .store(in: &cancellables)
-        
-        viewModel
-            .listenerPublisher
-            .sink {[weak self] listener in
-                switch listener {
-                    
-                }
-            }
-            .store(in: &cancellables)
-    }
 }

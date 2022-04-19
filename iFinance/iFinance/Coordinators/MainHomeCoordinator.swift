@@ -32,15 +32,13 @@ final class MainHomeCoordinator: Coordinator {
         self.childCoordinators = []
         self.container = conainter
         self.cancellables = .init()
-        
     }
     
     func start() {
-        let module = MainHomeBuilder.build()
+        let module = MainHomeBuilder.build(container: container)
         module
             .transitionPublisher
             .sink { transition in
-                //                guard let self = self else {return }
                 switch transition {
                 case .searchView:
                     self.setupSearchCoordinator()
@@ -66,12 +64,14 @@ final class MainHomeCoordinator: Coordinator {
     
     private func setupWritingCoordinator() {
         let coordinator = WritingCoordinator(navigationController: navigationController,
-                                             conainter: container)
+                                             conainter: container,
+                                             symbol: "generalTalk")
         childCoordinators.append(coordinator)
         coordinator
             .didFinishPublisher
-            .sink { _ in
-                
+            .sink {[weak self] _ in
+                self?.childCoordinators.removeAll()
+                self?.didFinishSubject.send(())
             }
             .store(in: &cancellables)
         coordinator.start()
@@ -99,9 +99,9 @@ final class MainHomeCoordinator: Coordinator {
         childCoordinators.append(coordinator)
         coordinator
             .didFinishPublisher
-            .sink { _ in
-                self.childCoordinators.removeAll()
-                self.didFinishSubject.send(())
+            .sink {[weak self] _ in
+                self?.childCoordinators.removeAll()
+                self?.didFinishSubject.send(())
             }
             .store(in: &cancellables)
         

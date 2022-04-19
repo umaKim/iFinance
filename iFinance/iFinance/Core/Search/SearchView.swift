@@ -9,14 +9,20 @@ import Foundation
 import UIKit
 
 final class SearchView: BaseView {
+    //MARK: - UI Object
     private(set) lazy var tableView: UITableView = UITableView(frame: .zero, style: .plain)
     
+    //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         tableView.register(SearchCell.self, forCellReuseIdentifier: SearchCell.identifier)
         tableView.rowHeight = SearchCell.prefferedHeight
         
+        setupUI()
+    }
+    
+    private func setupUI() {
         addSubviews(tableView)
         
         NSLayoutConstraint.activate([

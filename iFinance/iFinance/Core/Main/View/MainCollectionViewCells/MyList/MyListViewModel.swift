@@ -10,42 +10,46 @@ import UIKit
 
 enum MyListViewModelListener {
     case reloadData
-    case didTap(MyWatchListModel)
     case edittingMode
 }
 
 final class MyListViewModel: BaseViewModel {
+    
+    //MARK: - Combine
+    private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
+    private let transitionSubject = PassthroughSubject<MyListViewTransition, Never>()
+    
     private(set) lazy var listenerPublisher = listernSubject.eraseToAnyPublisher()
     private let listernSubject = PassthroughSubject<MyListViewModelListener, Never>()
     
-    //MARK: - Model
+    private(set) lazy var isEdittingModeSubject = PassthroughSubject<Void, Never>()
     
+    //MARK: - Model
     private var watchlistChartMap: [String: [CandleStick]] = [:]
     private var watchlistQuoteMap: [String: Quote] = [:]
-    
-    //MARK: - ViewModel
-    
     private(set) var myWatchStocks: [MyWatchListModel] = []
     
-    //    private(set) var isEdittingMode: Bool
-    lazy var isEdittingModeSubject = PassthroughSubject<Void, Never>()
+    private let networkService: NetworkService
+    private let persistanceService: PersistanceService
     
-    private var isEdittingMode: Bool = false
-    
-    ///Fetch from network for stock data
-    override init() {
+    //MARK: - Init
+    init(
+        networkService: NetworkService,
+        persistanceService: PersistanceService
+    ) {
+        self.networkService = networkService
+        self.persistanceService = persistanceService
         super.init()
         fetchWatchlistData()
         bind()
         setUpObserver()
     }
     
-    /// Observer for watch list updates
-    private var observer: NSObjectProtocol?
-    
     /// Sets up observer for watch list updates
     private func setUpObserver() {
-        NotificationCenter.default.publisher(for: .didAddToWatchList)
+        NotificationCenter
+            .default
+            .publisher(for: .didAddToWatchList)
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 self?.myWatchStocks.removeAll()
@@ -57,23 +61,23 @@ final class MyListViewModel: BaseViewModel {
     private func bind() {
         isEdittingModeSubject
             .sink {[weak self] _ in
-                guard let self = self else {return }
-                self.isEdittingMode.toggle()
+                guard let self = self else { return }
                 self.listernSubject.send(.edittingMode)
             }
             .store(in: &cancellables)
     }
     
     /// Fetch watch list models
-    func fetchWatchlistData() {
-        let symbols = PersistenceManager.shared.watchlist
+    private func fetchWatchlistData() {
+        //        let symbols = PersistenceManager.shared.watchlist
+        let symbols = persistanceService.watchlist
         
         createPlaceholderForLoadingMyWatchStock()
         
         let group = DispatchGroup()
         symbols.forEach { symbol in
             group.enter()
-            APICaller.shared.marketData(for: symbol) { [weak self] result in
+            networkService.marketData(for: symbol, numberOfDays: 7) { [weak self] result in
                 defer { group.leave() }
                 
                 switch result {
@@ -86,7 +90,7 @@ final class MyListViewModel: BaseViewModel {
             }
             
             group.enter()
-            APICaller.shared.quote(for: symbol) { [weak self] result in
+            networkService.quote(for: symbol) { [weak self] result in
                 defer { group.leave() }
                 
                 switch result {
@@ -130,7 +134,9 @@ final class MyListViewModel: BaseViewModel {
     }
     
     private func createPlaceholderForLoadingMyWatchStock() {
-        let symbols = PersistenceManager.shared.watchlist
+        //        let symbols = PersistenceManager.shared.watchlist
+        let symbols = persistanceService.watchlist
+        
         symbols.forEach { _ in
             myWatchStocks.append (
                 .init(symbol: "Loading", companyName: "...",
@@ -155,11 +161,13 @@ final class MyListViewModel: BaseViewModel {
         return .formatted(number: closingPrice)
     }
     
-    func didTap(myWatchStocks: MyWatchListModel) {
-        listernSubject.send(.didTap(myWatchStocks))
+    func didTap(myWatchStock: MyWatchListModel) {
+        transitionSubject.send(.didTap(myWatchStock))
     }
     
     func removeItem(at indexPath: IndexPath) {
+        //        PersistenceManager.shared.removeFromWatchlist(symbol: myWatchStocks[indexPath.row].symbol)
+        persistanceService.removeFromWatchlist(symbol: myWatchStocks[indexPath.row].symbol)
         myWatchStocks.remove(at: indexPath.row)
     }
 }

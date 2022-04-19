@@ -14,7 +14,6 @@ final class StockDetailHeaderView: BaseView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .heavy)
         label.textAlignment = .right
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -25,7 +24,6 @@ final class StockDetailHeaderView: BaseView {
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.layer.masksToBounds = true
         label.layer.cornerRadius = 6
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -36,7 +34,6 @@ final class StockDetailHeaderView: BaseView {
     private let segmentController: UISegmentedControl = {
         let sc = UISegmentedControl(items: ["1D", "7D", "15D", "1M", "1Y"])
         sc.selectedSegmentIndex = 0
-        sc.translatesAutoresizingMaskIntoConstraints = false
         return sc
     }()
     
@@ -50,53 +47,20 @@ final class StockDetailHeaderView: BaseView {
         collectionView.register(MetricCollectionViewCell.self,
                                 forCellWithReuseIdentifier: MetricCollectionViewCell.identifier)
         collectionView.backgroundColor = .secondarySystemBackground
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
     
     /// Metrics viewModels
     private var metricViewModels: [MetricCollectionViewCell.ViewModel] = []
     
+    //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         clipsToBounds = true
-        chartView.translatesAutoresizingMaskIntoConstraints = false
         metricCollectionView.delegate = self
         metricCollectionView.dataSource = self
-        configureUI()
-    }
-    
-    private func configureUI() {
-        let labelStackView = UIStackView(arrangedSubviews: [priceLabel, priceChangeLabel])
-        labelStackView.axis = .horizontal
-        labelStackView.spacing = 10
-        labelStackView.distribution = .equalSpacing
-        labelStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubviews(labelStackView, chartView, segmentController, metricCollectionView)
-        
-        NSLayoutConstraint.activate([
-            labelStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            labelStackView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            labelStackView.heightAnchor.constraint(equalToConstant: 20),
-            
-            chartView.topAnchor.constraint(equalTo: labelStackView.bottomAnchor, constant: 10),
-            chartView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            chartView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            chartView.heightAnchor.constraint(equalToConstant: 250),
-            
-            segmentController.topAnchor.constraint(equalTo: chartView.bottomAnchor),
-            segmentController.leadingAnchor.constraint(equalTo: leadingAnchor),
-            segmentController.trailingAnchor.constraint(equalTo: trailingAnchor),
-            segmentController.heightAnchor.constraint(equalToConstant: 30),
-            
-            metricCollectionView.topAnchor.constraint(equalTo: segmentController.bottomAnchor, constant: 10),
-            metricCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            metricCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            metricCollectionView.heightAnchor.constraint(equalToConstant: 100),
-            metricCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        setupUI()
     }
     
     func configure(with data: StockDetailHeaderData) {
@@ -134,7 +98,6 @@ final class StockDetailHeaderView: BaseView {
 }
 
 //MARK: - CollectionView Data Source
-
 extension StockDetailHeaderView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -150,70 +113,43 @@ extension StockDetailHeaderView: UICollectionViewDataSource {
 }
 
 //MARK: - UICollectionView Delegate Flow Layout
-
 extension StockDetailHeaderView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //        return CGSize(width: width/2, height: 100/3)
         return CGSize(width: frame.width / 2, height: 100/3)
     }
 }
 
-
-// Metric table cell
-final class MetricCollectionViewCell: UICollectionViewCell {
-    /// Cell id
-    static let identifier = "MetricCollectionViewCell"
-    
-    /// Metric table cell viewModel
-    struct ViewModel {
-        let name: String
-        let value: String
-    }
-    
-    /// Name label
-    private let nameLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    /// Value label
-    private let valueLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .secondaryLabel
-        return label
-    }()
-    
-    // MARK: - Init
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        contentView.clipsToBounds = true
-        contentView.addSubviews(nameLabel, valueLabel)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        valueLabel.sizeToFit()
-        nameLabel.sizeToFit()
-        nameLabel.frame = CGRect(x: 3, y: 0, width: nameLabel.width, height: contentView.height)
-        valueLabel.frame = CGRect(x: nameLabel.right + 3, y: 0, width: valueLabel.width, height: contentView.height)
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        nameLabel.text = nil
-        valueLabel.text = nil
-    }
-    
-    /// Configure view
-    /// - Parameter viewModel: Views ViewModel
-    func configure(with viewModel: ViewModel) {
-        nameLabel.text = viewModel.name+":"
-        valueLabel.text = viewModel.value
+//MARK: - setup UI
+extension StockDetailHeaderView {
+    private func setupUI() {
+        let labelStackView = UIStackView(arrangedSubviews: [priceLabel, priceChangeLabel])
+        labelStackView.axis = .horizontal
+        labelStackView.spacing = 10
+        labelStackView.distribution = .equalSpacing
+        
+        addSubviews(labelStackView, chartView, segmentController, metricCollectionView)
+        
+        NSLayoutConstraint.activate([
+            labelStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            labelStackView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            labelStackView.heightAnchor.constraint(equalToConstant: 20),
+            
+            chartView.topAnchor.constraint(equalTo: labelStackView.bottomAnchor, constant: 10),
+            chartView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            chartView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            chartView.heightAnchor.constraint(equalToConstant: 250),
+            
+            segmentController.topAnchor.constraint(equalTo: chartView.bottomAnchor),
+            segmentController.leadingAnchor.constraint(equalTo: leadingAnchor),
+            segmentController.trailingAnchor.constraint(equalTo: trailingAnchor),
+            segmentController.heightAnchor.constraint(equalToConstant: 30),
+            
+            metricCollectionView.topAnchor.constraint(equalTo: segmentController.bottomAnchor, constant: 10),
+            metricCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            metricCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            metricCollectionView.heightAnchor.constraint(equalToConstant: 100),
+            metricCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
     }
 }

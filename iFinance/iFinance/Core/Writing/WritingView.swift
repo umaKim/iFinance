@@ -10,7 +10,7 @@ import CombineCocoa
 import Combine
 
 enum WritingViewAction {
-    case saveButtonDidTap
+    case saveButtonDidTap(OpinionData)
     case dismiss
 }
 
@@ -104,7 +104,12 @@ final class WritingView: BaseView {
         saveButton
             .tapPublisher
             .sink { [weak self] _ in
-                self?.actionSubject.send(.saveButtonDidTap)
+                guard let self = self else { return }
+                let data = OpinionData(id: self.writerIdTextField.text ?? "",
+                                       title: self.titleTextField.text ?? "",
+                                       date: Int(NSDate().timeIntervalSince1970),
+                                       body: self.bodyTextView.text)
+                self.actionSubject.send(.saveButtonDidTap(data))
             }
             .store(in: &cancellables)
         

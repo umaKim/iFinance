@@ -18,18 +18,20 @@ final class WritingCoordinator: Coordinator {
     private var cancellables = Set<AnyCancellable>()
     
     private let container: AppContainer
-    private var searchedSymbol: String?
+    private let symbol: String
     
     init(navigationController: UINavigationController,
-         conainter: AppContainer
+         conainter: AppContainer,
+         symbol: String
     ){
         self.navigationController = navigationController
         self.childCoordinators = []
         self.container = conainter
+        self.symbol = symbol
     }
     
     func start() {
-        let module = WritingBuilder.build()
+        let module = WritingBuilder.build(symbol: symbol)
         module
             .transitionPublisher
             .sink {[weak self] transition in

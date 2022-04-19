@@ -22,13 +22,13 @@ final class MainViewModel: BaseViewModel {
     private(set) var myListViewModel: MyListViewModel
     private(set) var opinionsViewModel: OpinionsViewModel
     
+    //MARK: - Init
     init(
         myListViewModel: MyListViewModel,
         opinionsViewModel: OpinionsViewModel
     ) {
         self.myListViewModel = myListViewModel
         self.opinionsViewModel = opinionsViewModel
-        
     }
     
     func searchButtonDidTap() {

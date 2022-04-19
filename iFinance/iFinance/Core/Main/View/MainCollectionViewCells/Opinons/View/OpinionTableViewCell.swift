@@ -58,7 +58,7 @@ final class CommentTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configureUI()
+        setupUI()
     }
     
     private let cellSeparator: UIView = {
@@ -69,7 +69,7 @@ final class CommentTableViewCell: UITableViewCell {
         return uv
     }()
     
-    private func configureUI() {
+    private func setupUI() {
         
         titleLabel.text = "Title"
         writerIdLabel.text = "Id"

@@ -26,8 +26,9 @@ final class WritingViewController: BaseViewController<WritingViewModel> {
             .actionPublisher
             .sink { [weak self] action in
                 switch action {
-                case .saveButtonDidTap:
-                    break
+                case .saveButtonDidTap(let data):
+                    self?.viewModel.save(data: data)
+                    
                 case .dismiss:
                     self?.viewModel.dismiss()
                 }

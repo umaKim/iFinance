@@ -8,8 +8,10 @@
 import UIKit.UIViewController
 
 final class MainHomeBuilder {
-    class func build() -> Module<MainHomeTransition, UIViewController> {
-        let viewModel = MainViewModel(myListViewModel: MyListViewModel(),
+    class func build(container: AppContainer) -> Module<MainHomeTransition, UIViewController> {
+        let viewModel = MainViewModel(myListViewModel:
+                                        MyListViewModel(networkService: container.networkService,
+                                                        persistanceService: container.persistanceService),
                                       opinionsViewModel: OpinionsViewModel())
         let vc = MainViewController(viewModel: viewModel)
         return .init(viewController: vc, transitionPublisher: viewModel.transitionPublisher)

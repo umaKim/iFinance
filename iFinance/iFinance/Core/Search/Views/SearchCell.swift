@@ -12,7 +12,6 @@ final class SearchCell: UITableViewCell {
     static let prefferedHeight: CGFloat = 70
     
     // MARK: - Init
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
     }

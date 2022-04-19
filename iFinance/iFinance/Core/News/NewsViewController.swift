@@ -64,8 +64,6 @@ final class NewsViewController: UIViewController {
     private func setUpTable() {
         view.addSubview(tableView)
         tableView.frame = view.bounds
-        //        tableView.delegate = viewModel
-        //        tableView.dataSource = viewModel
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -93,6 +91,7 @@ extension NewsViewController: UITableViewDelegate {
             withIdentifier: NewsHeaderView.identifier
         ) as? NewsHeaderView else { return nil }
         header.configure(with: .init( title: "Top News", shouldShowAddButton: false))
+
         return header
     }
     

@@ -14,22 +14,30 @@ enum OpinionsViewModelListener {
     case didTap
 }
 
+enum OpinionsViewTransition: Transition {
+    case didTap(MyWatchListModel)
+}
+
 final class OpinionsViewModel: BaseViewModel {
+    //MARK: - Combine
+    private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
+    private let transitionSubject = PassthroughSubject<OpinionsViewTransition, Never>()
+    
     private(set) lazy var listenerPublisher = listernSubject.eraseToAnyPublisher()
     private let listernSubject = PassthroughSubject<OpinionsViewModelListener, Never>()
     
+    //MARK: - Model
     private(set) lazy var opinions: [PostContent] =  []
     
-    private let database = Database.database().reference().child("specificTalk")
-    
+    //MARK: - Init
     override init() {
         super.init()
         fetchComments()
     }
     
     private func fetchComments() {
-        let symbol = "generalTalk"
-        database.child(symbol).observe(.childAdded) { snapShot in
+        let database = Database.database().reference().child("specificTalk")
+        database.child("generalTalk").observe(.childAdded) {[weak self] snapShot in
             guard let dictionary = snapShot.value as? [String: Any] else { return }
 
             guard let idString = dictionary["id"] as? String,
@@ -42,14 +50,11 @@ final class OpinionsViewModel: BaseViewModel {
                                           date: Date(timeIntervalSince1970: date),
                                           body: bodyString)
             
-            self.opinions.append(postContent)
+            self?.opinions.append(postContent)
             
-            DispatchQueue.main.async {
-                self.opinions.sort { postContentA, postContentB in
-                    postContentA.date > postContentB.date
-                }
-//                self.delegate?.updateTableView()
-                self.listernSubject.send(.reloadData)
+            DispatchQueue.main.async {[weak self] in
+                self?.opinions.sort { $0.date > $1.date }
+                self?.listernSubject.send(.reloadData)
             }
         }
     }

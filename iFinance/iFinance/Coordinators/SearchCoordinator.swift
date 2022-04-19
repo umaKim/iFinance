@@ -18,7 +18,6 @@ final class SearchCoordinator: Coordinator {
     private var cancellables = Set<AnyCancellable>()
     
     private let container: AppContainer
-    private var searchedSymbol: String?
     
     init(navigationController: UINavigationController,
          conainter: AppContainer
@@ -29,7 +28,7 @@ final class SearchCoordinator: Coordinator {
     }
     
     func start() {
-        let module = SearchBuilder.build()
+        let module = SearchBuilder.build(container: container)
         module
             .transitionPublisher
             .sink {[weak self] transition in

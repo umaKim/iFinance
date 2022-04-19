@@ -7,7 +7,13 @@
 
 import CombineCocoa
 import Combine
-import UIKit
+import UIKit.UIView
+
+
+enum MenuTabBarButtonType: Int {
+    case myList = 0
+    case opinions = 1
+}
 
 enum MenuBarButtonAction {
     case didTapMyList
@@ -16,10 +22,9 @@ enum MenuBarButtonAction {
 }
 
 final class MenuBarView: UIView {
+    //MARK: - UI Objects
     private let myListButton: MenuBarButton = MenuBarButton(title: "My List")
     private let opinionsButton: MenuBarButton = MenuBarButton(title: "Opinions")
-    private let myListSettingButton: MenuBarButton = MenuBarButton(title: "Setting")
-    
     private let settingButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
@@ -27,26 +32,28 @@ final class MenuBarView: UIView {
         return button
     }()
     
-    private lazy var buttons: [UIButton] = [myListButton, opinionsButton]
-    
+    //MARK: - Combine
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MenuBarButtonAction, Never>()
-    
     private var cancellable: Set<AnyCancellable>
     
+    //MARK: - Init
     override init(frame: CGRect) {
         self.cancellable = .init()
         super.init(frame: .zero)
         
-        
-//        buttons = [myListButton, opinionsButton]
-        configureButtons()
-        configureMenuBarButtons()
+        bind()
+        setupUI()
     }
     
-    private func configureButtons() {
-        setAlpha(for: myListButton)
-        
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+//MARK: - Bind
+extension MenuBarView {
+    private func bind() {
         myListButton
             .tapPublisher
             .sink {[weak self] _ in
@@ -68,8 +75,12 @@ final class MenuBarView: UIView {
             }
             .store(in: &cancellable)
     }
-    
-    private func configureMenuBarButtons() {
+}
+
+//MARK: - Setup UI
+extension MenuBarView {
+    private func setupUI() {
+        setAlpha(for: myListButton)
         
         let horizontalPadding: CGFloat = 16
         let buttonSpace: CGFloat = 36
@@ -77,7 +88,6 @@ final class MenuBarView: UIView {
         addSubviews(myListButton, opinionsButton, settingButton)
         
         NSLayoutConstraint.activate([
-            // Buttons
             myListButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             myListButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontalPadding),
             
@@ -87,10 +97,6 @@ final class MenuBarView: UIView {
             settingButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             settingButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontalPadding)
         ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -102,6 +108,7 @@ extension MenuBarView {
     }
     
     func scrollIndicator(to contentOffset: CGPoint) {
+        let buttons = [myListButton, opinionsButton]
         let index = Int(contentOffset.x / frame.width)
         setAlpha(for: buttons[index])
     }

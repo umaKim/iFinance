@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-import UIKit
+import UIKit.UIColor
 
 enum StockDetailViewModelListener {
     case errror
@@ -15,29 +15,41 @@ enum StockDetailViewModelListener {
 }
 
 final class StockDetailViewModel: BaseViewModel {
+    
+    //MARK: - Combine
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<StockDetailTransition, Never>()
     
     private(set) lazy var listenerPublisher = listenerSubject.eraseToAnyPublisher()
     private let listenerSubject = PassthroughSubject<StockDetailViewModelListener, Never>()
     
+    //MARK: - Model
     /// Quote
     private var quote: Quote?
+    
     /// Company metrics
     private var metrics: Metrics?
+    
     /// Collection of data
     private var closeCandleStickData: [Double] = []
     
     /// Collection of news stories
     private(set) var newsStories: [NewsStory] = []
     
-    //    private var watchlistChartMap: [String: [CandleStick]] = [:]
-    
-    //    private(set) var myWatchListModel: MyWatchListModel
     private(set) var symbol: String
     private(set) var headerData: StockDetailHeaderData?
     
-    init(symbol: String) {
+    private let networkService: NetworkService
+    private let persistanceService: PersistanceService
+    
+    //MARK: - Init
+    init(
+        networkService: NetworkService,
+        persistanceService: PersistanceService,
+        symbol: String
+    ) {
+        self.networkService = networkService
+        self.persistanceService = persistanceService
         self.symbol = symbol
         super.init()
         
@@ -50,8 +62,13 @@ final class StockDetailViewModel: BaseViewModel {
     }
     
     func didTapAddToMyWatchList() {
-        PersistenceManager.shared.addToWatchlist(symbol: symbol)
+        //        PersistenceManager.shared.addToWatchlist(symbol: symbol)
+        persistanceService.addToWatchlist(symbol: symbol)
         NotificationCenter.default.post(name: .didAddToWatchList, object: nil)
+    }
+    
+    var shouldShowAddButton: Bool {
+        persistanceService.watchlistContains(symbol: symbol)
     }
     
     /// Fetch financial metrics
@@ -59,7 +76,7 @@ final class StockDetailViewModel: BaseViewModel {
         let group = DispatchGroup()
         
         group.enter()
-        APICaller.shared.quote(for: symbol) {[weak self] result in
+        networkService.quote(for: symbol) {[weak self] result in
             defer {
                 group.leave()
             }
@@ -76,7 +93,7 @@ final class StockDetailViewModel: BaseViewModel {
         
         // Fetch candle sticks if needed
         group.enter()
-        APICaller.shared.marketData(for: symbol) { [weak self] result in
+        networkService.marketData(for: symbol, numberOfDays: 7) { [weak self] result in
             defer {
                 group.leave()
             }
@@ -92,7 +109,7 @@ final class StockDetailViewModel: BaseViewModel {
         
         // Fetch financial metrics
         group.enter()
-        APICaller.shared.financialMetrics(for: symbol) { [weak self] result in
+        networkService.financialMetrics(for: symbol) { [weak self] result in
             defer {
                 group.leave()
             }
@@ -108,7 +125,7 @@ final class StockDetailViewModel: BaseViewModel {
         }
         
         group.enter()
-        APICaller.shared.news(for: .compan(symbol: symbol)) { [weak self] result in
+        networkService.news(for: .compan(symbol: symbol)) { [weak self] result in
             defer {
                 group.leave()
             }
@@ -143,7 +160,7 @@ final class StockDetailViewModel: BaseViewModel {
     }
     
     private var calculateFillColor: UIColor {
-        guard let percentChange = quote?.percentChange else {return .systemFill}
+        guard let percentChange = quote?.percentChange else { return .systemFill }
         return percentChange < 0 ? .systemRed : .systemGreen
     }
 }
