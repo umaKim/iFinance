@@ -16,15 +16,15 @@ enum NewsHeaderViewAction {
 
 /// TableView header for news
 final class NewsHeaderView: UITableViewHeaderFooterView {
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<NewsHeaderViewAction, Never>()
-    
     /// Header identifier
     static let identifier = "NewsHeaderView"
     
     /// Ideal height of header
     static let preferredHeight: CGFloat = 50
     
+    //MARK: - Combine
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private let actionSubject = PassthroughSubject<NewsHeaderViewAction, Never>()
     private var cancellables: Set<AnyCancellable>
     
     /// ViewModel for header view
@@ -51,17 +51,8 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
         button.layer.masksToBounds = true
         return button
     }()
-//
-//    private let imageView: UIImageView = {
-//        let iv = UIImageView()
-//        iv.isUserInteractionEnabled = true
-//        iv.image = UIImage(named: "tile00")
-//        iv.translatesAutoresizingMaskIntoConstraints = false
-//        return iv
-//    }()
-    
+
     // MARK: - Init
-    
     override init(reuseIdentifier: String?) {
         self.cancellables = .init()
         super.init(reuseIdentifier: reuseIdentifier)
@@ -90,10 +81,6 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
         ])
     }
     
-    required init?(coder: NSCoder) {
-        fatalError()
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         label.frame = CGRect(x: 14, y: 0, width: contentView.width - 28, height: contentView.height)
@@ -116,5 +103,9 @@ final class NewsHeaderView: UITableViewHeaderFooterView {
     public func configure(with viewModel: ViewModel) {
         label.text = viewModel.title
         addToWatchListButton.isHidden = !viewModel.shouldShowAddButton
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
     }
 }

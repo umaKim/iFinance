@@ -9,7 +9,7 @@ import Foundation
 
 final class WritingViewController: BaseViewController<WritingViewModel> {
     
-    private lazy var contentView = WritingView(symbol: viewModel.symbol)
+    private lazy var contentView = WritingView()
     
     override func loadView() {
         super.loadView()

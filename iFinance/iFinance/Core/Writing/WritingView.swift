@@ -60,22 +60,47 @@ final class WritingView: BaseView {
         return button
     }()
     
-    private let symbol: String
-    
-    init(symbol: String) {
-        self.symbol = symbol
+    init() {
         super.init(frame: .zero)
         
-        
-        
         bind()
+        setupUI()
         
         backgroundColor = .black
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+//MARK: - Bind
+extension WritingView {
+    private func bind() {
+        saveButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                let data = OpinionData(id: self.writerIdTextField.text ?? "",
+                                       title: self.titleTextField.text ?? "",
+                                       date: Int(NSDate().timeIntervalSince1970),
+                                       body: self.bodyTextView.text)
+                self.actionSubject.send(.saveButtonDidTap(data))
+            }
+            .store(in: &cancellables)
         
+        dismissButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                self?.actionSubject.send(.dismiss)
+            }
+            .store(in: &cancellables)
+    }
+}
+
+//MARK: - setup UI
+extension WritingView {
+    private func setupUI() {
         addSubviews(writerIdTextField, titleTextField, bodyTextView, saveButton)
         NSLayoutConstraint.activate([
             writerIdTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
@@ -98,31 +123,6 @@ final class WritingView: BaseView {
             saveButton.heightAnchor.constraint(equalToConstant: 40),
             saveButton.widthAnchor.constraint(equalToConstant: frame.width / 4)
         ])
-    }
-    
-    private func bind() {
-        saveButton
-            .tapPublisher
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                let data = OpinionData(id: self.writerIdTextField.text ?? "",
-                                       title: self.titleTextField.text ?? "",
-                                       date: Int(NSDate().timeIntervalSince1970),
-                                       body: self.bodyTextView.text)
-                self.actionSubject.send(.saveButtonDidTap(data))
-            }
-            .store(in: &cancellables)
-        
-        dismissButton
-            .tapPublisher
-            .sink {[weak self] _ in
-                self?.actionSubject.send(.dismiss)
-            }
-            .store(in: &cancellables)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 

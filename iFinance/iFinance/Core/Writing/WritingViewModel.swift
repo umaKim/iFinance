@@ -22,7 +22,7 @@ final class WritingViewModel: BaseViewModel {
     private let listenerSubject = PassthroughSubject<WritingViewModelListener, Never>()
     
     //MARK: - Model
-    private(set) var symbol: String
+    private let symbol: String
     
     //MARK: - Init
     init(symbol: String) {
