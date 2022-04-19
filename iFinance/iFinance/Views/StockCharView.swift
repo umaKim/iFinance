@@ -20,24 +20,17 @@ final class StockChartView: UIView {
         chartView.legend.enabled = false
         chartView.leftAxis.enabled = false
         chartView.rightAxis.enabled = false
-        chartView.translatesAutoresizingMaskIntoConstraints = false
         return chartView
     }()
 
     // MARK: - Init
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureChartView()
     }
-//
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        chartView.frame = bounds
-//    }
     
     private func configureChartView() {
-        addSubview(chartView)
+        addSubviews(chartView)
         
         NSLayoutConstraint.activate([
             chartView.leadingAnchor.constraint(equalTo: leadingAnchor),
