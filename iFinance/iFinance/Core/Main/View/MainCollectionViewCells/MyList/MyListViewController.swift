@@ -8,8 +8,36 @@
 import Combine
 import UIKit
 
+enum DiffableDataSourceAction {
+    case deleteAt(IndexPath)
+}
+
+final class TableViewDiffableDataSource: UITableViewDiffableDataSource<MyListViewModel.Section, MyWatchListModel> {
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private let actionSubject = PassthroughSubject<DiffableDataSourceAction, Never>()
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            var snapshot = self.snapshot()
+            if let item = itemIdentifier(for: indexPath) {
+                snapshot.deleteItems([item])
+                apply(snapshot, animatingDifferences: true)
+                actionSubject.send(.deleteAt(indexPath))
+            }
+        }
+    }
+}
 
 final class MyListViewController: BaseViewController<MyListViewModel> {
+    private typealias DataSource = TableViewDiffableDataSource
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<MyListViewModel.Section, MyWatchListModel>
+    
+    private var dataSource: DataSource?
+    
     private let contentView = MyListView()
     
     override func loadView() {
@@ -17,14 +45,16 @@ final class MyListViewController: BaseViewController<MyListViewModel> {
         
         view = contentView
         
-        contentView.tableView.dataSource = self
-        contentView.tableView.delegate   = self
-        
+        configureTableViewDataSource()
         bind()
     }
     
-    private func reloadTableView() {
-        contentView.tableView.reloadData()
+    private func updateSections() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(viewModel.myWatchStocks)
+        dataSource?.apply(snapshot, animatingDifferences: true)
+        dataSource?.defaultRowAnimation = .left
     }
     
     private func setTableViewEditingMode() {
@@ -43,37 +73,36 @@ extension MyListViewController {
                 switch listener {
                     
                 case .reloadData:
-                    self.reloadTableView()
-                
+                    self.updateSections()
+                    
                 case .edittingMode:
                     self.setTableViewEditingMode()
                 }
             }
             .store(in: &cancellables)
+        
+        dataSource?
+            .actionPublisher
+            .sink(receiveValue: {[weak self] action in
+                switch action {
+                case .deleteAt(let indexPath):
+                    self?.viewModel.removeItem(at: indexPath)
+                }
+            })
+            .store(in: &cancellables)
     }
 }
 
 //MARK: - UITableViewDataSource
-extension MyListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.myWatchStocks.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WatchListTableViewCell.identifier, for: indexPath) as? WatchListTableViewCell else { return UITableViewCell() }
-        cell.configure(with: viewModel.myWatchStocks[indexPath.row])
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        true
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            viewModel.removeItem(at: indexPath)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
+extension MyListViewController {
+    private func configureTableViewDataSource() {
+        contentView.tableView.delegate = self
+        dataSource = .init(tableView: contentView.tableView,
+                           cellProvider: { ( tableView, indexPath, item) -> UITableViewCell? in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WatchListTableViewCell.identifier, for: indexPath) as? WatchListTableViewCell else {return nil}
+            cell.configure(with: item)
+            return cell
+        })
     }
 }
 

@@ -32,6 +32,7 @@ final class PersistanceImpl: PersistanceService {
             userDefaults.set(true, forKey: Constants.onboardedKey)
             setUpDefaults()
         }
+        print("Persistance Manager\( userDefaults.stringArray(forKey: Constants.watchListKey) ?? [])")
         return userDefaults.stringArray(forKey: Constants.watchListKey) ?? []
     }
     
@@ -39,6 +40,7 @@ final class PersistanceImpl: PersistanceService {
     /// - Parameter symbol: Symbol to check
     /// - Returns: Boolean
     public func watchlistContains(symbol: String) -> Bool {
+        print("watchlistContains")
         return watchlist.contains(symbol)
     }
     

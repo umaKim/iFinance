@@ -5,7 +5,6 @@
 //  Created by 김윤석 on 2022/04/17.
 //
 
-import Foundation
 import UIKit
 
 final class SearchViewController: BaseViewController<SearchViewModel> {
@@ -61,15 +60,14 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
 }
 
 // MARK: - UICollectionViewDataSource
-
 extension SearchViewController {
     private func configureDataSource() {
         contentView.tableView.delegate = self
         
         dataSource = DataSource(
             tableView: contentView.tableView,
-            cellProvider: { (collectionView, indexPath, searchResult) -> UITableViewCell? in
-                guard let cell = collectionView.dequeueReusableCell(
+            cellProvider: { (tableView, indexPath, searchResult) -> UITableViewCell? in
+                guard let cell = tableView.dequeueReusableCell(
                     withIdentifier: SearchCell.identifier,
                     for: indexPath) as? SearchCell else { return nil }
                 cell.textLabel?.text = searchResult.symbol

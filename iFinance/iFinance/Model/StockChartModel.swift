@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct StockChartModel {
+struct StockChartModel: Hashable {
     let data: [Double]
     let showLegend: Bool
     let showAxis: Bool

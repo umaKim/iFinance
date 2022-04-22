@@ -5,9 +5,9 @@
 //  Created by 김윤석 on 2022/04/12.
 //
 
-import UIKit
+import UIKit.UIColor
 
-struct MyWatchListModel {
+struct MyWatchListModel: Hashable {
     let symbol: String
     let companyName: String
     let price: String // formatted

@@ -54,7 +54,7 @@ final class WritingView: BaseView {
     
     private lazy var saveButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .blue
+        button.backgroundColor = UIColor(red: 35/255, green: 44/255, blue: 112/255, alpha: 1)
         button.setTitle("SAVE", for: .normal)
         button.layer.cornerRadius = 8
         return button
@@ -64,9 +64,11 @@ final class WritingView: BaseView {
         super.init(frame: .zero)
         
         bind()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         setupUI()
-        
-        backgroundColor = .black
     }
     
     required init?(coder: NSCoder) {
@@ -101,6 +103,7 @@ extension WritingView {
 //MARK: - setup UI
 extension WritingView {
     private func setupUI() {
+        backgroundColor = .black
         addSubviews(writerIdTextField, titleTextField, bodyTextView, saveButton)
         NSLayoutConstraint.activate([
             writerIdTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),

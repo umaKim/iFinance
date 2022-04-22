@@ -13,7 +13,7 @@ enum NewsViewModelListener {
     case reloadData
 }
 
-final class NewsViewModel: NSObject {
+final class NewsViewModel: BaseViewModel {
     
     //MARK: - Combine
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -47,20 +47,36 @@ final class NewsViewModel: NSObject {
 extension NewsViewModel {
     /// Fetch news models
     private func fetchNews() {
-        networkService.news(for: type) { [weak self] result in
-            guard let self = self else {return }
-            switch result {
-            case .success(let stories):
-                DispatchQueue.main.async {
-                    self.stories = stories
-                    self.listenerSubject.send(.reloadData)
+//        networkService.news(for: type) { [weak self] result in
+//            guard let self = self else {return }
+//            switch result {
+//            case .success(let stories):
+//                DispatchQueue.main.async {
+//                    self.stories = stories
+//                    self.listenerSubject.send(.reloadData)
+//                }
+//            case .failure(let error):
+//                print(error)
+//                self.stories = []
+//                self.listenerSubject.send(.reloadData)
+//            }
+//        }
+        
+        networkService.news(for: type)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    self.stories = []
+                    
+                case .finished:
+                    print("finished")
                 }
-            case .failure(let error):
-                print(error)
-                self.stories = []
+            } receiveValue: { newsStories in
+                self.stories = newsStories
                 self.listenerSubject.send(.reloadData)
             }
-        }
+            .store(in: &cancellables)
+
     }
     
     func didSelectNews(at indexPath: IndexPath) {

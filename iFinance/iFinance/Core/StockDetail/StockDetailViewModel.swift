@@ -62,7 +62,6 @@ final class StockDetailViewModel: BaseViewModel {
     }
     
     func didTapAddToMyWatchList() {
-        //        PersistenceManager.shared.addToWatchlist(symbol: symbol)
         persistanceService.addToWatchlist(symbol: symbol)
         NotificationCenter.default.post(name: .didAddToWatchList, object: nil)
     }
@@ -73,88 +72,34 @@ final class StockDetailViewModel: BaseViewModel {
     
     /// Fetch financial metrics
     private func fetchData() {
-        let group = DispatchGroup()
-        
-        group.enter()
-        networkService.quote(for: symbol) {[weak self] result in
-            defer {
-                group.leave()
-            }
-            switch result{
-                
-            case .success(let response):
-                self?.quote = response
-                
-            case .failure(let error):
-                print(error)
-                self?.quote = .init(currentPrice: 0, changePrice: 0, percentChange: 0, highPriceOfTheDay: 0, lowPriceOfTheDay: 0, openPriceOfTheDay: 0, previousClosePrice: 0)
-            }
-        }
-        
-        // Fetch candle sticks if needed
-        group.enter()
-        networkService.marketData(for: symbol, numberOfDays: 7) { [weak self] result in
-            defer {
-                group.leave()
-            }
+        let quote = networkService.quote(for: symbol)
+        let marketData = networkService.marketData(for: symbol, numberOfDays: 7)
+        let financialMetrics = networkService.financialMetrics(for: symbol)
+        let news = networkService.news(for: .compan(symbol: symbol))
+
+        quote.zip(marketData, financialMetrics, news)
+            .sink(receiveCompletion: self.completionHandler,
+                  receiveValue: { (quote, marketData, metrics, newsStories) in
+                self.headerData = StockDetailHeaderData(
+                                currentPrice: "\(quote.currentPrice ?? 0)",
+                                percentChange: "\(quote.percentChange ?? 0)",
+                                chartViewModel: StockChartModel(data: marketData.candleSticks.map({$0.close}),
+                                                                showLegend: true,
+                                                                showAxis: true,
+                                                                fillColor: self.calculateFillColor,
+                                                                isFillColor: true),
+                                metrics: metrics.metric)
+                self.newsStories = newsStories
+            })
+            .store(in: &cancellables)
+    }
+    
+    private func completionHandler( completion: Subscribers.Completion<Error>) {
+        switch completion {
+        case .failure(let error):
+            print(error.localizedDescription)
             
-            switch result {
-            case .success(let response):
-                self?.closeCandleStickData = response.candleSticks.map({$0.close})
-            case .failure(let error):
-                print(error)
-                self?.closeCandleStickData = []
-            }
-        }
-        
-        // Fetch financial metrics
-        group.enter()
-        networkService.financialMetrics(for: symbol) { [weak self] result in
-            defer {
-                group.leave()
-            }
-            
-            switch result {
-            case .success(let response):
-                self?.metrics = response.metric
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-                self?.metrics = .init(TenDayAverageTradingVolume: 0, AnnualWeekHigh: 0, AnnualWeekLow: 0, AnnualWeekLowDate: "", AnnualWeekPriceReturnDaily: 0, beta: 0)
-            }
-        }
-        
-        group.enter()
-        networkService.news(for: .compan(symbol: symbol)) { [weak self] result in
-            defer {
-                group.leave()
-            }
-            
-            switch result {
-            case .success(let stories):
-                self?.newsStories = stories
-            case .failure(let error):
-                print(error.localizedDescription)
-                self?.newsStories = []
-            }
-        }
-        
-        group.notify(queue: .main) { [weak self] in
-            guard let self = self,
-                  let metrics = self.metrics else {
-                return
-            }
-            
-            self.headerData = StockDetailHeaderData(
-                currentPrice: "\(self.quote?.currentPrice ?? 0)",
-                percentChange: "\(self.quote?.percentChange ?? 0)",
-                chartViewModel: StockChartModel(data: self.closeCandleStickData ,
-                                                showLegend: true,
-                                                showAxis: true,
-                                                fillColor: self.calculateFillColor,
-                                                isFillColor: true),
-                metrics: metrics)
-            
+        case .finished:
             self.listenerSubject.send(.reloadData)
         }
     }

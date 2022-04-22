@@ -10,9 +10,9 @@ import UIKit
 
 final class OpinionsCollectionViewCell: UICollectionViewCell {
     static let identifier = "Main2CollectionViewCell"
-    
-    private var opinionsViewController: OpinionsViewController?
+
     private var opinionsViewModel: OpinionsViewModel?
+    private var opinionsViewController: OpinionsViewController?
     
     //MARK: - Init
     override init(frame: CGRect) {

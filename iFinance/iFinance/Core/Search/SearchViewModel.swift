@@ -4,9 +4,9 @@
 //
 //  Created by 김윤석 on 2022/04/17.
 //
-
-import UIKit
+import CombineCocoa
 import Combine
+import UIKit
 
 enum SearchViewModelListener {
     case reloadData
@@ -31,36 +31,52 @@ final class SearchViewModel: BaseViewModel {
     }
     
     private func fetchSearchResult(query: String) {
-        networkService.search(query: query) { result in
-            switch result {
-            case .success(let response):
-                DispatchQueue.main.async {
-                    self.searchResults = response.result
-                    self.listenerSubject.send(.reloadData)
-                }
-                
-            case .failure(_):
-                DispatchQueue.main.async {
+        networkService
+            .search(query: query)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
                     self.searchResults = []
                     self.listenerSubject.send(.reloadData)
+                    
+                case .finished:
+                    print("finished")
                 }
+            } receiveValue: { response in
+                self.searchResults = response.result
+                self.listenerSubject.send(.reloadData)
             }
-        }
+            .store(in: &cancellables)
+        
     }
     
     func didSelect(at indexPath: IndexPath) {
         transitionSubject.send(.didSelect(searchResults[indexPath.row]))
     }
+    
+    private var newQuery = String()
 }
 
 extension SearchViewModel: UISearchResultsUpdating {
     /// Update search on key tap
     /// - Parameter searchController: Ref of the search controlelr
     func updateSearchResults(for searchController: UISearchController) {
-        guard let query = searchController.searchBar.text,
-              !query.trimmingCharacters(in: .whitespaces).isEmpty else {
-                  return
-              }
-        fetchSearchResult(query: query)
+        searchController
+            .searchBar
+            .textDidChangePublisher
+            .debounce(for: .seconds(0.3), scheduler: RunLoop.main)
+            .filter(queryChecker)
+            .sink {[weak self] query in
+                self?.fetchSearchResult(query: query)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func queryChecker(query: String) -> Bool {
+        if query != newQuery {
+            newQuery = query
+            return true
+        }
+        return false
     }
 }

@@ -40,9 +40,14 @@ final class MyListViewModel: BaseViewModel {
         self.networkService = networkService
         self.persistanceService = persistanceService
         super.init()
+        
         fetchWatchlistData()
         bind()
         setUpObserver()
+    }
+    
+    enum Section: CaseIterable {
+        case main
     }
     
     /// Sets up observer for watch list updates
@@ -51,9 +56,11 @@ final class MyListViewModel: BaseViewModel {
             .default
             .publisher(for: .didAddToWatchList)
             .receive(on: RunLoop.main)
+            .removeDuplicates()
             .sink { [weak self] _ in
-                self?.myWatchStocks.removeAll()
-                self?.fetchWatchlistData()
+                guard let self = self else { return }
+                self.myWatchStocks.removeAll()
+                self.persistanceService.watchlist.forEach({self.fetch(symbol: $0)})
             }
             .store(in: &cancellables)
     }
@@ -67,46 +74,40 @@ final class MyListViewModel: BaseViewModel {
             .store(in: &cancellables)
     }
     
+    private var marketDataResponses: [MarketDataResponse] = []
+    private var quotes: [Quote] = []
+    
+    private func fetch(symbol: String) {
+        let marketData = networkService.marketData(for: symbol, numberOfDays: 7)
+        let quote = networkService.quote(for: symbol)
+        
+        quote
+            .zip(marketData)
+            .receive(on: RunLoop.main)
+            .collect()
+            .sink {[weak self] completion in
+                guard let self = self else {return }
+                switch completion {
+                case .failure(let error):
+                    print("\(error)")
+                case .finished:
+                    self.myWatchStocks.removeAll()
+                    self.createMyWatchStocks()
+                    self.listernSubject.send(.reloadData)
+                }
+            } receiveValue: {[weak self] collect in
+                guard let self = self else {return }
+                collect.forEach { (quote, marketDataResponse) in
+                    self.watchlistChartMap[symbol] = marketDataResponse.candleSticks
+                    self.watchlistQuoteMap[symbol] = quote
+                }
+            }.store(in: &cancellables)
+    }
+    
     /// Fetch watch list models
     private func fetchWatchlistData() {
-        //        let symbols = PersistenceManager.shared.watchlist
-        let symbols = persistanceService.watchlist
-        
         createPlaceholderForLoadingMyWatchStock()
-        
-        let group = DispatchGroup()
-        symbols.forEach { symbol in
-            group.enter()
-            networkService.marketData(for: symbol, numberOfDays: 7) { [weak self] result in
-                defer { group.leave() }
-                
-                switch result {
-                case .success(let data):
-                    let candleSticks = data.candleSticks
-                    self?.watchlistChartMap[symbol] = candleSticks
-                case .failure(let error):
-                    print(error)
-                }
-            }
-            
-            group.enter()
-            networkService.quote(for: symbol) { [weak self] result in
-                defer { group.leave() }
-                
-                switch result {
-                case .success(let quote):
-                    self?.watchlistQuoteMap[symbol] = quote
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-        
-        group.notify(queue: .main) { [weak self] in
-            self?.myWatchStocks.removeAll()
-            self?.createMyWatchStocks()
-            self?.listernSubject.send(.reloadData)
-        }
+        self.persistanceService.watchlist.forEach({ self.fetch(symbol: $0) })
     }
     
     /// Creates view models from models
@@ -134,13 +135,15 @@ final class MyListViewModel: BaseViewModel {
     }
     
     private func createPlaceholderForLoadingMyWatchStock() {
-        //        let symbols = PersistenceManager.shared.watchlist
         let symbols = persistanceService.watchlist
         
         symbols.forEach { _ in
             myWatchStocks.append (
-                .init(symbol: "Loading", companyName: "...",
-                      price: "Loding", changeColor: .darkGray, changePercentage: "...",
+                .init(symbol: "Loading",
+                      companyName: "...",
+                      price: "Loding",
+                      changeColor: .darkGray,
+                      changePercentage: "...",
                       chartViewModel: .init( data: [],
                                              showLegend: false,
                                              showAxis: false,
@@ -166,8 +169,8 @@ final class MyListViewModel: BaseViewModel {
     }
     
     func removeItem(at indexPath: IndexPath) {
-        //        PersistenceManager.shared.removeFromWatchlist(symbol: myWatchStocks[indexPath.row].symbol)
         persistanceService.removeFromWatchlist(symbol: myWatchStocks[indexPath.row].symbol)
         myWatchStocks.remove(at: indexPath.row)
     }
+    
 }
