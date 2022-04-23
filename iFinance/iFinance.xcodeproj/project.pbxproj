@@ -41,7 +41,6 @@
 		351C5B10280ED7C300FE9C0F /* OpinionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B0F280ED7C300FE9C0F /* OpinionData.swift */; };
 		351C5B12280EE45400FE9C0F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B11280EE45400FE9C0F /* NetworkService.swift */; };
 		351C5B14280EE45B00FE9C0F /* PersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B13280EE45B00FE9C0F /* PersistanceService.swift */; };
-		351C5B1D2813FB3800FE9C0F /* iFinanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B1C2813FB3800FE9C0F /* iFinanceTests.swift */; };
 		351C5B2428146E3C00FE9C0F /* MyListTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B2328146E3C00FE9C0F /* MyListTest.swift */; };
 		351C5B2628146E4700FE9C0F /* OpinionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B2528146E4700FE9C0F /* OpinionsTest.swift */; };
 		351C5B2828146E6300FE9C0F /* MainTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B2728146E6300FE9C0F /* MainTest.swift */; };
@@ -132,7 +131,6 @@
 		351C5B11280EE45400FE9C0F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		351C5B13280EE45B00FE9C0F /* PersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceService.swift; sourceTree = "<group>"; };
 		351C5B1A2813FB3800FE9C0F /* iFinanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFinanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		351C5B1C2813FB3800FE9C0F /* iFinanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFinanceTests.swift; sourceTree = "<group>"; };
 		351C5B2328146E3C00FE9C0F /* MyListTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListTest.swift; sourceTree = "<group>"; };
 		351C5B2528146E4700FE9C0F /* OpinionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionsTest.swift; sourceTree = "<group>"; };
 		351C5B2728146E6300FE9C0F /* MainTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTest.swift; sourceTree = "<group>"; };
@@ -278,7 +276,6 @@
 		351C5B1B2813FB3800FE9C0F /* iFinanceTests */ = {
 			isa = PBXGroup;
 			children = (
-				351C5B1C2813FB3800FE9C0F /* iFinanceTests.swift */,
 				351C5B2728146E6300FE9C0F /* MainTest.swift */,
 				351C5B2328146E3C00FE9C0F /* MyListTest.swift */,
 				351C5B2528146E4700FE9C0F /* OpinionsTest.swift */,
@@ -637,7 +634,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				351C5B1D2813FB3800FE9C0F /* iFinanceTests.swift in Sources */,
 				351C5B2428146E3C00FE9C0F /* MyListTest.swift in Sources */,
 				351C5B2828146E6300FE9C0F /* MainTest.swift in Sources */,
 				351C5B2628146E4700FE9C0F /* OpinionsTest.swift in Sources */,

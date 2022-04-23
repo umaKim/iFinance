@@ -12,6 +12,10 @@ enum MainCollectionViewModelListener {
     
 }
 
+enum MyListActionNotification {
+    case isEdittingButtonDidTap
+}
+
 final class MainViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<MainHomeTransition, Never>()
@@ -53,6 +57,6 @@ final class MainViewModel: BaseViewModel {
     }
     
     func edittingDidTap() {
-        myListViewModel.isEdittingModeSubject.send()
+        myListViewModel.actionNotifier.send(.isEdittingButtonDidTap)
     }
 }

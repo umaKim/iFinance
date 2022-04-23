@@ -30,21 +30,8 @@ final class MyListCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(with viewModel: MyListViewModel) {
-//        self.viewModel = viewModel
-//        self.myListViewController = MyListViewController(viewModel: viewModel)
-        let module = MyListBuilder.build(container: AppContainerImpl())
-
-        module
-            .transitionPublisher
-            .sink(receiveValue: { [weak self] transition in
-                switch transition {
-                case .didTap(let item):
-                    self?.actionSubject.send(.didTap(item))
-                }
-            })
-            .store(in: &cancellables)
-        
-        myListViewController = module.viewController
+        self.viewModel = viewModel
+        self.myListViewController = MyListViewController(viewModel: viewModel)
         
         bind()
         setupUI()

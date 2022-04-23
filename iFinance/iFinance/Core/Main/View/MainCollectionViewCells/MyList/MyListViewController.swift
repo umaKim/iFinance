@@ -68,10 +68,9 @@ extension MyListViewController {
     private func bind() {
         viewModel
             .listenerPublisher
-            .sink { [weak self] listener in
+            .sink {[weak self] listener in
                 guard let self = self else { return }
                 switch listener {
-                    
                 case .reloadData:
                     self.updateSections()
                     

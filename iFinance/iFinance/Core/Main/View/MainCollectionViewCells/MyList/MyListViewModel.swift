@@ -22,7 +22,7 @@ final class MyListViewModel: BaseViewModel {
     private(set) lazy var listenerPublisher = listernSubject.eraseToAnyPublisher()
     private let listernSubject = PassthroughSubject<MyListViewModelListener, Never>()
     
-    private(set) lazy var isEdittingModeSubject = PassthroughSubject<Void, Never>()
+    private(set) lazy var actionNotifier = PassthroughSubject<MyListActionNotification, Never>()
     
     //MARK: - Model
     private var watchlistChartMap: [String: [CandleStick]] = [:]
@@ -66,10 +66,13 @@ final class MyListViewModel: BaseViewModel {
     }
     
     private func bind() {
-        isEdittingModeSubject
-            .sink {[weak self] _ in
+        actionNotifier
+            .sink {[weak self] action in
                 guard let self = self else { return }
-                self.listernSubject.send(.edittingMode)
+                switch action {
+                case .isEdittingButtonDidTap:
+                    self.listernSubject.send(.edittingMode)
+                }
             }
             .store(in: &cancellables)
     }
