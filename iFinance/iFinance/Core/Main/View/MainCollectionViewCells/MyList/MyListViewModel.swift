@@ -74,9 +74,6 @@ final class MyListViewModel: BaseViewModel {
             .store(in: &cancellables)
     }
     
-    private var marketDataResponses: [MarketDataResponse] = []
-    private var quotes: [Quote] = []
-    
     private func fetch(symbol: String) {
         let marketData = networkService.marketData(for: symbol, numberOfDays: 7)
         let quote = networkService.quote(for: symbol)

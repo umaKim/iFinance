@@ -856,14 +856,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "DBEF6C05-013F-4959-A653-C4B3ED7C36AE"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iFinance/Core/Main/View/MainCollectionViewCells/MyList/MyListViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "fetch(symbol:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -872,7 +872,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "61435269-F255-45D4-A10D-1D09FD556F4D"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iFinance/Core/Main/View/MainCollectionViewCells/MyList/MyListViewController.swift"
@@ -882,6 +882,102 @@
             endingLineNumber = "76"
             landmarkName = "bind()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4252C2AD-4F2F-4B4D-B818-F7B04614AE89"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iFinanceTests/iFinanceTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "testViewModel()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4252C2AD-4F2F-4B4D-B818-F7B04614AE89 - 2122a17ffcd30cb5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (iFinance.MyListViewModelListener) -&gt; () in iFinanceTests.iFinanceTests.testViewModel() -&gt; ()"
+                  moduleName = "iFinanceTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yokim/Documents/GitHub/iFinance/iFinance/iFinanceTests/iFinanceTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "4252C2AD-4F2F-4B4D-B818-F7B04614AE89 - 2122a17ffcd303ef"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (iFinance.MyListViewModelListener) -&gt; () in iFinanceTests.iFinanceTests.testViewModel() -&gt; ()"
+                  moduleName = "iFinanceTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yokim/Documents/GitHub/iFinance/iFinance/iFinanceTests/iFinanceTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "144">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "963D4177-32FA-428A-87FB-10918BA98A58"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iFinanceTests/iFinanceTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "testViewModel()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "963D4177-32FA-428A-87FB-10918BA98A58 - 2122a17ffcd30348"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (iFinance.MyListViewModelListener) -&gt; () in iFinanceTests.iFinanceTests.testViewModel() -&gt; ()"
+                  moduleName = "iFinanceTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yokim/Documents/GitHub/iFinance/iFinance/iFinanceTests/iFinanceTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "109">
+               </Location>
+               <Location
+                  uuid = "963D4177-32FA-428A-87FB-10918BA98A58 - 2122a17ffcd30382"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (iFinance.MyListViewModelListener) -&gt; () in iFinanceTests.iFinanceTests.testViewModel() -&gt; ()"
+                  moduleName = "iFinanceTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yokim/Documents/GitHub/iFinance/iFinance/iFinanceTests/iFinanceTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "199">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

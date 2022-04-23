@@ -18,11 +18,11 @@ protocol ViewModel {
 class BaseViewModel: NSObject, ViewModel {
     var cancellables = Set<AnyCancellable>()
 
-    private(set) lazy var isLoadingPublisher = isLoadingSubject.eraseToAnyPublisher()
-    let isLoadingSubject = PassthroughSubject<Bool, Never>()
-
-    private(set) lazy var errorPublisher = errorSubject.eraseToAnyPublisher()
-    let errorSubject = PassthroughSubject<Error, Never>()
+//    private(set) lazy var isLoadingPublisher = isLoadingSubject.eraseToAnyPublisher()
+//    let isLoadingSubject = PassthroughSubject<Bool, Never>()
+//
+//    private(set) lazy var errorPublisher = errorSubject.eraseToAnyPublisher()
+//    let errorSubject = PassthroughSubject<Error, Never>()
     
     deinit {
         debugPrint("deinit of ", String(describing: self))

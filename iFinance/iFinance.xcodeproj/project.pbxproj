@@ -41,6 +41,7 @@
 		351C5B10280ED7C300FE9C0F /* OpinionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B0F280ED7C300FE9C0F /* OpinionData.swift */; };
 		351C5B12280EE45400FE9C0F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B11280EE45400FE9C0F /* NetworkService.swift */; };
 		351C5B14280EE45B00FE9C0F /* PersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B13280EE45B00FE9C0F /* PersistanceService.swift */; };
+		351C5B1D2813FB3800FE9C0F /* iFinanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B1C2813FB3800FE9C0F /* iFinanceTests.swift */; };
 		356DC23328045DEE00557827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23228045DEE00557827 /* AppDelegate.swift */; };
 		356DC23528045DEE00557827 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23428045DEE00557827 /* SceneDelegate.swift */; };
 		356DC23C28045DF000557827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 356DC23B28045DF000557827 /* Assets.xcassets */; };
@@ -89,6 +90,16 @@
 		35CC39A72806CFF5007148A5 /* OpinionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CC39A62806CFF5007148A5 /* OpinionsViewModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		351C5B1E2813FB3800FE9C0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 356DC22728045DEE00557827 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 356DC22E28045DEE00557827;
+			remoteInfo = iFinance;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		351C5AC8280BB32A00FE9C0F /* SearchBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBuilder.swift; sourceTree = "<group>"; };
 		351C5ACA280BB33300FE9C0F /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -115,6 +126,8 @@
 		351C5B0F280ED7C300FE9C0F /* OpinionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionData.swift; sourceTree = "<group>"; };
 		351C5B11280EE45400FE9C0F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		351C5B13280EE45B00FE9C0F /* PersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceService.swift; sourceTree = "<group>"; };
+		351C5B1A2813FB3800FE9C0F /* iFinanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFinanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		351C5B1C2813FB3800FE9C0F /* iFinanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFinanceTests.swift; sourceTree = "<group>"; };
 		356DC22F28045DEE00557827 /* iFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		356DC23228045DEE00557827 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		356DC23428045DEE00557827 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +175,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		351C5B172813FB3800FE9C0F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		356DC22C28045DEE00557827 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -245,10 +265,19 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		351C5B1B2813FB3800FE9C0F /* iFinanceTests */ = {
+			isa = PBXGroup;
+			children = (
+				351C5B1C2813FB3800FE9C0F /* iFinanceTests.swift */,
+			);
+			path = iFinanceTests;
+			sourceTree = "<group>";
+		};
 		356DC22628045DEE00557827 = {
 			isa = PBXGroup;
 			children = (
 				356DC23128045DEE00557827 /* iFinance */,
+				351C5B1B2813FB3800FE9C0F /* iFinanceTests */,
 				356DC23028045DEE00557827 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -257,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				356DC22F28045DEE00557827 /* iFinance.app */,
+				351C5B1A2813FB3800FE9C0F /* iFinanceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -463,6 +493,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		351C5B192813FB3800FE9C0F /* iFinanceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 351C5B202813FB3800FE9C0F /* Build configuration list for PBXNativeTarget "iFinanceTests" */;
+			buildPhases = (
+				351C5B162813FB3800FE9C0F /* Sources */,
+				351C5B172813FB3800FE9C0F /* Frameworks */,
+				351C5B182813FB3800FE9C0F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				351C5B1F2813FB3800FE9C0F /* PBXTargetDependency */,
+			);
+			name = iFinanceTests;
+			productName = iFinanceTests;
+			productReference = 351C5B1A2813FB3800FE9C0F /* iFinanceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		356DC22E28045DEE00557827 /* iFinance */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 356DC24328045DF000557827 /* Build configuration list for PBXNativeTarget "iFinance" */;
@@ -505,6 +553,10 @@
 				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
+					351C5B192813FB3800FE9C0F = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = 356DC22E28045DEE00557827;
+					};
 					356DC22E28045DEE00557827 = {
 						CreatedOnToolsVersion = 13.3;
 					};
@@ -532,11 +584,19 @@
 			projectRoot = "";
 			targets = (
 				356DC22E28045DEE00557827 /* iFinance */,
+				351C5B192813FB3800FE9C0F /* iFinanceTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		351C5B182813FB3800FE9C0F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		356DC22D28045DEE00557827 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -550,6 +610,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		351C5B162813FB3800FE9C0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				351C5B1D2813FB3800FE9C0F /* iFinanceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		356DC22B28045DEE00557827 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -623,6 +691,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		351C5B1F2813FB3800FE9C0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 356DC22E28045DEE00557827 /* iFinance */;
+			targetProxy = 351C5B1E2813FB3800FE9C0F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		356DC23D28045DF000557827 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -635,6 +711,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		351C5B212813FB3800FE9C0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PHT5ZHW738;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = yokim.iFinanceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iFinance.app/iFinance";
+			};
+			name = Debug;
+		};
+		351C5B222813FB3800FE9C0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PHT5ZHW738;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = yokim.iFinanceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iFinance.app/iFinance";
+			};
+			name = Release;
+		};
 		356DC24128045DF000557827 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -806,6 +920,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		351C5B202813FB3800FE9C0F /* Build configuration list for PBXNativeTarget "iFinanceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				351C5B212813FB3800FE9C0F /* Debug */,
+				351C5B222813FB3800FE9C0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		356DC22A28045DEE00557827 /* Build configuration list for PBXProject "iFinance" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
