@@ -42,6 +42,11 @@
 		351C5B12280EE45400FE9C0F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B11280EE45400FE9C0F /* NetworkService.swift */; };
 		351C5B14280EE45B00FE9C0F /* PersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B13280EE45B00FE9C0F /* PersistanceService.swift */; };
 		351C5B1D2813FB3800FE9C0F /* iFinanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B1C2813FB3800FE9C0F /* iFinanceTests.swift */; };
+		351C5B2428146E3C00FE9C0F /* MyListTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B2328146E3C00FE9C0F /* MyListTest.swift */; };
+		351C5B2628146E4700FE9C0F /* OpinionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B2528146E4700FE9C0F /* OpinionsTest.swift */; };
+		351C5B2828146E6300FE9C0F /* MainTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B2728146E6300FE9C0F /* MainTest.swift */; };
+		351C5B2A28146E7700FE9C0F /* NetworkMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B2928146E7700FE9C0F /* NetworkMock.swift */; };
+		351C5B2D28146FD200FE9C0F /* OpinionsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B2C28146FD200FE9C0F /* OpinionsBuilder.swift */; };
 		356DC23328045DEE00557827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23228045DEE00557827 /* AppDelegate.swift */; };
 		356DC23528045DEE00557827 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23428045DEE00557827 /* SceneDelegate.swift */; };
 		356DC23C28045DF000557827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 356DC23B28045DF000557827 /* Assets.xcassets */; };
@@ -128,6 +133,11 @@
 		351C5B13280EE45B00FE9C0F /* PersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceService.swift; sourceTree = "<group>"; };
 		351C5B1A2813FB3800FE9C0F /* iFinanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFinanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		351C5B1C2813FB3800FE9C0F /* iFinanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFinanceTests.swift; sourceTree = "<group>"; };
+		351C5B2328146E3C00FE9C0F /* MyListTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListTest.swift; sourceTree = "<group>"; };
+		351C5B2528146E4700FE9C0F /* OpinionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionsTest.swift; sourceTree = "<group>"; };
+		351C5B2728146E6300FE9C0F /* MainTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTest.swift; sourceTree = "<group>"; };
+		351C5B2928146E7700FE9C0F /* NetworkMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMock.swift; sourceTree = "<group>"; };
+		351C5B2C28146FD200FE9C0F /* OpinionsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionsBuilder.swift; sourceTree = "<group>"; };
 		356DC22F28045DEE00557827 /* iFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		356DC23228045DEE00557827 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		356DC23428045DEE00557827 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -269,8 +279,20 @@
 			isa = PBXGroup;
 			children = (
 				351C5B1C2813FB3800FE9C0F /* iFinanceTests.swift */,
+				351C5B2728146E6300FE9C0F /* MainTest.swift */,
+				351C5B2328146E3C00FE9C0F /* MyListTest.swift */,
+				351C5B2528146E4700FE9C0F /* OpinionsTest.swift */,
+				351C5B2B28146E7B00FE9C0F /* Mock */,
 			);
 			path = iFinanceTests;
+			sourceTree = "<group>";
+		};
+		351C5B2B28146E7B00FE9C0F /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				351C5B2928146E7700FE9C0F /* NetworkMock.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		356DC22628045DEE00557827 = {
@@ -436,6 +458,7 @@
 		35CC399228059F15007148A5 /* Opinons */ = {
 			isa = PBXGroup;
 			children = (
+				351C5B2C28146FD200FE9C0F /* OpinionsBuilder.swift */,
 				35CC39A62806CFF5007148A5 /* OpinionsViewModel.swift */,
 				356DC24A2804639E00557827 /* OpinionsViewController.swift */,
 				351C5B08280ECB0400FE9C0F /* OpinionsView.swift */,
@@ -615,6 +638,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				351C5B1D2813FB3800FE9C0F /* iFinanceTests.swift in Sources */,
+				351C5B2428146E3C00FE9C0F /* MyListTest.swift in Sources */,
+				351C5B2828146E6300FE9C0F /* MainTest.swift in Sources */,
+				351C5B2628146E4700FE9C0F /* OpinionsTest.swift in Sources */,
+				351C5B2A28146E7700FE9C0F /* NetworkMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -675,6 +702,7 @@
 				351C5ACF280BB33F00FE9C0F /* SearchView.swift in Sources */,
 				351C5B04280EB69500FE9C0F /* NewsBuilder.swift in Sources */,
 				35CC39A32806CEEB007148A5 /* MyListViewModel.swift in Sources */,
+				351C5B2D28146FD200FE9C0F /* OpinionsBuilder.swift in Sources */,
 				356DC26728052EB800557827 /* SearchResponse.swift in Sources */,
 				351C5AD9280C3CE000FE9C0F /* NewsViewModel.swift in Sources */,
 				356DC26328052E1B00557827 /* FinancialMetricsResponse.swift in Sources */,
