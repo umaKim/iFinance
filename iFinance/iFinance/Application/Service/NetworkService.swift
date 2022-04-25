@@ -32,12 +32,12 @@ enum Platform: String {
 protocol NetworkService {
     func search( query: String) -> AnyPublisher<SearchResponse, Error>
     func news(for type: NewsType) -> AnyPublisher<[NewsStory], Error>
-    func marketData(for symbol: String, numberOfDays: TimeInterval, completion: @escaping (Result<MarketDataResponse, Error>) -> Void)
+//    func marketData(for symbol: String, numberOfDays: TimeInterval, completion: @escaping (Result<MarketDataResponse, Error>) -> Void)
     func marketData(for symbol: String, numberOfDays: TimeInterval) -> AnyPublisher<MarketDataResponse, Error>
     func financialMetrics(for symbol: String) -> AnyPublisher<FinancialMetricsResponse, Error>
     func quote(for symbol: String) -> AnyPublisher<Quote, Error>
-    func fetchCryptoSymbols(from platform: Platform) -> AnyPublisher<[CryptoSymbol], Error>
-    func cryptoMarketData(for symbol: String, numberOfDays: TimeInterval) ->AnyPublisher<MarketDataResponse, Error>
+//    func fetchCryptoSymbols(from platform: Platform) -> AnyPublisher<[CryptoSymbol], Error>
+//    func cryptoMarketData(for symbol: String, numberOfDays: TimeInterval) ->AnyPublisher<MarketDataResponse, Error>
 }
 
 /// Type of news
@@ -57,36 +57,36 @@ enum `Type` {
 }
 
 final class NetworkServiceImpl: NetworkService {
-    func marketData(for symbol: String, numberOfDays: TimeInterval, completion: @escaping (Result<MarketDataResponse, Error>) -> Void) {
-        let today = Date().addingTimeInterval(-(Constants.day))
-        let prior = today.addingTimeInterval(-(Constants.day * numberOfDays))
-        
-        guard let url = url(
-            for: .cryptoCandle,
-            queryParams: [
-                "symbol": symbol,
-                "resolution": "5",
-                "from": "\(Int(prior.timeIntervalSince1970))",
-                "to": "\(Int(today.timeIntervalSince1970))"
-            ]) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            if let error = error {
-                completion(.failure(error))
-            }
-            
-            if let data = data {
-                
-                do {
-                    let result = try JSONDecoder().decode(MarketDataResponse.self, from: data)
-                    completion(.success(result))
-                } catch {
-                    completion(.failure(APIError.noDataReturned))
-                }
-            }
-        }
-        .resume()
-    }
+//    func marketData(for symbol: String, numberOfDays: TimeInterval, completion: @escaping (Result<MarketDataResponse, Error>) -> Void) {
+//        let today = Date().addingTimeInterval(-(Constants.day))
+//        let prior = today.addingTimeInterval(-(Constants.day * numberOfDays))
+//
+//        guard let url = url(
+//            for: .cryptoCandle,
+//            queryParams: [
+//                "symbol": symbol,
+//                "resolution": "5",
+//                "from": "\(Int(prior.timeIntervalSince1970))",
+//                "to": "\(Int(today.timeIntervalSince1970))"
+//            ]) else { return }
+//
+//        URLSession.shared.dataTask(with: url) { data, _, error in
+//            if let error = error {
+//                completion(.failure(error))
+//            }
+//
+//            if let data = data {
+//
+//                do {
+//                    let result = try JSONDecoder().decode(MarketDataResponse.self, from: data)
+//                    completion(.success(result))
+//                } catch {
+//                    completion(.failure(APIError.noDataReturned))
+//                }
+//            }
+//        }
+//        .resume()
+//    }
     
     /// Constants
     private struct Constants {
@@ -167,21 +167,21 @@ final class NetworkServiceImpl: NetworkService {
         request(url: url(for: .quote, queryParams: ["symbol": symbol]), expecting: Quote.self)
     }
     
-    public func fetchCryptoSymbols(from platform: Platform) -> AnyPublisher<[CryptoSymbol], Error> {
-        request(url: url(for: .cryptoSymbol, queryParams: ["exchange": platform.rawValue]), expecting: [CryptoSymbol].self)
-    }
+//    public func fetchCryptoSymbols(from platform: Platform) -> AnyPublisher<[CryptoSymbol], Error> {
+//        request(url: url(for: .cryptoSymbol, queryParams: ["exchange": platform.rawValue]), expecting: [CryptoSymbol].self)
+//    }
     
-    public func cryptoMarketData(for symbol: String, numberOfDays: TimeInterval) -> AnyPublisher<MarketDataResponse, Error> {
-        let today = Date().addingTimeInterval(-(Constants.day))
-        let prior = today.addingTimeInterval(-(Constants.day * numberOfDays))
-        
-        return request(url: url(for: .cryptoCandle, queryParams: [
-            "symbol": symbol,
-            "resolution": "5",
-            "from": "\(Int(prior.timeIntervalSince1970))",
-            "to": "\(Int(today.timeIntervalSince1970))"
-        ]), expecting: MarketDataResponse.self)
-    }
+//    public func cryptoMarketData(for symbol: String, numberOfDays: TimeInterval) -> AnyPublisher<MarketDataResponse, Error> {
+//        let today = Date().addingTimeInterval(-(Constants.day))
+//        let prior = today.addingTimeInterval(-(Constants.day * numberOfDays))
+//
+//        return request(url: url(for: .cryptoCandle, queryParams: [
+//            "symbol": symbol,
+//            "resolution": "5",
+//            "from": "\(Int(prior.timeIntervalSince1970))",
+//            "to": "\(Int(today.timeIntervalSince1970))"
+//        ]), expecting: MarketDataResponse.self)
+//    }
     
     // MARK: - Private
     

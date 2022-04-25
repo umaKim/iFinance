@@ -12,7 +12,7 @@ final class MainHomeBuilder {
         let viewModel = MainViewModel(myListViewModel:
                                         MyListViewModel(networkService: container.networkService,
                                                         persistanceService: container.persistanceService),
-                                      opinionsViewModel: OpinionsViewModel())
+                                      opinionsViewModel: OpinionsViewModel(firebaseNetwork: container.firebaseNetworkService))
         let vc = MainViewController(viewModel: viewModel)
         return .init(viewController: vc, transitionPublisher: viewModel.transitionPublisher)
     }

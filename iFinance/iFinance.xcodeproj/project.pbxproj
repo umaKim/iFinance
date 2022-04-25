@@ -46,6 +46,11 @@
 		351C5B2828146E6300FE9C0F /* MainTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B2728146E6300FE9C0F /* MainTest.swift */; };
 		351C5B2A28146E7700FE9C0F /* NetworkMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B2928146E7700FE9C0F /* NetworkMock.swift */; };
 		351C5B2D28146FD200FE9C0F /* OpinionsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B2C28146FD200FE9C0F /* OpinionsBuilder.swift */; };
+		351C5B2F2815A87A00FE9C0F /* PersistanceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B2E2815A87A00FE9C0F /* PersistanceMock.swift */; };
+		351C5B31281696B200FE9C0F /* FirebaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B30281696B200FE9C0F /* FirebaseNetworkService.swift */; };
+		351C5B332816AD3D00FE9C0F /* FirebaseRealTimeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B322816AD3D00FE9C0F /* FirebaseRealTimeMock.swift */; };
+		351C5B352816B62300FE9C0F /* StockDetailTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B342816B62300FE9C0F /* StockDetailTest.swift */; };
+		351C5B392816F0C000FE9C0F /* SearchTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B382816F0C000FE9C0F /* SearchTest.swift */; };
 		356DC23328045DEE00557827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23228045DEE00557827 /* AppDelegate.swift */; };
 		356DC23528045DEE00557827 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23428045DEE00557827 /* SceneDelegate.swift */; };
 		356DC23C28045DF000557827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 356DC23B28045DF000557827 /* Assets.xcassets */; };
@@ -136,6 +141,11 @@
 		351C5B2728146E6300FE9C0F /* MainTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTest.swift; sourceTree = "<group>"; };
 		351C5B2928146E7700FE9C0F /* NetworkMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMock.swift; sourceTree = "<group>"; };
 		351C5B2C28146FD200FE9C0F /* OpinionsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionsBuilder.swift; sourceTree = "<group>"; };
+		351C5B2E2815A87A00FE9C0F /* PersistanceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceMock.swift; sourceTree = "<group>"; };
+		351C5B30281696B200FE9C0F /* FirebaseNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkService.swift; sourceTree = "<group>"; };
+		351C5B322816AD3D00FE9C0F /* FirebaseRealTimeMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRealTimeMock.swift; sourceTree = "<group>"; };
+		351C5B342816B62300FE9C0F /* StockDetailTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailTest.swift; sourceTree = "<group>"; };
+		351C5B382816F0C000FE9C0F /* SearchTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTest.swift; sourceTree = "<group>"; };
 		356DC22F28045DEE00557827 /* iFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		356DC23228045DEE00557827 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		356DC23428045DEE00557827 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -269,6 +279,7 @@
 				356DC25728048C3B00557827 /* AppContainer.swift */,
 				351C5B11280EE45400FE9C0F /* NetworkService.swift */,
 				351C5B13280EE45B00FE9C0F /* PersistanceService.swift */,
+				351C5B30281696B200FE9C0F /* FirebaseNetworkService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -279,6 +290,8 @@
 				351C5B2728146E6300FE9C0F /* MainTest.swift */,
 				351C5B2328146E3C00FE9C0F /* MyListTest.swift */,
 				351C5B2528146E4700FE9C0F /* OpinionsTest.swift */,
+				351C5B342816B62300FE9C0F /* StockDetailTest.swift */,
+				351C5B382816F0C000FE9C0F /* SearchTest.swift */,
 				351C5B2B28146E7B00FE9C0F /* Mock */,
 			);
 			path = iFinanceTests;
@@ -288,6 +301,8 @@
 			isa = PBXGroup;
 			children = (
 				351C5B2928146E7700FE9C0F /* NetworkMock.swift */,
+				351C5B2E2815A87A00FE9C0F /* PersistanceMock.swift */,
+				351C5B322816AD3D00FE9C0F /* FirebaseRealTimeMock.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -635,9 +650,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				351C5B2428146E3C00FE9C0F /* MyListTest.swift in Sources */,
+				351C5B392816F0C000FE9C0F /* SearchTest.swift in Sources */,
+				351C5B2F2815A87A00FE9C0F /* PersistanceMock.swift in Sources */,
 				351C5B2828146E6300FE9C0F /* MainTest.swift in Sources */,
+				351C5B352816B62300FE9C0F /* StockDetailTest.swift in Sources */,
 				351C5B2628146E4700FE9C0F /* OpinionsTest.swift in Sources */,
 				351C5B2A28146E7700FE9C0F /* NetworkMock.swift in Sources */,
+				351C5B332816AD3D00FE9C0F /* FirebaseRealTimeMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,6 +671,7 @@
 				351C5B0D280ED6E000FE9C0F /* MetricCollectionViewCell.swift in Sources */,
 				351C5B14280EE45B00FE9C0F /* PersistanceService.swift in Sources */,
 				351C5AD7280C3C8900FE9C0F /* NewsViewController.swift in Sources */,
+				351C5B31281696B200FE9C0F /* FirebaseNetworkService.swift in Sources */,
 				351C5AF4280C669700FE9C0F /* WatchListTableViewCell.swift in Sources */,
 				351C5B07280EC69C00FE9C0F /* MyListView.swift in Sources */,
 				356DC26128052DFF00557827 /* MarketDataResponse.swift in Sources */,

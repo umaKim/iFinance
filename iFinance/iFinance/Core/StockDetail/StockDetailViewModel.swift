@@ -27,11 +27,11 @@ final class StockDetailViewModel: BaseViewModel {
     /// Quote
     private var quote: Quote?
     
-    /// Company metrics
-    private var metrics: Metrics?
+//    /// Company metrics
+//    private var metrics: Metrics?
     
-    /// Collection of data
-    private var closeCandleStickData: [Double] = []
+//    /// Collection of data
+//    private var closeCandleStickData: [Double] = []
     
     /// Collection of news stories
     private(set) var newsStories: [NewsStory] = []

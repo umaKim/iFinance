@@ -9,35 +9,113 @@ import XCTest
 @testable import iFinance
 
 class MainTest: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    private var viewModel: MainViewModel!
+    private var viewController: MainViewController!
+    private var view: MainView!
     
-    var cancellables: Set<AnyCancellable>!
+    private var cancellables: Set<AnyCancellable>!
     
     override func setUp() {
+        self.viewModel = MainViewModel(myListViewModel: MyListViewModel(networkService: NetworkMock(),
+                                                                        persistanceService: PersistanceMock()),
+                                       opinionsViewModel: OpinionsViewModel(firebaseNetwork: FirebaseRealTimeMock()))
+        self.viewController = MainViewController(viewModel: viewModel)
+        self.view = MainView()
         self.cancellables = []
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testViewController() {
+        viewController.viewDidLoad()
+        viewController.viewDidLayoutSubviews()
+        view.menuTabBar.selectItem(at: 0)
         
+        XCTAssertNotNil(viewController.collectionView(view.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)))
+        XCTAssertTrue( viewController.collectionView(view.collectionView, numberOfItemsInSection: 0) == 2)
+        XCTAssertEqual(viewController.collectionView(view.collectionView,
+                                                     layout: view.collectionView.collectionViewLayout,
+                                                     sizeForItemAt: IndexPath(row: 0, section: 0)),
+                       CGSize(width: view.frame.width, height: view.collectionView.frame.height))
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testMain_MyListViewModel_transitionPublisher() {
+        //Arrange
+        var receivedStockName: String = ""
+        var opinionDetailDidTap: Bool = false
+        var searchViewDidTap: Bool = false
+        var writingOpinionButtonDidTap: Bool = false
+        var newsDidTap: Bool = false
+        
+        viewModel
+            .transitionPublisher
+            .sink {transition in
+                switch transition {
+                case .searchView:
+                    searchViewDidTap = true
+                    
+                case .opinionWritingView:
+                    writingOpinionButtonDidTap = true
+                    
+                case .stockDetail(let stockName):
+                    receivedStockName = stockName
+                    
+                case .opinionDetail:
+                    opinionDetailDidTap = true
+                    
+                case .newsDetail(let url):
+                    newsDidTap = (url == URL(string: "newsUrl"))
+                }
+            }
+            .store(in: &cancellables)
+        
+        //Act
+        viewModel.searchButtonDidTap()
+        viewModel.writingOpinionButtonDidTap()
+        viewModel.stockDidTap(MyWatchListModel(symbol: "UMA",
+                                               companyName: "Company",
+                                               price: "",
+                                               changeColor: .clear,
+                                               changePercentage: "",
+                                               chartViewModel: StockChartModel(data: [],
+                                                                               showLegend: true,
+                                                                               showAxis: true,
+                                                                               fillColor: .clear,
+                                                                               isFillColor: true)))
+        viewModel.opinionDidTap()
+        viewModel.newsDidTap(news: NewsStory(category: "",
+                                             datetime: 100,
+                                             headline: "",
+                                             image: "",
+                                             related: "",
+                                             source: "",
+                                             summary: "",
+                                             url: "newsUrl"))
+        
+        //Assert
+        XCTAssert(searchViewDidTap)
+        XCTAssert(writingOpinionButtonDidTap)
+        XCTAssert(receivedStockName == "UMA")
+        XCTAssert(opinionDetailDidTap)
+        XCTAssert(newsDidTap)
     }
-
+    
+    func testMain_MyListViewModel_actionNotifier() {
+        //Arrange
+        var isEdittingButtonDidTap: Bool = false
+        
+        viewModel.myListViewModel
+            .actionNotifier
+            .sink { noti in
+                switch noti {
+                case .isEdittingButtonDidTap:
+                    isEdittingButtonDidTap = true
+                }
+            }
+            .store(in: &cancellables)
+        
+        //Act
+        viewModel.edittingDidTap()
+        
+        //Assert
+        XCTAssert(isEdittingButtonDidTap)
+    }
 }

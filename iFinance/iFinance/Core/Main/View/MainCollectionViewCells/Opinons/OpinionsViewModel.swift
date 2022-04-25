@@ -29,33 +29,23 @@ final class OpinionsViewModel: BaseViewModel {
     //MARK: - Model
     private(set) lazy var opinions: [PostContent] =  []
     
+    private let firebaseNetwork: FirebaseRealTimeService
+    
     //MARK: - Init
-    override init() {
+    init(firebaseNetwork: FirebaseRealTimeService) {
+        self.firebaseNetwork = firebaseNetwork
         super.init()
         fetchComments()
     }
     
     private func fetchComments() {
-        let database = Database.database().reference().child("specificTalk")
-        database.child("generalTalk").observe(.childAdded) {[weak self] snapShot in
-            guard let dictionary = snapShot.value as? [String: Any] else { return }
-
-            guard let idString = dictionary["id"] as? String,
-                  let titleString = dictionary["title"] as? String,
-                  let date = dictionary["date"] as? Double,
-                  let bodyString = dictionary["body"] as? String else { return }
-            
-            let postContent = PostContent(id: idString,
-                                          title: titleString,
-                                          date: Date(timeIntervalSince1970: date),
-                                          body: bodyString)
-            
-            self?.opinions.append(postContent)
-            
-            DispatchQueue.main.async {[weak self] in
-                self?.opinions.sort { $0.date > $1.date }
-                self?.listernSubject.send(.reloadData)
+        firebaseNetwork
+            .fetchOpinions {[weak self] postContent in
+                self?.opinions.append(postContent)
+                DispatchQueue.main.async {
+                    self?.opinions.sort { $0.date > $1.date }
+                    self?.listernSubject.send(.reloadData)
+                }
             }
-        }
     }
 }

@@ -172,5 +172,4 @@ final class MyListViewModel: BaseViewModel {
         persistanceService.removeFromWatchlist(symbol: myWatchStocks[indexPath.row].symbol)
         myWatchStocks.remove(at: indexPath.row)
     }
-    
 }

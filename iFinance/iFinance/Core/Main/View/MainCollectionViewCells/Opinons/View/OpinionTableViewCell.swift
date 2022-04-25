@@ -76,21 +76,6 @@ final class CommentTableViewCell: UITableViewCell {
         dateLabel.text = "2021/08/11/13:50"
         bodyLabel.text = "Body"
         
-        //        let infoStackView = UIStackView(arrangedSubviews: [titleLabel, writerIdLabel])
-        //        infoStackView.axis = .vertical
-        //        infoStackView.spacing = 5
-        //        infoStackView.distribution = .equalSpacing
-        //        infoStackView.translatesAutoresizingMaskIntoConstraints = false
-        //
-        //        let totalStackView = UIStackView(arrangedSubviews: [bodyLabel])
-        //        totalStackView.axis = .vertical
-        //        totalStackView.distribution = .fillProportionally
-        //        totalStackView.spacing = 4
-        //        totalStackView.translatesAutoresizingMaskIntoConstraints = false
-        //
-        //        addSubviews(infoStackView, totalStackView, cellSeparator)
-        //
-        
         let userInfoStackView = UIStackView(arrangedSubviews: [writerIdLabel, dateLabel])
         userInfoStackView.axis = .horizontal
         userInfoStackView.alignment = .leading
@@ -98,7 +83,7 @@ final class CommentTableViewCell: UITableViewCell {
         userInfoStackView.spacing = 12
         userInfoStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        contentView.addSubviews(titleLabel,optionButton, userInfoStackView, bodyLabel, cellSeparator)
+        contentView.addSubviews(titleLabel, optionButton, userInfoStackView, bodyLabel, cellSeparator)
         
         let padding: CGFloat = 10
         

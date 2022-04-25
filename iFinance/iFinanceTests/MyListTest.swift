@@ -5,31 +5,76 @@
 //  Created by 김윤석 on 2022/04/24.
 //
 
+import Combine
 import XCTest
+@testable import iFinance
 
 class MyListTest: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    private var viewModel: MyListViewModel!
+    private var viewController: MyListViewController!
+    private var view: MyListView!
+    
+    private var cancellbales: Set<AnyCancellable>!
+    
+    override func setUp() {
+        self.viewModel = MyListViewModel(networkService: NetworkMock(),
+                                         persistanceService: PersistanceMock())
+        self.viewController = MyListViewController(viewModel: viewModel)
+        self.view = MyListView()
+        self.cancellbales = .init()
+        super.setUp()
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testViewModel() {
+        
+        var didTapModel: Bool = false
+        var edittingMode: Bool = false
+        
+        viewModel
+            .transitionPublisher
+            .sink { trans in
+                switch trans {
+                case .didTap(let model):
+                    didTapModel = true
+                }
+            }.store(in: &cancellbales)
+        
+        viewModel
+            .listenerPublisher
+            .sink {[weak self] listen in
+                switch listen {
+                case .reloadData:
+                    break
+                case .edittingMode:
+                    edittingMode = true
+                }
+            }
+            .store(in: &cancellbales)
+        
+        let model = MyWatchListModel(symbol: "UMA",
+                                     companyName: "Company",
+                                     price: "",
+                                     changeColor: .clear,
+                                     changePercentage: "",
+                                     chartViewModel: StockChartModel(data: [], showLegend: true, showAxis: true, fillColor: .clear, isFillColor: true))
+        
+        //Act
+        viewModel.didTap(myWatchStock: model)
+        viewModel.removeItem(at: IndexPath(row: 0, section: 0))
+        viewModel.actionNotifier.send(.isEdittingButtonDidTap)
+        
+        //Assert
+        XCTAssertTrue(didTapModel)
+        XCTAssertEqual(viewModel.myWatchStocks.count,
+                       PersistanceMock().watchlist.count - 1)
+        XCTAssertTrue(edittingMode)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testViewController() {
+        viewController.loadView()
+        XCTAssertEqual(viewController.tableView(view.tableView, heightForRowAt: IndexPath(row: 0, section: 0)),
+                       WatchListTableViewCell.preferredHeight)
+        XCTAssertNotNil(viewController.tableView(view.tableView, didSelectRowAt: IndexPath(row: 0, section: 0)))
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }

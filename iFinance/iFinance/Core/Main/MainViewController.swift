@@ -57,15 +57,6 @@ extension MainViewController {
                 }
             }
             .store(in: &cancellables)
-        
-        viewModel
-            .listenerPublisher
-            .sink {[weak self] listener in
-                switch listener {
-                    
-                }
-            }
-            .store(in: &cancellables)
     }
 }
 
@@ -120,12 +111,6 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 extension MainViewController: FloatingPanelControllerDelegate  {
     /// Sets up floating news panel
     private func setUpFloatingPanel() {
-//        let module = NewsBuilder.build(container: , type: .topStories)
-//        module
-//            .transitionPublisher
-//            .sink (receiveValue: newViewTransitionHandler)
-//            .store(in: &cancellables)
-        
         let vm = NewsViewModel(networkService: NetworkServiceImpl(), type: .topStories)
         vm.transitionPublisher
             .sink(receiveValue: newViewTransitionHandler)
@@ -136,7 +121,6 @@ extension MainViewController: FloatingPanelControllerDelegate  {
         panel.surfaceView.backgroundColor = .secondarySystemBackground
         panel.set(contentViewController: vc)
         panel.addPanel(toParent: self)
-//        let vc = module.viewController as! NewsViewController
         panel.track(scrollView: vc.tableView)
         
         let appearance = SurfaceAppearance()
@@ -169,5 +153,4 @@ extension MainViewController {
         navigationItem.rightBarButtonItems = [contentView.writeOpinionsButton,
                                               contentView.searchButton]
     }
-    
 }

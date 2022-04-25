@@ -13,8 +13,8 @@ enum WritingTransition: Transition {
 }
 
 final class WritingBuilder {
-    class func build(symbol: String) -> Module<WritingTransition, UIViewController> {
-        let vm = WritingViewModel(symbol: symbol)
+    class func build(container: AppContainer, symbol: String) -> Module<WritingTransition, UIViewController> {
+        let vm = WritingViewModel(firebaseNetworkService: container.firebaseNetworkService, symbol: symbol)
         let vc = WritingViewController(viewModel: vm)
         return .init(viewController: vc, transitionPublisher: vm.transitionPublisher)
     }

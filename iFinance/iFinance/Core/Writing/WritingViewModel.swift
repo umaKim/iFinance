@@ -23,22 +23,17 @@ final class WritingViewModel: BaseViewModel {
     
     //MARK: - Model
     private let symbol: String
+    private let firebaseNetworkService: FirebaseRealTimeService
     
     //MARK: - Init
-    init(symbol: String) {
+    init(firebaseNetworkService: FirebaseRealTimeService, symbol: String) {
+        self.firebaseNetworkService = firebaseNetworkService
         self.symbol = symbol
         super.init()
     }
     
     func save(data: OpinionData) {
-        let value = ["id": data.id,
-                     "title": data.title,
-                     "date": Int(NSDate().timeIntervalSince1970),
-                     "body": data.body] as [String : Any]
-        
-        let database = Database.database().reference()
-        database.child("specificTalk").child(symbol).childByAutoId().updateChildValues(value) { _,_ in }
-        
+        firebaseNetworkService.postOpinion(symbol: symbol, data: data)
         transitionSubject.send(.done)
     }
     

@@ -10,14 +10,17 @@ import Foundation
 protocol AppContainer: AnyObject {
     var persistanceService: PersistanceService { get }
     var networkService: NetworkService { get }
+    var firebaseNetworkService: FirebaseRealTimeService { get }
 }
 
 final class AppContainerImpl: AppContainer {
     let persistanceService: PersistanceService
     let networkService: NetworkService
+    let firebaseNetworkService: FirebaseRealTimeService
 
     init() {
         self.persistanceService = PersistanceImpl()
         self.networkService = NetworkServiceImpl()
+        self.firebaseNetworkService = FirebaseNetworkServiceImpl()
     }
 }

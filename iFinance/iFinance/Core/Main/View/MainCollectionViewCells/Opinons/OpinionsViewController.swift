@@ -35,7 +35,8 @@ extension OpinionsViewController {
                 case .reloadData:
                     self?.contentView.tableView.reloadData()
                 }
-            }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
     }
 }
 

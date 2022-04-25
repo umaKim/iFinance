@@ -4,6 +4,7 @@
 //
 //  Created by 김윤석 on 2022/04/12.
 //
+
 import Combine
 import UIKit
 
@@ -32,7 +33,7 @@ final class MyListCollectionViewCell: UICollectionViewCell {
     func configure(with viewModel: MyListViewModel) {
         self.viewModel = viewModel
         self.myListViewController = MyListViewController(viewModel: viewModel)
-        
+
         bind()
         setupUI()
     }

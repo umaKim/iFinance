@@ -31,13 +31,13 @@ final class WritingCoordinator: Coordinator {
     }
     
     func start() {
-        let module = WritingBuilder.build(symbol: symbol)
+        let module = WritingBuilder.build(container: container,
+                                          symbol: symbol)
         module
             .transitionPublisher
             .sink {[weak self] transition in
                 switch transition {
                 case .done:
-                    //Dismiss
                     self?.dismiss()
                     
                 case .dismiss:

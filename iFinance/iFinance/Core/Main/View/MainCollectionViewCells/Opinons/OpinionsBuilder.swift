@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 final class OpinionsBuilder {
-    class func build() -> Module<OpinionsViewTransition, UIViewController> {
-        let vm = OpinionsViewModel()
+    class func build(container: AppContainer) -> Module<OpinionsViewTransition, UIViewController> {
+        let vm = OpinionsViewModel(firebaseNetwork: container.firebaseNetworkService)
         let vc = OpinionsViewController(viewModel: vm)
         return .init(viewController: vc, transitionPublisher: vm.transitionPublisher)
     }

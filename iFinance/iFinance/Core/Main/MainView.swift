@@ -43,6 +43,12 @@ final class MainView: BaseView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
         setupUI()
         bind()
     }
