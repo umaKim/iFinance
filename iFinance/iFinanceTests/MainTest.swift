@@ -21,10 +21,18 @@ class MainTest: XCTestCase {
                                        opinionsViewModel: OpinionsViewModel(firebaseNetwork: FirebaseRealTimeMock()))
         self.viewController = MainViewController(viewModel: viewModel)
         self.view = MainView()
-        self.cancellables = []
+        self.cancellables = .init()
+        super.setUp()
+    }
+    
+    func testCoordinator() {
+        let coordinator = MainHomeCoordinator(navigationController: UINavigationController(),
+                                              conainter: AppContainerMock())
+        coordinator.start()
     }
     
     func testViewController() {
+        
         viewController.viewDidLoad()
         viewController.viewDidLayoutSubviews()
         view.menuTabBar.selectItem(at: 0)
