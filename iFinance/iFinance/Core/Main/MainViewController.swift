@@ -18,12 +18,13 @@ class MainViewController: BaseViewController<MainViewModel> {
         super.loadView()
         
         view = contentView
+        
+        contentView.collectionView.delegate = self
+        contentView.collectionView.dataSource = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentView.collectionView.delegate = self
-        contentView.collectionView.dataSource = self
         
         bind()
         setUpFloatingPanel()
