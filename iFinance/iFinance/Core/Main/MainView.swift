@@ -38,16 +38,9 @@ final class MainView: BaseView {
     private(set) lazy var searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .done, target: nil, action: nil)
     private(set) lazy var writeOpinionsButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .done, target: nil, action: nil)
     
-    
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
         
         setupUI()
         bind()
@@ -101,7 +94,6 @@ extension MainView {
             }
             .store(in: &cancellables)
     }
-   
 }
 
 //MARK: - Set up UI

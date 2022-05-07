@@ -11,8 +11,7 @@ import Combine
 /// Controller to show news
 final class NewsViewController: UIViewController {
     
-    // MARK: - Properties
-    
+    // MARK: - UI Objects
     /// Primary news view
     private(set) lazy var tableView: UITableView = {
         let table = UITableView()
@@ -37,7 +36,10 @@ final class NewsViewController: UIViewController {
         self.cancellables = .init()
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        
+        bind()
+    }
+    
+    private func bind() {
         viewModel
             .listenerPublisher
             .receive(on: RunLoop.main)
@@ -55,7 +57,6 @@ final class NewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTable()
-        //        viewModel.delegate = self
     }
     
     // MARK: - Private
@@ -91,7 +92,7 @@ extension NewsViewController: UITableViewDelegate {
             withIdentifier: NewsHeaderView.identifier
         ) as? NewsHeaderView else { return nil }
         header.configure(with: .init( title: "Top News", shouldShowAddButton: false))
-
+        
         return header
     }
     
@@ -107,18 +108,3 @@ extension NewsViewController: UITableViewDelegate {
         viewModel.didSelectNews(at: indexPath)
     }
 }
-
-//extension NewsViewController: NewsViewModelDelegate {
-//    func newsDidSelectToOpen(_ url: URL) {
-//        let vc = SFSafariViewController(url: url)
-//        present(vc, animated: true)
-//    }
-//
-//    func newsDidSelectFailedToOpen(_ alertControl: UIAlertController) {
-//        present(alertControl, animated: true, completion: nil)
-//    }
-//
-//    func tableViewUpdated() {
-//        tableView.reloadData()
-//    }
-//}

@@ -25,9 +25,6 @@ final class NewsViewModel: BaseViewModel {
     //MARK: - Model
     private(set) lazy var stories = [NewsStory]()
     
-    //MARK: - Delegate
-//    weak var delegate: NewsViewModelDelegate?
-    
     private let networkService: NetworkService
     /// Instance of a type
     private let type: NewsType
@@ -47,25 +44,11 @@ final class NewsViewModel: BaseViewModel {
 extension NewsViewModel {
     /// Fetch news models
     private func fetchNews() {
-//        networkService.news(for: type) { [weak self] result in
-//            guard let self = self else {return }
-//            switch result {
-//            case .success(let stories):
-//                DispatchQueue.main.async {
-//                    self.stories = stories
-//                    self.listenerSubject.send(.reloadData)
-//                }
-//            case .failure(let error):
-//                print(error)
-//                self.stories = []
-//                self.listenerSubject.send(.reloadData)
-//            }
-//        }
-        
-        networkService.news(for: type)
+        networkService
+            .news(for: type)
             .sink { completion in
                 switch completion {
-                case .failure(let error):
+                case .failure(let _):
                     self.stories = []
                     
                 case .finished:

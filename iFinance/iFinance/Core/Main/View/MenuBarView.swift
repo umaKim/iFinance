@@ -102,7 +102,6 @@ extension MenuBarView {
 
 //MARK: - Button Actions
 extension MenuBarView {
-    
     func selectItem(at index: Int) {
         animateIndicator(to: index)
     }
