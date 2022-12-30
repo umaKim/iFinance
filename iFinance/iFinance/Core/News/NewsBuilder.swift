@@ -13,8 +13,10 @@ enum NewsViewTransition: Transition {
 
 final class NewsBuilder {
     class func build(container: AppContainer, type: NewsType) -> Module<NewsViewTransition, UIViewController> {
-        let vm = NewsViewModel(networkService: container.networkService,
-                               type: type)
+        let vm = NewsViewModel(
+            networkService: container.networkService,
+            type: type
+        )
         let vc = NewsViewController(viewModel: vm)
         return .init(viewController: vc, transitionPublisher: vm.transitionPublisher)
     }

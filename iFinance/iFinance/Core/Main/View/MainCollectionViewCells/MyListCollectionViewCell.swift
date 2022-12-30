@@ -32,8 +32,7 @@ final class MyListCollectionViewCell: UICollectionViewCell {
 
     func configure(with viewModel: MyListViewModel) {
         self.viewModel = viewModel
-        self.myListViewController = MyListViewController(viewModel: viewModel)
-
+        myListViewController = MyListViewController(viewModel: viewModel)
         bind()
         setupUI()
     }

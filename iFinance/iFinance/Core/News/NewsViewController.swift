@@ -80,7 +80,12 @@ extension NewsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsStoryTableViewCell.identfier, for: indexPath) as? NewsStoryTableViewCell else { return UITableViewCell()}
+        guard
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: NewsStoryTableViewCell.identfier,
+                for: indexPath
+            ) as? NewsStoryTableViewCell
+        else { return UITableViewCell()}
         cell.configure(with: .init(model: viewModel.stories[indexPath.row]))
         return cell
     }

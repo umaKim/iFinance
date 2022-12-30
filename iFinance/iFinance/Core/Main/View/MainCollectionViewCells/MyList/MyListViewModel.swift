@@ -139,18 +139,20 @@ final class MyListViewModel: BaseViewModel {
         
         symbols.forEach { _ in
             myWatchStocks.append (
-                .init(symbol: "Loading",
-                      companyName: "...",
-                      price: "Loding",
-                      changeColor: .darkGray,
-                      changePercentage: "...",
-                      chartViewModel: .init( data: [],
-                                             showLegend: false,
-                                             showAxis: false,
-                                             fillColor: .clear,
-                                             isFillColor: false
-                                           )
-                     )
+                .init(
+                    symbol: "Loading",
+                    companyName: "...",
+                    price: "Loding",
+                    changeColor: .darkGray,
+                    changePercentage: "...",
+                    chartViewModel: .init(
+                        data: [],
+                        showLegend: false,
+                        showAxis: false,
+                        fillColor: .clear,
+                        isFillColor: false
+                    )
+                )
             )
         }
         self.listernSubject.send(.reloadData)
@@ -160,7 +162,7 @@ final class MyListViewModel: BaseViewModel {
     /// - Parameter data: Collection of data
     /// - Returns: String
     private func getLatestClosingPrice(from data: [CandleStick]) -> String {
-        guard let closingPrice = data.first?.close else { return ""}
+        guard let closingPrice = data.first?.close else { return "" }
         return .formatted(number: closingPrice)
     }
     

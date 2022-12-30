@@ -58,8 +58,10 @@ final class MyListViewController: BaseViewController<MyListViewModel> {
     }
     
     private func setTableViewEditingMode() {
-        contentView.tableView.setEditing(!contentView.tableView.isEditing,
-                                         animated: true)
+        contentView.tableView.setEditing(
+            !contentView.tableView.isEditing,
+            animated: true
+        )
     }
 }
 
@@ -96,9 +98,13 @@ extension MyListViewController {
 extension MyListViewController {
     private func configureTableViewDataSource() {
         contentView.tableView.delegate = self
-        dataSource = .init(tableView: contentView.tableView,
-                           cellProvider: { ( tableView, indexPath, item) -> UITableViewCell? in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WatchListTableViewCell.identifier, for: indexPath) as? WatchListTableViewCell else {return nil}
+        dataSource = .init(
+            tableView: contentView.tableView,
+            cellProvider: { ( tableView, indexPath, item) -> UITableViewCell? in
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: WatchListTableViewCell.identifier,
+                for: indexPath
+            ) as? WatchListTableViewCell else { return nil }
             cell.configure(with: item)
             return cell
         })
