@@ -8,7 +8,7 @@
 import UIKit
 
 final class MenuBarButton: UIButton {
-    init(title: String){
+    init(title: String) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         setTitle(title, for: .normal)

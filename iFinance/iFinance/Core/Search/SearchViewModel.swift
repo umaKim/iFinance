@@ -35,7 +35,7 @@ final class SearchViewModel: BaseViewModel {
             .search(query: query)
             .sink { completion in
                 switch completion {
-                case .failure(let error):
+                case .failure(_):
                     self.searchResults = []
                     self.listenerSubject.send(.reloadData)
                     

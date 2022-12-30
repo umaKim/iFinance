@@ -48,13 +48,14 @@ extension NewsViewModel {
             .news(for: type)
             .sink { completion in
                 switch completion {
-                case .failure(let _):
+                case .failure(_):
                     self.stories = []
                     
                 case .finished:
                     print("finished")
                 }
-            } receiveValue: { newsStories in
+            } receiveValue: {[weak self] newsStories in
+                guard let self = self else {return }
                 self.stories = newsStories
                 self.listenerSubject.send(.reloadData)
             }

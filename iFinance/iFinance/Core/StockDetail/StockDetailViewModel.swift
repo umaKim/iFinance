@@ -79,22 +79,24 @@ final class StockDetailViewModel: BaseViewModel {
 
         quote.zip(marketData, financialMetrics, news)
             .sink(receiveCompletion: self.completionHandler,
-                  receiveValue: { (quote, marketData, metrics, newsStories) in
-                self.headerData = StockDetailHeaderData(
+                  receiveValue: {[weak self] (quote, marketData, metrics, newsStories) in
+                self?.headerData = StockDetailHeaderData(
                                 currentPrice: "\(quote.currentPrice ?? 0)",
                                 percentChange: "\(quote.percentChange ?? 0)",
-                                chartViewModel: StockChartModel(data: marketData.candleSticks.map({$0.close}),
-                                                                showLegend: true,
-                                                                showAxis: true,
-                                                                fillColor: self.calculateFillColor,
-                                                                isFillColor: true),
+                                chartViewModel: StockChartModel(
+                                    data: marketData.candleSticks.map({$0.close}),
+                                    showLegend: true,
+                                    showAxis: true,
+                                    fillColor: self?.calculateFillColor ?? .systemGray3,
+                                    isFillColor: true
+                                ),
                                 metrics: metrics.metric)
-                self.newsStories = newsStories
+                self?.newsStories = newsStories
             })
             .store(in: &cancellables)
     }
     
-    private func completionHandler( completion: Subscribers.Completion<Error>) {
+    private func completionHandler(completion: Subscribers.Completion<Error>) {
         switch completion {
         case .failure(let error):
             print(error.localizedDescription)

@@ -38,9 +38,6 @@ final class WritingViewController: BaseViewController<WritingViewModel> {
         viewModel
             .listenerPublisher
             .sink { [weak self] listener in
-                switch listener {
-                    
-                }
             }
             .store(in: &cancellables)
     }
