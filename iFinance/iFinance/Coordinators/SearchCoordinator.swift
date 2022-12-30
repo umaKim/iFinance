@@ -43,9 +43,11 @@ final class SearchCoordinator: Coordinator {
     }
     
     private func setupStockDetailCoordinator(symbol: String) {
-        let coordinator = StockDetailCoordinator(navigationController: navigationController,
-                                                 conainter: container,
-                                                 symbol: symbol)
+        let coordinator = StockDetailCoordinator(
+            navigationController: navigationController,
+            conainter: container,
+            symbol: symbol
+        )
         childCoordinators.append(coordinator)
         coordinator
             .didFinishPublisher

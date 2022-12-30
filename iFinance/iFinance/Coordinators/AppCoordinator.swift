@@ -37,12 +37,14 @@ final class AppCoordinator: Coordinator {
     }
     
     private func mainFlow() {
-        let mainCoordinator = MainHomeCoordinator(navigationController: navigationController,
-                                                  conainter: container)
+        let mainCoordinator = MainHomeCoordinator(
+            navigationController: navigationController,
+            conainter: container
+        )
         childCoordinators.append(mainCoordinator)
         mainCoordinator.didFinishPublisher
-            .sink { [unowned self] in
-                removeChild(coordinator: mainCoordinator)
+            .sink { [weak self] in
+                self?.removeChild(coordinator: mainCoordinator)
             }
             .store(in: &cancellables)
         mainCoordinator.start()

@@ -33,13 +33,14 @@ final class StockDetailCoordinator: Coordinator {
     }
     
     func start() {
-        let module = StockDetailBuilder.build(container: container,
-                                              symbol: symbol)
+        let module = StockDetailBuilder.build(
+            container: container,
+            symbol: symbol
+        )
         module
             .transitionPublisher
             .sink(receiveValue: { [weak self] transition in
                 switch transition {
-                
                 case .didTapNews(let url):
                     let vc = SFSafariViewController(url: url)
                     self?.present(vc, animated: true)

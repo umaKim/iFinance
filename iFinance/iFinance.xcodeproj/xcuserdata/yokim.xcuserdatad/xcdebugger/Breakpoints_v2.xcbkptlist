@@ -270,8 +270,8 @@
             filePath = "iFinance/Core/StockDetail/StockDetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
             landmarkName = "tableView(_:heightForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -327,22 +327,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "11FA512A-58EE-47DE-8BC1-146AB7B9578D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iFinance/Core/Search/SearchViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "didSelect(at:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "40FC057C-B796-4A7B-88F5-11E127074ECD"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -350,8 +334,8 @@
             filePath = "iFinance/Core/Search/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -366,8 +350,8 @@
             filePath = "iFinance/Core/StockDetail/StockDetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "tableView(_:viewForHeaderInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -382,8 +366,8 @@
             filePath = "iFinance/Core/StockDetail/StockDetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "tableView(_:viewForHeaderInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -430,8 +414,8 @@
             filePath = "iFinance/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "setUpFloatingPanel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -446,8 +430,8 @@
             filePath = "iFinance/Core/Writing/WritingViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "dismiss()"
             landmarkType = "7">
          </BreakpointContent>
@@ -519,22 +503,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0F751AA6-B3A3-4CDC-B794-56E61C551CD6"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iFinance/Core/StockDetail/StockDetailViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "tableView(_:viewForHeaderInSection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "8CC0A94C-F061-4D3E-99F6-8CF533F9EA0F"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -542,8 +510,8 @@
             filePath = "iFinance/Core/StockDetail/StockDetailViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "fetchData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -718,8 +686,8 @@
             filePath = "iFinance/Core/Main/View/MainCollectionViewCells/MyList/MyListViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "setUpObserver()"
             landmarkType = "7">
          </BreakpointContent>
@@ -734,8 +702,8 @@
             filePath = "iFinance/Core/Main/View/MainCollectionViewCells/MyList/MyListViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "fetch(symbol:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -750,8 +718,8 @@
             filePath = "iFinance/Core/Main/View/MainCollectionViewCells/MyList/MyListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "bind()"
             landmarkType = "7">
          </BreakpointContent>
@@ -862,8 +830,8 @@
             filePath = "iFinance/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "bind()"
             landmarkType = "7">
          </BreakpointContent>
@@ -878,8 +846,8 @@
             filePath = "iFinance/Core/Main/View/MainCollectionViewCells/MyList/MyListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "bind()"
             landmarkType = "7">
          </BreakpointContent>
@@ -894,8 +862,8 @@
             filePath = "iFinance/Core/Main/View/MainCollectionViewCells/MyList/MyListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "bind()"
             landmarkType = "7">
             <Locations>
@@ -942,8 +910,8 @@
             filePath = "iFinance/Core/Main/View/MainCollectionViewCells/MyList/MyListViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "bind()"
             landmarkType = "7">
          </BreakpointContent>
@@ -958,8 +926,8 @@
             filePath = "iFinance/Core/Main/View/MainCollectionViewCells/MyList/MyListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "bind()"
             landmarkType = "7">
          </BreakpointContent>
@@ -974,8 +942,8 @@
             filePath = "iFinance/Core/Main/View/MainCollectionViewCells/Opinons/OpinionsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "fetchComments()"
             landmarkType = "7">
          </BreakpointContent>
@@ -990,8 +958,8 @@
             filePath = "iFinance/Core/Main/View/MainCollectionViewCells/Opinons/OpinionsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "fetchComments()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1025,6 +993,38 @@
             startingLineNumber = "35"
             endingLineNumber = "35"
             landmarkName = "fetchOpinions(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A78E8E4E-0EAE-4C7F-82D8-8304FD9161A5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iFinance/Service/NetworkService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "url(for:queryParams:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B8B252AC-D5C2-475F-AAFD-6A1D40AB917A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iFinance/Service/NetworkService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "url(for:queryParams:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -34,7 +34,10 @@ final class MainViewModel: BaseViewModel {
         self.myListViewModel = myListViewModel
         self.opinionsViewModel = opinionsViewModel
     }
-    
+}
+
+// MARK: - Public Methods
+extension MainViewModel {
     func searchButtonDidTap() {
         transitionSubject.send(.searchView)
     }

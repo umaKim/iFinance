@@ -27,7 +27,6 @@ final class MyListCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         self.cancellables = .init()
         super.init(frame: frame)
-        
     }
 
     func configure(with viewModel: MyListViewModel) {
@@ -62,7 +61,6 @@ extension MyListCollectionViewCell {
     private func setupUI() {
         guard let myListView = myListViewController?.view else { return }
         contentView.addSubviews(myListView)
-
         NSLayoutConstraint.activate([
             myListView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             myListView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),

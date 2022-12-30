@@ -55,6 +55,8 @@
 		351C5B3D2817914500FE9C0F /* WritingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B3C2817914500FE9C0F /* WritingTest.swift */; };
 		354CC634295EF65200488172 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 354CC633295EF65200488172 /* Algorithms */; };
 		354CC637295EF8A700488172 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 354CC636295EF8A700488172 /* Charts */; };
+		354CC639295F340100488172 /* MainViewCellableAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354CC638295F340100488172 /* MainViewCellableAction.swift */; };
+		354CC63B295F36F800488172 /* CaptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354CC63A295F36F800488172 /* CaptionTextView.swift */; };
 		356DC23328045DEE00557827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23228045DEE00557827 /* AppDelegate.swift */; };
 		356DC23528045DEE00557827 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23428045DEE00557827 /* SceneDelegate.swift */; };
 		356DC23C28045DF000557827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 356DC23B28045DF000557827 /* Assets.xcassets */; };
@@ -151,6 +153,8 @@
 		351C5B382816F0C000FE9C0F /* SearchTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTest.swift; sourceTree = "<group>"; };
 		351C5B3A28178DEB00FE9C0F /* AppContainerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainerMock.swift; sourceTree = "<group>"; };
 		351C5B3C2817914500FE9C0F /* WritingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingTest.swift; sourceTree = "<group>"; };
+		354CC638295F340100488172 /* MainViewCellableAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCellableAction.swift; sourceTree = "<group>"; };
+		354CC63A295F36F800488172 /* CaptionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTextView.swift; sourceTree = "<group>"; };
 		356DC22F28045DEE00557827 /* iFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		356DC23228045DEE00557827 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		356DC23428045DEE00557827 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -494,6 +498,7 @@
 				356DC23D28045DF000557827 /* LaunchScreen.storyboard */,
 				35CC39A02806CEB0007148A5 /* StockCharView.swift */,
 				35CC39A42806CFC6007148A5 /* MenuBarButton.swift */,
+				354CC63A295F36F800488172 /* CaptionTextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -505,6 +510,7 @@
 				356DC25B28048E9D00557827 /* MainViewModel.swift */,
 				356DC25028047FEF00557827 /* MainViewController.swift */,
 				3595DA3628099DD600072B01 /* MainView.swift */,
+				354CC638295F340100488172 /* MainViewCellableAction.swift */,
 				356DC27A280539B400557827 /* View */,
 			);
 			path = Main;
@@ -678,6 +684,7 @@
 			files = (
 				3595DA2B28099A5800072B01 /* StockDetailViewController.swift in Sources */,
 				3595DA3728099DD600072B01 /* MainView.swift in Sources */,
+				354CC63B295F36F800488172 /* CaptionTextView.swift in Sources */,
 				351C5AF1280C5AC100FE9C0F /* OpinionTableViewCell.swift in Sources */,
 				356DC2492804639400557827 /* MyListViewController.swift in Sources */,
 				351C5B0D280ED6E000FE9C0F /* MetricCollectionViewCell.swift in Sources */,
@@ -708,6 +715,7 @@
 				356DC26B28052EE300557827 /* NewsStory.swift in Sources */,
 				351C5ACB280BB33300FE9C0F /* SearchViewModel.swift in Sources */,
 				351C5AD3280C1B0E00FE9C0F /* StockDetailHeaderData.swift in Sources */,
+				354CC639295F340100488172 /* MainViewCellableAction.swift in Sources */,
 				356DC25A28048CC600557827 /* MainHomeCoordinator.swift in Sources */,
 				3595DA2928099A5000072B01 /* StockDetailBuilder.swift in Sources */,
 				356DC25828048C3B00557827 /* AppContainer.swift in Sources */,

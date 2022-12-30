@@ -10,7 +10,7 @@ import Combine
 import UIKit.UIColor
 
 enum StockDetailViewModelListener {
-    case errror
+    case error
     case reloadData
 }
 
@@ -76,30 +76,32 @@ final class StockDetailViewModel: BaseViewModel {
         let marketData = networkService.marketData(for: symbol, numberOfDays: 7)
         let financialMetrics = networkService.financialMetrics(for: symbol)
         let news = networkService.news(for: .compan(symbol: symbol))
-
-        quote.zip(marketData, financialMetrics, news)
-            .sink(receiveCompletion: self.completionHandler,
-                  receiveValue: {[weak self] (quote, marketData, metrics, newsStories) in
-                self?.headerData = StockDetailHeaderData(
-                                currentPrice: "\(quote.currentPrice ?? 0)",
-                                percentChange: "\(quote.percentChange ?? 0)",
-                                chartViewModel: StockChartModel(
-                                    data: marketData.candleSticks.map({$0.close}),
-                                    showLegend: true,
-                                    showAxis: true,
-                                    fillColor: self?.calculateFillColor ?? .systemGray3,
-                                    isFillColor: true
-                                ),
-                                metrics: metrics.metric)
-                self?.newsStories = newsStories
-            })
+        
+        quote
+            .zip(marketData, financialMetrics, news)
+            .sink(
+                receiveCompletion: self.completionHandler,
+                receiveValue: {[weak self] (quote, marketData, metrics, newsStories) in
+                    self?.headerData = StockDetailHeaderData(
+                        currentPrice: "\(quote.currentPrice ?? 0)",
+                        percentChange: "\(quote.percentChange ?? 0)",
+                        chartViewModel: StockChartModel(
+                            data: marketData.candleSticks.map({$0.close}),
+                            showLegend: true,
+                            showAxis: true,
+                            fillColor: self?.calculateFillColor ?? .systemGray3,
+                            isFillColor: true
+                        ),
+                        metrics: metrics.metric)
+                    self?.newsStories = newsStories
+                })
             .store(in: &cancellables)
     }
     
     private func completionHandler(completion: Subscribers.Completion<Error>) {
         switch completion {
-        case .failure(let error):
-            print(error.localizedDescription)
+        case .failure(_):
+            self.listenerSubject.send(.error)
             
         case .finished:
             self.listenerSubject.send(.reloadData)

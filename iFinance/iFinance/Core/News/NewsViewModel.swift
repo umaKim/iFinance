@@ -46,7 +46,8 @@ extension NewsViewModel {
     private func fetchNews() {
         networkService
             .news(for: type)
-            .sink { completion in
+            .sink {[weak self] completion in
+                guard let self = self else { return }
                 switch completion {
                 case .failure(_):
                     self.stories = []

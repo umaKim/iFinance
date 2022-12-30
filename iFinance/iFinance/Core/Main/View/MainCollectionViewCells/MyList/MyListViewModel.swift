@@ -50,6 +50,15 @@ final class MyListViewModel: BaseViewModel {
         case main
     }
     
+    func didTap(myWatchStock: MyWatchListModel) {
+        transitionSubject.send(.didTap(myWatchStock))
+    }
+    
+    func removeItem(at indexPath: IndexPath) {
+        persistanceService.removeFromWatchlist(symbol: myWatchStocks[indexPath.row].symbol)
+        myWatchStocks.remove(at: indexPath.row)
+    }
+    
     /// Sets up observer for watch list updates
     private func setUpObserver() {
         NotificationCenter
@@ -166,12 +175,4 @@ final class MyListViewModel: BaseViewModel {
         return .formatted(number: closingPrice)
     }
     
-    func didTap(myWatchStock: MyWatchListModel) {
-        transitionSubject.send(.didTap(myWatchStock))
-    }
-    
-    func removeItem(at indexPath: IndexPath) {
-        persistanceService.removeFromWatchlist(symbol: myWatchStocks[indexPath.row].symbol)
-        myWatchStocks.remove(at: indexPath.row)
-    }
 }

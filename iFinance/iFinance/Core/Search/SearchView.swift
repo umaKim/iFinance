@@ -14,16 +14,20 @@ final class SearchView: BaseView {
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        tableView.register(SearchCell.self, forCellReuseIdentifier: SearchCell.identifier)
-        tableView.rowHeight = SearchCell.prefferedHeight
-        
+        configureTableView()
         setupUI()
+    }
+    
+    private func configureTableView() {
+        tableView.register(
+            SearchCell.self,
+            forCellReuseIdentifier: SearchCell.identifier
+        )
+        tableView.rowHeight = SearchCell.prefferedHeight
     }
     
     private func setupUI() {
         addSubviews(tableView)
-        
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),

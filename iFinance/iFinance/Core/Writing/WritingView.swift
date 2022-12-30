@@ -83,10 +83,12 @@ extension WritingView {
             .tapPublisher
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                let data = OpinionData(id: self.writerIdTextField.text ?? "",
-                                       title: self.titleTextField.text ?? "",
-                                       date: Int(NSDate().timeIntervalSince1970),
-                                       body: self.bodyTextView.text)
+                let data = OpinionData(
+                    id: self.writerIdTextField.text ?? "",
+                    title: self.titleTextField.text ?? "",
+                    date: Int(NSDate().timeIntervalSince1970),
+                    body: self.bodyTextView.text
+                )
                 self.actionSubject.send(.saveButtonDidTap(data))
             }
             .store(in: &cancellables)
@@ -129,42 +131,3 @@ extension WritingView {
     }
 }
 
-
-final class CaptionTextView: UITextView {
-    
-    private let placeholderLabel: UILabel = {
-        let label = UILabel()
-        label.text = "  Share your idea here"
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = .darkGray
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    //MARK: - Init
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
-        super.init(frame: frame, textContainer: textContainer)
-        
-        font = UIFont.systemFont(ofSize: 16)
-        
-        configurePlaceHolder()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(textDidChangeHandler), name: UITextView.textDidChangeNotification, object: nil)
-    }
-    
-    @objc func textDidChangeHandler() {
-        placeholderLabel.isHidden = !text.isEmpty
-    }
-    
-    private func configurePlaceHolder() {
-        addSubview(placeholderLabel)
-        NSLayoutConstraint.activate([
-            placeholderLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            placeholderLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-        ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}

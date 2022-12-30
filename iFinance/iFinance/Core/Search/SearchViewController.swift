@@ -67,9 +67,11 @@ extension SearchViewController {
         dataSource = DataSource(
             tableView: contentView.tableView,
             cellProvider: { (tableView, indexPath, searchResult) -> UITableViewCell? in
-                guard let cell = tableView.dequeueReusableCell(
-                    withIdentifier: SearchCell.identifier,
-                    for: indexPath) as? SearchCell else { return nil }
+                guard
+                    let cell = tableView.dequeueReusableCell(
+                        withIdentifier: SearchCell.identifier,
+                        for: indexPath) as? SearchCell
+                else { return nil }
                 cell.textLabel?.text = searchResult.symbol
                 cell.detailTextLabel?.text = searchResult.description
                 return cell

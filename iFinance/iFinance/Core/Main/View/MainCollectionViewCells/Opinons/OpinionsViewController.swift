@@ -47,7 +47,11 @@ extension OpinionsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier, for: indexPath) as? CommentTableViewCell else { return UITableViewCell() }
+        guard
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: CommentTableViewCell.identifier,
+                for: indexPath
+            ) as? CommentTableViewCell else { return UITableViewCell() }
         cell.configure(with: viewModel.opinions[indexPath.row])
         return cell
     }
@@ -57,5 +61,6 @@ extension OpinionsViewController: UITableViewDataSource {
 extension OpinionsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        viewModel.didTap(opinionAt: indexPath.item)
     }
 }

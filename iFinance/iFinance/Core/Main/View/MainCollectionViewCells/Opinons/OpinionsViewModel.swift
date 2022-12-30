@@ -15,7 +15,7 @@ enum OpinionsViewModelListener {
 }
 
 enum OpinionsViewTransition: Transition {
-    case didTap(MyWatchListModel)
+    case didTap(PostContent)
 }
 
 final class OpinionsViewModel: BaseViewModel {
@@ -36,6 +36,10 @@ final class OpinionsViewModel: BaseViewModel {
         self.firebaseNetwork = firebaseNetwork
         super.init()
         fetchComments()
+    }
+    
+    func didTap(opinionAt index: Int) {
+        transitionSubject.send(.didTap(opinions[index]))
     }
     
     private func fetchComments() {

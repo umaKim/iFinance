@@ -31,8 +31,10 @@ final class WritingCoordinator: Coordinator {
     }
     
     func start() {
-        let module = WritingBuilder.build(container: container,
-                                          symbol: symbol)
+        let module = WritingBuilder.build(
+            container: container,
+            symbol: symbol
+        )
         module
             .transitionPublisher
             .sink {[weak self] transition in

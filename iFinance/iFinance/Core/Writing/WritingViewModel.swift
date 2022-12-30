@@ -26,7 +26,10 @@ final class WritingViewModel: BaseViewModel {
     private let firebaseNetworkService: FirebaseRealTimeService
     
     //MARK: - Init
-    init(firebaseNetworkService: FirebaseRealTimeService, symbol: String) {
+    init(
+        firebaseNetworkService: FirebaseRealTimeService,
+        symbol: String
+    ) {
         self.firebaseNetworkService = firebaseNetworkService
         self.symbol = symbol
         super.init()

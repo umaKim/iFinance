@@ -48,9 +48,11 @@ final class MainView: BaseView {
     
     private func scroll(to item: MenuTabBarButtonType) {
         let indexPath = IndexPath(item: item.rawValue, section: 0)
-        self.collectionView.scrollToItem(at: indexPath,
-                                          at: [],
-                                          animated: true)
+        self.collectionView.scrollToItem(
+            at: indexPath,
+            at: [],
+            animated: true
+        )
     }
     
     required init?(coder: NSCoder) {

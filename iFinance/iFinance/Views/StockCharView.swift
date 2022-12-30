@@ -57,6 +57,7 @@ final class StockChartView: UIView {
         chartView.rightAxis.enabled = stockChartModel.showAxis
         chartView.legend.enabled = stockChartModel.showLegend
 
+        /// set dataSet for
         let dataSet = LineChartDataSet(entries: entries, label: "7 Days")
         
         if stockChartModel.fillColor == UIColor.systemRed {

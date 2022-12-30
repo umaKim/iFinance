@@ -13,8 +13,10 @@ enum MyListViewTransition: Transition {
 
 final class MyListBuilder {
     class func build(container: AppContainer) -> Module<MyListViewTransition, UIViewController> {
-        let vm = MyListViewModel(networkService: container.networkService,
-                                 persistanceService: container.persistanceService)
+        let vm = MyListViewModel(
+            networkService: container.networkService,
+            persistanceService: container.persistanceService
+        )
         let vc = MyListViewController(viewModel: vm)
         return .init(viewController: vc, transitionPublisher: vm.transitionPublisher)
     }

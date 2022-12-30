@@ -63,9 +63,11 @@ final class MainHomeCoordinator: Coordinator {
     }
     
     private func setupWritingCoordinator() {
-        let coordinator = WritingCoordinator(navigationController: navigationController,
-                                             conainter: container,
-                                             symbol: "generalTalk")
+        let coordinator = WritingCoordinator(
+            navigationController: navigationController,
+            conainter: container,
+            symbol: "generalTalk"
+        )
         childCoordinators.append(coordinator)
         coordinator
             .didFinishPublisher

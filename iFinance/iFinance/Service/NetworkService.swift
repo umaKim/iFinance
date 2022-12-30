@@ -24,11 +24,6 @@ enum NewsType {
     }
 }
 
-enum Platform: String {
-    case binance// = "binance"
-    case coinbase// = "coinbase"
-}
-
 protocol NetworkService {
     func search( query: String) -> AnyPublisher<SearchResponse, Error>
     func news(for type: NewsType) -> AnyPublisher<[NewsStory], Error>
@@ -144,13 +139,18 @@ final class NetworkServiceImpl: NetworkService {
         let today = Date().addingTimeInterval(-(Constants.day))
         let prior = today.addingTimeInterval(-(Constants.day * numberOfDays))
         
-        return request(url: url(for: .marketData,
-                                queryParams: [
-                                    "symbol": symbol,
-                                    "resolution": "5",
-                                    "from": "\(Int(prior.timeIntervalSince1970))",
-                                    "to": "\(Int(today.timeIntervalSince1970))"]),
-                       expecting: MarketDataResponse.self)
+        return request(url:
+                        url(for:
+                                .marketData,
+                            queryParams: [
+                                "symbol": symbol,
+                                "resolution": "5",
+                                "from": "\(Int(prior.timeIntervalSince1970))",
+                                "to": "\(Int(today.timeIntervalSince1970))"
+                            ]
+                        ),
+                       expecting: MarketDataResponse.self
+        )
     }
     
     /// Get financial metrics

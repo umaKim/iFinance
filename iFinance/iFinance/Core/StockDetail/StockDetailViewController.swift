@@ -39,7 +39,7 @@ extension StockDetailViewController {
                     guard let data = self?.viewModel.headerData else { return }
                     self?.contentView.headerView.configure(with: data)
                     
-                case .errror:
+                case .error:
                     self?.showDefaultAlert(title: "Error")
                 }
             }
@@ -74,7 +74,11 @@ extension StockDetailViewController: UITableViewDelegate, Alertable {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView( withIdentifier: NewsHeaderView.identifier) as? NewsHeaderView else { return nil }
+        guard
+            let header = tableView.dequeueReusableHeaderFooterView(
+                withIdentifier: NewsHeaderView.identifier
+            ) as? NewsHeaderView
+        else { return nil }
         header.configure(with:
                 .init(
                     title: viewModel.symbol.uppercased(),

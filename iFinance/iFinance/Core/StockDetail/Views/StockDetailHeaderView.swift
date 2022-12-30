@@ -73,11 +73,13 @@ final class StockDetailHeaderView: BaseView {
             priceChangeLabel.textColor = .systemGreen
         }
         
-        let viewModel: StockChartModel = .init(data: data.chartViewModel.data,
-                                              showLegend: true,
-                                              showAxis: true,
-                                               fillColor: data.chartViewModel.fillColor,
-                                               isFillColor: data.chartViewModel.isFillColor)
+        let viewModel: StockChartModel = .init(
+            data: data.chartViewModel.data,
+            showLegend: true,
+            showAxis: true,
+            fillColor: data.chartViewModel.fillColor,
+            isFillColor: data.chartViewModel.isFillColor
+        )
         chartView.configure(with: viewModel)
         
         let metrics = data.metrics
@@ -99,7 +101,6 @@ final class StockDetailHeaderView: BaseView {
 
 //MARK: - CollectionView Data Source
 extension StockDetailHeaderView: UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return metricViewModels.count
     }
@@ -114,7 +115,6 @@ extension StockDetailHeaderView: UICollectionViewDataSource {
 
 //MARK: - UICollectionView Delegate Flow Layout
 extension StockDetailHeaderView: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: frame.width / 2, height: 100/3)
     }

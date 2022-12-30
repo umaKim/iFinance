@@ -47,7 +47,6 @@ final class PersistanceImpl: PersistanceService {
     ///   - symbol: Symbol to add
     ///   - companyName: Company name for symbol being added
     public func addToWatchlist(symbol: String) {
-        
         if !watchlistContains(symbol: symbol) {
             var current = watchlist
             current.append(symbol)

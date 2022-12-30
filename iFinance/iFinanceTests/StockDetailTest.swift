@@ -32,7 +32,6 @@ class StockDetailTest: XCTestCase {
     }
     
     func testViewModel() {
-        
         //Arrange
         var didTapNews: Bool = false
         
@@ -54,7 +53,7 @@ class StockDetailTest: XCTestCase {
                 case .reloadData:
                     break
                     
-                case .errror:
+                case .error:
                     break
                 }
             }

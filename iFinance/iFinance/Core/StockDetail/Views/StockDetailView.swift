@@ -13,10 +13,14 @@ final class StockDetailView: BaseView {
     /// Primary view
     private(set) lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(NewsHeaderView.self,
-                           forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
-        tableView.register(NewsStoryTableViewCell.self,
-                           forCellReuseIdentifier: NewsStoryTableViewCell.identfier)
+        tableView.register(
+            NewsHeaderView.self,
+            forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier
+        )
+        tableView.register(
+            NewsStoryTableViewCell.self,
+            forCellReuseIdentifier: NewsStoryTableViewCell.identfier
+        )
         tableView.rowHeight = NewsStoryTableViewCell.preferredHeight
         return tableView
     }()
@@ -24,7 +28,6 @@ final class StockDetailView: BaseView {
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupUI()
     }
     
@@ -33,7 +36,6 @@ final class StockDetailView: BaseView {
         
         //I used dynamic height to make the views fit with autolayout
         if let headerView = tableView.tableHeaderView {
-            
             let height = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
             var headerFrame = headerView.frame
             headerFrame.size.height = height
