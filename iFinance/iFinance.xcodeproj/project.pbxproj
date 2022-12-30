@@ -53,6 +53,8 @@
 		351C5B392816F0C000FE9C0F /* SearchTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B382816F0C000FE9C0F /* SearchTest.swift */; };
 		351C5B3B28178DEB00FE9C0F /* AppContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B3A28178DEB00FE9C0F /* AppContainerMock.swift */; };
 		351C5B3D2817914500FE9C0F /* WritingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C5B3C2817914500FE9C0F /* WritingTest.swift */; };
+		354CC634295EF65200488172 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 354CC633295EF65200488172 /* Algorithms */; };
+		354CC637295EF8A700488172 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 354CC636295EF8A700488172 /* Charts */; };
 		356DC23328045DEE00557827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23228045DEE00557827 /* AppDelegate.swift */; };
 		356DC23528045DEE00557827 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356DC23428045DEE00557827 /* SceneDelegate.swift */; };
 		356DC23C28045DF000557827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 356DC23B28045DF000557827 /* Assets.xcassets */; };
@@ -94,7 +96,6 @@
 		3595DA412809B0B700072B01 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3595DA402809B0B700072B01 /* SDWebImage */; };
 		3595DA432809B0E400072B01 /* NewsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA422809B0E400072B01 /* NewsHeaderView.swift */; };
 		3595DA452809B2A000072B01 /* StockDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595DA442809B2A000072B01 /* StockDetailView.swift */; };
-		35CC399B2805C9E6007148A5 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 35CC399A2805C9E6007148A5 /* Charts */; };
 		35CC39A12806CEB0007148A5 /* StockCharView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CC39A02806CEB0007148A5 /* StockCharView.swift */; };
 		35CC39A32806CEEB007148A5 /* MyListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CC39A22806CEEB007148A5 /* MyListViewModel.swift */; };
 		35CC39A52806CFC6007148A5 /* MenuBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CC39A42806CFC6007148A5 /* MenuBarButton.swift */; };
@@ -210,17 +211,18 @@
 			files = (
 				3595DA3A2809AC8B00072B01 /* FloatingPanel in Frameworks */,
 				351C5AE0280C4F8C00FE9C0F /* FirebaseAuth in Frameworks */,
+				354CC634295EF65200488172 /* Algorithms in Frameworks */,
 				356DC272280535BB00557827 /* CombineCocoa in Frameworks */,
 				351C5AE8280C4F8C00FE9C0F /* FirebaseFirestoreCombine-Community in Frameworks */,
 				3595DA412809B0B700072B01 /* SDWebImage in Frameworks */,
 				351C5ADE280C4F8C00FE9C0F /* FirebaseAnalytics in Frameworks */,
 				351C5AE6280C4F8C00FE9C0F /* FirebaseFirestore in Frameworks */,
 				351C5AE2280C4F8C00FE9C0F /* FirebaseAuthCombine-Community in Frameworks */,
+				354CC637295EF8A700488172 /* Charts in Frameworks */,
 				351C5AEA280C4F8C00FE9C0F /* FirebaseStorage in Frameworks */,
 				351C5AE4280C4F8C00FE9C0F /* FirebaseDatabase in Frameworks */,
 				351C5AF8280C83C100FE9C0F /* UmaBasicAlertKit in Frameworks */,
 				351C5AEC280C4F8C00FE9C0F /* FirebaseStorageCombine-Community in Frameworks */,
-				35CC399B2805C9E6007148A5 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				3595DA26280999FE00072B01 /* Helper */,
+				351C5B15280EE49300FE9C0F /* Service */,
 				356DC247280462AF00557827 /* Application */,
 				356DC25228048BA700557827 /* Coordinators */,
 				35CC399C2805CD60007148A5 /* Views */,
@@ -349,9 +352,9 @@
 		356DC2462804617200557827 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				3595DA3C2809B06700072B01 /* News */,
 				3595DA24280999C700072B01 /* Base */,
 				35CC399D2805CD78007148A5 /* Main */,
+				3595DA3C2809B06700072B01 /* News */,
 				3595DA2728099A3C00072B01 /* StockDetail */,
 				35CC399E2805CD88007148A5 /* Search */,
 				35CC399F2805CD94007148A5 /* Writing */,
@@ -364,7 +367,6 @@
 			children = (
 				356DC23228045DEE00557827 /* AppDelegate.swift */,
 				356DC23428045DEE00557827 /* SceneDelegate.swift */,
-				351C5B15280EE49300FE9C0F /* Service */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -567,7 +569,6 @@
 			name = iFinance;
 			packageProductDependencies = (
 				356DC271280535BB00557827 /* CombineCocoa */,
-				35CC399A2805C9E6007148A5 /* Charts */,
 				3595DA392809AC8B00072B01 /* FloatingPanel */,
 				3595DA402809B0B700072B01 /* SDWebImage */,
 				351C5ADD280C4F8C00FE9C0F /* FirebaseAnalytics */,
@@ -579,6 +580,8 @@
 				351C5AE9280C4F8C00FE9C0F /* FirebaseStorage */,
 				351C5AEB280C4F8C00FE9C0F /* FirebaseStorageCombine-Community */,
 				351C5AF7280C83C100FE9C0F /* UmaBasicAlertKit */,
+				354CC633295EF65200488172 /* Algorithms */,
+				354CC636295EF8A700488172 /* Charts */,
 			);
 			productName = iFinance;
 			productReference = 356DC22F28045DEE00557827 /* iFinance.app */;
@@ -614,11 +617,12 @@
 			mainGroup = 356DC22628045DEE00557827;
 			packageReferences = (
 				356DC270280535BB00557827 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
-				35CC39992805C9E5007148A5 /* XCRemoteSwiftPackageReference "Charts" */,
 				3595DA382809AC8B00072B01 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				3595DA3F2809B0B700072B01 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				351C5ADC280C4F8C00FE9C0F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				351C5AF6280C83C100FE9C0F /* XCRemoteSwiftPackageReference "UmaBasicAlertKit" */,
+				354CC632295EF65200488172 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				354CC635295EF8A600488172 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 356DC23028045DEE00557827 /* Products */;
 			projectDirPath = "";
@@ -1018,6 +1022,22 @@
 				kind = branch;
 			};
 		};
+		354CC632295EF65200488172 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		354CC635295EF8A600488172 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		356DC270280535BB00557827 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
@@ -1040,14 +1060,6 @@
 			requirement = {
 				branch = master;
 				kind = branch;
-			};
-		};
-		35CC39992805C9E5007148A5 /* XCRemoteSwiftPackageReference "Charts" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/danielgindi/Charts.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1098,6 +1110,16 @@
 			package = 351C5AF6280C83C100FE9C0F /* XCRemoteSwiftPackageReference "UmaBasicAlertKit" */;
 			productName = UmaBasicAlertKit;
 		};
+		354CC633295EF65200488172 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 354CC632295EF65200488172 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+		354CC636295EF8A700488172 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 354CC635295EF8A600488172 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
+		};
 		356DC271280535BB00557827 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 356DC270280535BB00557827 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
@@ -1112,11 +1134,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3595DA3F2809B0B700072B01 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
-		};
-		35CC399A2805C9E6007148A5 /* Charts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 35CC39992805C9E5007148A5 /* XCRemoteSwiftPackageReference "Charts" */;
-			productName = Charts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
