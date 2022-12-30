@@ -124,7 +124,7 @@ final class NetworkServiceImpl: NetworkService {
             
         case .compan(let symbol):
             let today = Date()
-            let oneMonthBack = today.addingTimeInterval(-(Constants.day * 7))
+            let oneMonthBack = today.addingTimeInterval(-(Constants.day * 1))
             return request(url: url(for: .companyNews, queryParams: [
                 "symbol": symbol,
                 "from": DateFormatter.newsDateFormatter.string(from: oneMonthBack),
@@ -223,7 +223,7 @@ final class NetworkServiceImpl: NetworkService {
         
         // Convert queri items to suffix string
         urlString += "?" + queryItems.map { "\($0.name)=\($0.value ?? "")" }.joined(separator: "&")
-        
+
         return URL(string: urlString)
     }
     

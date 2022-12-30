@@ -15,7 +15,6 @@ protocol FirebaseRealTimeService {
 
 final class FirebaseNetworkServiceImpl: FirebaseRealTimeService {
     
-    
     private let database = Database.database().reference().child("specificTalk")
     
     func fetchOpinions(completion: @escaping (PostContent) -> Void) {
