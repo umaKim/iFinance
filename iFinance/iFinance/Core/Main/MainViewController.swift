@@ -79,7 +79,7 @@ extension MainViewController: UICollectionViewDataSource {
         var cell = cells[indexPath.item]
         cell.collectionView = collectionView
         cell.viewModel = viewModel
-        cell.outputSubject.sink(receiveValue: myListHandler)
+        cell.actionSubject.sink(receiveValue: myListHandler)
             .store(in: &cancellables)
         return cell.run(with: indexPath)
     }
