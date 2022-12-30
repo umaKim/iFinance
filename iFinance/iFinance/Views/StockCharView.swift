@@ -60,16 +60,19 @@ final class StockChartView: UIView {
         let dataSet = LineChartDataSet(entries: entries, label: "7 Days")
         
         if stockChartModel.fillColor == UIColor.systemRed {
-            let gradientColors = [ChartColorTemplates.colorFromString("#00ff0000").cgColor,
-                                  ChartColorTemplates.colorFromString("#ffff0000").cgColor]
+            let gradientColors = [
+                ChartColorTemplates.colorFromString("#00ff0000").cgColor,
+                ChartColorTemplates.colorFromString("#ffff0000").cgColor
+            ]
             let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
-            dataSet.fill = Fill(linearGradient: gradient, angle: 90)
-            
+            dataSet.fill = LinearGradientFill(gradient: gradient, angle: 90)
         } else {
-            let gradientColors = [ChartColorTemplates.colorFromString("#0000ff00").cgColor,
-                                  ChartColorTemplates.colorFromString("#00ff00").cgColor]
+            let gradientColors = [
+                ChartColorTemplates.colorFromString("#0000ff00").cgColor,
+                ChartColorTemplates.colorFromString("#00ff00").cgColor
+            ]
             let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
-            dataSet.fill = Fill(linearGradient: gradient, angle: 90)
+            dataSet.fill = LinearGradientFill(gradient: gradient, angle: 90)
         }
         
         dataSet.fillAlpha = 0.35
