@@ -8,6 +8,14 @@
 import UIKit.UINavigationController
 import Combine
 
+protocol SearchViewModelDependency {
+    
+}
+
+struct SearchViewModelDependencyImp: SearchViewModelDependency {
+    
+}
+
 final class SearchCoordinator: Coordinator {
     var childCoordinators: [Coordinator]
     
@@ -19,8 +27,9 @@ final class SearchCoordinator: Coordinator {
     
     private let container: AppContainer
     
-    init(navigationController: UINavigationController,
-         conainter: AppContainer
+    init(
+        navigationController: UINavigationController,
+        conainter: AppContainer
     ){
         self.navigationController = navigationController
         self.childCoordinators = []
@@ -46,7 +55,7 @@ final class SearchCoordinator: Coordinator {
         let coordinator = StockDetailCoordinator(
             navigationController: navigationController,
             conainter: container,
-            symbol: symbol
+            dependency: StockDetailViewModelDependencyImp(symbol: symbol)
         )
         childCoordinators.append(coordinator)
         coordinator

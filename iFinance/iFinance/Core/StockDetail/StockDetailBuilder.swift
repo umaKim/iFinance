@@ -12,11 +12,11 @@ enum StockDetailTransition: Transition {
 }
 
 final class StockDetailBuilder {
-    class func build(container: AppContainer, symbol: String) -> Module<StockDetailTransition, UIViewController> {
+    class func build(container: AppContainer, dependency: StockDetailViewModelDependency) -> Module<StockDetailTransition, UIViewController> {
         let vm = StockDetailViewModel(
             networkService: container.networkService,
             persistanceService: container.persistanceService,
-            symbol: symbol
+            symbol: dependency.symbol
         )
         let vc = StockDetailViewController(viewModel: vm)
         return .init(viewController: vc, transitionPublisher: vm.transitionPublisher)

@@ -16,10 +16,14 @@ final class NewsViewController: UIViewController {
     private(set) lazy var tableView: UITableView = {
         let table = UITableView()
         // Rgister cell, header
-        table.register(NewsStoryTableViewCell.self,
-                       forCellReuseIdentifier: NewsStoryTableViewCell.identfier)
-        table.register(NewsHeaderView.self,
-                       forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
+        table.register(
+            NewsStoryTableViewCell.self,
+            forCellReuseIdentifier: NewsStoryTableViewCell.identfier
+        )
+        table.register(
+            NewsHeaderView.self,
+            forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier
+        )
         table.backgroundColor = .clear
         return table
     }()
@@ -27,11 +31,9 @@ final class NewsViewController: UIViewController {
     private var cancellables: Set<AnyCancellable>
     
     //MARK: - ViewModel
-    
     private let viewModel: NewsViewModel
     
     // MARK: - Init
-    
     init(viewModel: NewsViewModel) {
         self.cancellables = .init()
         self.viewModel = viewModel
@@ -53,14 +55,12 @@ final class NewsViewController: UIViewController {
     }
     
     // MARK: - Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTable()
     }
     
     // MARK: - Private
-    
     /// Sets up tableView
     private func setUpTable() {
         view.addSubview(tableView)
@@ -93,11 +93,11 @@ extension NewsViewController: UITableViewDataSource {
 
 extension NewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: NewsHeaderView.identifier
-        ) as? NewsHeaderView else { return nil }
+        guard
+            let header = tableView.dequeueReusableHeaderFooterView(
+                withIdentifier: NewsHeaderView.identifier
+            ) as? NewsHeaderView else { return nil }
         header.configure(with: .init( title: "Top News", shouldShowAddButton: false))
-        
         return header
     }
     

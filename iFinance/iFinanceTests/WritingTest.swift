@@ -19,21 +19,32 @@ class WritingTest: XCTestCase {
     }
     
     func testViewModel() {
-        let module = WritingBuilder.build(container: AppContainerMock(), symbol: "UMA")
-        module.transitionPublisher.sink { trans in
-            switch trans {
-            case .dismiss:
-                break
-                
-            case .done:
-                break
+        let module = WritingBuilder.build(
+            container: AppContainerMock(),
+            dependncy: WritingViewModelDependencyImp(symbol: "UMA")
+//            symbol: "UMA"
+        )
+        module
+            .transitionPublisher
+            .sink { trans in
+                switch trans {
+                case .dismiss:
+                    break
+                    
+                case .done:
+                    break
+                }
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
         
         module.viewController.loadViewIfNeeded()
         
-        let coord = WritingCoordinator(navigationController: UINavigationController(), conainter: AppContainerMock(), symbol: "UMA")
+        let coord = WritingCoordinator(
+            navigationController: UINavigationController(),
+            conainter: AppContainerMock(),
+            dependency: WritingViewModelDependencyImp(symbol: "UMA")
+//            symbol: "UMA"
+        )
         coord.start()
     }
 }

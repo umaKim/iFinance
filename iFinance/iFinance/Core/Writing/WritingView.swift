@@ -62,7 +62,6 @@ final class WritingView: BaseView {
     
     init() {
         super.init(frame: .zero)
-        
         bind()
     }
     

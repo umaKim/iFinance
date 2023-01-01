@@ -8,6 +8,14 @@ import SafariServices
 import Combine
 import UIKit
 
+protocol StockDetailViewModelDependency {
+    var symbol: String { get }
+}
+
+struct StockDetailViewModelDependencyImp: StockDetailViewModelDependency {
+    var symbol: String
+}
+
 final class StockDetailCoordinator: Coordinator {
     var childCoordinators: [Coordinator]
     
@@ -18,24 +26,23 @@ final class StockDetailCoordinator: Coordinator {
     private var cancellables = Set<AnyCancellable>()
     
     private let container: AppContainer
-//    private let myWatchListModel: MyWatchListModel
-    private let symbol: String
+    private let dependency: StockDetailViewModelDependency
     
-    init(navigationController: UINavigationController,
-         conainter: AppContainer,
-         symbol: String
+    init(
+        navigationController: UINavigationController,
+        conainter: AppContainer,
+        dependency: StockDetailViewModelDependency
     ){
         self.navigationController = navigationController
         self.childCoordinators = []
         self.container = conainter
-//        self.myWatchListModel = myWatchListModel
-        self.symbol = symbol
+        self.dependency = dependency
     }
     
     func start() {
         let module = StockDetailBuilder.build(
             container: container,
-            symbol: symbol
+            dependency: dependency
         )
         module
             .transitionPublisher
@@ -50,7 +57,3 @@ final class StockDetailCoordinator: Coordinator {
         push(module.viewController)
     }
 }
-
-//guard let url = URL(string: viewModel.stories[indexPath.row].url) else { return }
-//let vc = SFSafariViewController(url: url)
-//present(vc, animated: true)

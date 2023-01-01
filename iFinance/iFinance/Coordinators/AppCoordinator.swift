@@ -19,10 +19,12 @@ final class AppCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
     private var cancellables = Set<AnyCancellable>()
-
-    init(window: UIWindow,
-         navigationController: UINavigationController = UINavigationController(),
-         container: AppContainer) {
+    
+    init(
+        window: UIWindow,
+        navigationController: UINavigationController = UINavigationController(),
+        container: AppContainer
+    ) {
         self.window = window
         self.navigationController = navigationController
         self.container = container
@@ -31,8 +33,8 @@ final class AppCoordinator: Coordinator {
     }
 
     func start() {
-        self.window.rootViewController = navigationController
-        self.window.makeKeyAndVisible()
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
         mainFlow()
     }
     
@@ -42,7 +44,8 @@ final class AppCoordinator: Coordinator {
             conainter: container
         )
         childCoordinators.append(mainCoordinator)
-        mainCoordinator.didFinishPublisher
+        mainCoordinator
+            .didFinishPublisher
             .sink { [weak self] in
                 self?.removeChild(coordinator: mainCoordinator)
             }

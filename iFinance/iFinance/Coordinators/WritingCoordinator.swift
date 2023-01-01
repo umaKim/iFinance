@@ -8,6 +8,14 @@
 import Combine
 import UIKit.UINavigationController
 
+protocol WritingViewModelDependency {
+    var symbol: String { get }
+}
+
+struct WritingViewModelDependencyImp: WritingViewModelDependency {
+    var symbol: String
+}
+
 final class WritingCoordinator: Coordinator {
     var childCoordinators: [Coordinator]
     
@@ -18,22 +26,23 @@ final class WritingCoordinator: Coordinator {
     private var cancellables = Set<AnyCancellable>()
     
     private let container: AppContainer
-    private let symbol: String
+    private let dependency: WritingViewModelDependency
     
-    init(navigationController: UINavigationController,
-         conainter: AppContainer,
-         symbol: String
+    init(
+        navigationController: UINavigationController,
+        conainter: AppContainer,
+        dependency: WritingViewModelDependency
     ){
         self.navigationController = navigationController
         self.childCoordinators = []
         self.container = conainter
-        self.symbol = symbol
+        self.dependency = dependency
     }
     
     func start() {
         let module = WritingBuilder.build(
             container: container,
-            symbol: symbol
+            dependncy: dependency
         )
         module
             .transitionPublisher

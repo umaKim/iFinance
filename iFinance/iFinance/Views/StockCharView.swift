@@ -9,7 +9,6 @@ import UIKit
 
 /// View to show a chart
 final class StockChartView: UIView {
-    
     /// Chart View
     private let chartView: LineChartView = {
         let chartView = LineChartView()

@@ -27,7 +27,10 @@ final class MainHomeCoordinator: Coordinator {
     
     let container: AppContainer
     
-    init(navigationController: UINavigationController, conainter: AppContainer){
+    init(
+        navigationController: UINavigationController,
+        conainter: AppContainer
+    ){
         self.navigationController = navigationController
         self.childCoordinators = []
         self.container = conainter
@@ -52,7 +55,6 @@ final class MainHomeCoordinator: Coordinator {
                 case .stockDetail(let symbol):
                     self.setupStockDetailCoordinator(symbol: symbol)
                     
-                    
                 case .newsDetail(let url):
                     let vc = SFSafariViewController(url: url)
                     self.present(vc, animated: true)
@@ -66,7 +68,7 @@ final class MainHomeCoordinator: Coordinator {
         let coordinator = WritingCoordinator(
             navigationController: navigationController,
             conainter: container,
-            symbol: "generalTalk"
+            dependency: WritingViewModelDependencyImp(symbol: "generalTalk")
         )
         childCoordinators.append(coordinator)
         coordinator
@@ -80,9 +82,11 @@ final class MainHomeCoordinator: Coordinator {
     }
     
     private func setupStockDetailCoordinator(symbol: String) {
-        let coordinator = StockDetailCoordinator(navigationController: navigationController,
-                                                 conainter: container,
-                                                 symbol: symbol)
+        let coordinator = StockDetailCoordinator(
+            navigationController: navigationController,
+            conainter: container,
+            dependency: StockDetailViewModelDependencyImp(symbol: symbol)
+        )
         childCoordinators.append(coordinator)
         coordinator.didFinishPublisher
             .sink {[weak self] _ in
@@ -90,13 +94,14 @@ final class MainHomeCoordinator: Coordinator {
                 self?.didFinishSubject.send(())
             }
             .store(in: &cancellables)
-        
         coordinator.start()
     }
     
     private func setupSearchCoordinator() {
-        let coordinator = SearchCoordinator(navigationController: navigationController,
-                                            conainter: container)
+        let coordinator = SearchCoordinator(
+            navigationController: navigationController,
+            conainter: container
+        )
         
         childCoordinators.append(coordinator)
         coordinator
@@ -106,7 +111,6 @@ final class MainHomeCoordinator: Coordinator {
                 self?.didFinishSubject.send(())
             }
             .store(in: &cancellables)
-        
         coordinator.start()
     }
 }

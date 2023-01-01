@@ -25,7 +25,6 @@ class MainViewController: BaseViewController<MainViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         bind()
         setUpFloatingPanel()
     }
