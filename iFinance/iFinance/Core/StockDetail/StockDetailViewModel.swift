@@ -70,6 +70,7 @@ final class StockDetailViewModel: BaseViewModel {
         persistanceService.watchlistContains(symbol: symbol)
     }
     
+    //MARK: - Private method
     /// Fetch financial metrics
     private func fetchData() {
         let quote = networkService.quote(for: symbol)

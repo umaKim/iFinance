@@ -56,12 +56,11 @@ extension NewsViewModel {
                     print("finished")
                 }
             } receiveValue: {[weak self] newsStories in
-                guard let self = self else {return }
+                guard let self = self else { return }
                 self.stories = newsStories
                 self.listenerSubject.send(.reloadData)
             }
             .store(in: &cancellables)
-
     }
     
     func didSelectNews(at indexPath: IndexPath) {

@@ -108,10 +108,12 @@ extension WatchListTableViewCell {
         labelStackView.distribution = .equalSpacing
         labelStackView.spacing = 6
         labelStackView.axis = .vertical
-        labelStackView.frame = .init(x: 20,
-                                     y:(WatchListTableViewCell.preferredHeight - frame.height) / 2,
-                                     width: frame.width/2.2,
-                                     height: frame.height)
+        labelStackView.frame = .init(
+            x: 20,
+            y:(WatchListTableViewCell.preferredHeight - frame.height) / 2,
+            width: frame.width/2.2,
+            height: frame.height
+        )
 
         contentView.addSubview(labelStackView)
     }

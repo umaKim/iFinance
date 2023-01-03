@@ -71,34 +71,10 @@ final class NewsStoryTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .secondarySystemBackground
         backgroundColor = .secondarySystemBackground
-        //        addSubviews(sourceLabel, headlineLabel, dateLabel, storyImageView)
         [sourceLabel, headlineLabel, dateLabel, storyImageView]
             .forEach {
                 self.addSubview($0)
             }
-        
-        //        let verticalStackView = UIStackView(arrangedSubviews: [headlineLabel, dateLabel])
-        //        verticalStackView.axis = .vertical
-        //        verticalStackView.spacing = 3
-        //        verticalStackView.alignment = .leading
-        //        verticalStackView.distribution = .fill
-        //
-        //        let horizontalStackView = UIStackView(arrangedSubviews: [verticalStackView, storyImageView])
-        //        horizontalStackView.axis = .horizontal
-        //        horizontalStackView.spacing = 3
-        //        horizontalStackView.alignment = .fill
-        //        horizontalStackView.distribution = .fill
-        
-        //        contentView.addSubviews(storyImageView)
-        //
-        //        NSLayoutConstraint.activate([
-        ////            verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-        ////            verticalStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-        //            storyImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-        //            storyImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-        //            storyImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        //            storyImageView.widthAnchor.constraint(equalToConstant: contentView.height)
-        //        ])
     }
     
     required init?(coder: NSCoder) {
