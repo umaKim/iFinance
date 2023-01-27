@@ -14,7 +14,6 @@ struct PostContent: Codable {
     let body: String
 }
 
-
 struct CryptoSymbol: Codable {
     let description: String
     let displaySymbol: String

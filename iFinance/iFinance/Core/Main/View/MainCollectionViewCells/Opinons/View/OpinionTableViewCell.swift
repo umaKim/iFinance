@@ -10,7 +10,6 @@ import UIKit.UITableViewCell
 final class CommentTableViewCell: UITableViewCell {
     
     static let identifier = "CommentTableViewCell"
-    static let prefferedHeight: CGFloat = 200
     
     private let titleLabel: UILabel = {
         let label = UILabel()
