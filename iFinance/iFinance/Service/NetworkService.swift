@@ -85,7 +85,7 @@ final class NetworkServiceImpl: NetworkService {
     
     /// Constants
     private struct Constants {
-        static let apiKey = "c3c6me2ad3iefuuilms0"
+        static let apiKey = "c3ecka2ad3ief4elg710"
         static let sandboxApiKey = "sandbox_c3c6me2ad3iefuuilmsg"
         static let baseUrl = "https://finnhub.io/api/v1/"
         static let day: TimeInterval = 3600 * 24
