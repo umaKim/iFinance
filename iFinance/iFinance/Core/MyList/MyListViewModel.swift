@@ -107,6 +107,7 @@ final class MyListViewModel: BaseViewModel {
             } receiveValue: {[weak self] collect in
                 guard let self = self else {return }
                 collect.forEach { (quote, marketDataResponse) in
+                    print(marketDataResponse)
                     self.watchlistChartMap[symbol] = marketDataResponse.candleSticks
                     self.watchlistQuoteMap[symbol] = quote
                 }
