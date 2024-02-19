@@ -41,7 +41,8 @@ final class MainHomeCoordinator: Coordinator {
         let module = MainHomeBuilder.build(container: container)
         module
             .transitionPublisher
-            .sink { transition in
+            .sink {[weak self] transition in
+                guard let self = self else { return }
                 switch transition {
                 case .searchView:
                     self.setupSearchCoordinator()
