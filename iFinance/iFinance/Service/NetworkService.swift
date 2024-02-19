@@ -138,10 +138,9 @@ final class NetworkServiceImpl: NetworkService {
     public func marketData(for symbol: String, numberOfDays: TimeInterval) -> AnyPublisher<MarketDataResponse, Error> {
         let today = Date().addingTimeInterval(-(Constants.day))
         let prior = today.addingTimeInterval(-(Constants.day * numberOfDays))
-        
         return request(url:
-                        url(for:
-                                .marketData,
+                        url(
+                            for: .marketData,
                             queryParams: [
                                 "symbol": symbol,
                                 "resolution": "5",
