@@ -60,12 +60,7 @@ extension MyListCollectionViewCell {
 extension MyListCollectionViewCell {
     private func setupUI() {
         guard let myListView = myListViewController?.view else { return }
-        contentView.addSubviews(myListView)
-        NSLayoutConstraint.activate([
-            myListView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            myListView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            myListView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            myListView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        ])
+        var layout = FullScreenLayout(of: contentView)
+        layout.layout(of: myListView)
     }
 }

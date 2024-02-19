@@ -58,12 +58,8 @@ final class OpinionsCollectionViewCell: UICollectionViewCell {
 extension OpinionsCollectionViewCell {
     private func setupUI() {
         guard let opinionsView = opinionsViewController?.view else { return }
-        contentView.addSubviews(opinionsView)
-        NSLayoutConstraint.activate([
-            opinionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            opinionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            opinionsView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            opinionsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        ])
+        var layout = FullScreenLayout(of: contentView)
+        layout.layout(of: opinionsView)
     }
 }
+
